@@ -2,7 +2,9 @@ package com.example.travelog;
 
 import android.os.Bundle;
 
-public class Itinerary {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Itinerary extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
