@@ -1,22 +1,21 @@
 package com.example.travelog.fragement;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.travelog.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_Activity2#newInstance} factory method to
+ * Use the {@link Fragment_TripPlan#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Activity2 extends Fragment {
+public class Fragment_TripPlan extends Fragment {
 
     private TextView tv_text1;
 
@@ -30,7 +29,7 @@ public class Fragment_Activity2 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Fragment_Activity2() {
+    public Fragment_TripPlan() {
         // Required empty public constructor
     }
 
@@ -43,8 +42,8 @@ public class Fragment_Activity2 extends Fragment {
      * @return A new instance of fragment Fragment_Activity2.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_Activity2 newInstance(String param1, String param2) {
-        Fragment_Activity2 fragment = new Fragment_Activity2();
+    public static Fragment_TripPlan newInstance(String param1, String param2) {
+        Fragment_TripPlan fragment = new Fragment_TripPlan();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

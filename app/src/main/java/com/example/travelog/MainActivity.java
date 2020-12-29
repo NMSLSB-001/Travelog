@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView bm_title;
     private TextView bm_back;
     private RelativeLayout bottom_title_bar;
-    int Tag;
+    private int Tag;
 
     private RelativeLayout main_body;
     private TextView bottom_bar_text_1;
