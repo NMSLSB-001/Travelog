@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/logo"
+        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/logo"/>
+
+    <EditText
+        android:id="@+id/et_1"
+        android:layout_below="@id/logo"
+        android:layout_width="330dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:hint="Username"
+        android:background="@drawable/btn_username"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:drawableLeft="@drawable/user"/>
+    <EditText
+        android:id="@+id/et_2"
+        android:layout_width="330dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:layout_below="@id/et_1"
+        android:layout_marginTop="20dp"
+        android:singleLine="true"
+        android:background="@drawable/btn_username"
+        android:drawableLeft="@drawable/password"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+    <Button
+        android:id="@+id/btn_signin"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/et_2"
+        android:gravity="center"
+        android:text="→"
+        android:textSize="25dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/btn_login_shape"
+        android:textAllCaps="false"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_alignLeft="@id/btn_signup"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_signin"
+        android:text="No account? Sign up"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/btn_signup_dong"
+        android:textAllCaps="false"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

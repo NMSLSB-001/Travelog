@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Itinerary extends AppCompatActivity {
+public class itinerary extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
