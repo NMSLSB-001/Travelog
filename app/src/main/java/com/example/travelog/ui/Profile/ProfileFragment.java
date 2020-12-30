@@ -1,4 +1,4 @@
-package com.example.travelog.fragement;
+package com.example.travelog.ui.Profile;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,10 +26,10 @@ import java.io.File;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_Activity3#newInstance} factory method to
+ * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Activity3 extends Fragment {
+public class ProfileFragment extends Fragment {
 
     private TextView tv_text2;
     private Button mBtn_setting;
@@ -63,7 +63,7 @@ public class Fragment_Activity3 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Fragment_Activity3() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -76,8 +76,8 @@ public class Fragment_Activity3 extends Fragment {
      * @return A new instance of fragment Fragment_Activity3.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_Activity3 newInstance(String param1, String param2) {
-        Fragment_Activity3 fragment = new Fragment_Activity3();
+    public static ProfileFragment newInstance(String param1, String param2) {
+        ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -106,7 +106,7 @@ public class Fragment_Activity3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment__activity3,container,false);
+        View view=inflater.inflate(R.layout.fragment_profile,container,false);
         mImgView= view.findViewById(R.id.im_portrait);
         img_portrait= view.findViewById(R.id.img_portrait);
         img_portrait.setOnClickListener(new View.OnClickListener() {
