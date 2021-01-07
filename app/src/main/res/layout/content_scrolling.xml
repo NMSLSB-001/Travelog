@@ -10,43 +10,29 @@
     tools:context=".ui.Trips.Itinerary_detail"
     tools:showIn="@layout/activity_itinerary_detail">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_marginBottom="100dp"
+            android:scrollbars="vertical"/>
 
-        <TextView
+        <Button
+            android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="time"
-            android:id="@+id/time"
-            android:padding="5dp"
-            android:textSize="12sp"
-            android:layout_alignParentTop="true"/>
+            android:text="Add"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|center"
+            android:textSize="25sp"
+            />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-                android:text=" Onday Title"
-                android:textSize="30dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="location"
-            android:layout_marginVertical="10dp"
-            android:textSize="20dp"/>
-
-
-</LinearLayout>
-
-
-
-        </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
