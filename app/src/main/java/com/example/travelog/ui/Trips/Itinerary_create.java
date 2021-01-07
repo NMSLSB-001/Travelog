@@ -2,6 +2,7 @@ package com.example.travelog.ui.Trips;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.travelog.Itinerary_detail;
 import com.example.travelog.R;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -30,6 +32,7 @@ public class Itinerary_create extends AppCompatActivity {
     private Button datePicker;
     private TextView startDate;
     private TextView endDate;
+    private Button create;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,18 @@ public class Itinerary_create extends AppCompatActivity {
         datePicker = (Button) findViewById(R.id.datePicker);
         startDate = (TextView) findViewById(R.id.startDate);
         endDate = (TextView) findViewById(R.id.endDate);
+        create = (Button) findViewById(R.id.create);
+
+
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Itinerary_create.this, Itinerary_detail.class);
+                // intent.putExtra("key", value); //Optional parameters
+                Itinerary_create.this.startActivity(intent);
+            }
+        });
+        
 
         //calendar constraints
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
@@ -60,6 +75,7 @@ public class Itinerary_create extends AppCompatActivity {
                 materialDatePicker.show(getSupportFragmentManager(), "DATE PICKER");
             }
         });
+
 
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
             @Override
