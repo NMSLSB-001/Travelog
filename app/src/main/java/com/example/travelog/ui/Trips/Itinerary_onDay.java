@@ -1,7 +1,8 @@
-package com.example.travelog;
+package com.example.travelog.ui.Trips;
 
 import android.os.Bundle;
 
+import com.example.travelog.R;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;

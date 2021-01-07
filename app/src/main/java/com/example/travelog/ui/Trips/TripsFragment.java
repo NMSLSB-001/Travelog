@@ -1,29 +1,13 @@
 package com.example.travelog.ui.Trips;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.core.util.Pair;
-import androidx.fragment.app.Fragment;
-
-import com.example.travelog.Itinerary_detail;
-import com.example.travelog.MainActivity;
-import com.example.travelog.R;
-
-import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.travelog.R;
 

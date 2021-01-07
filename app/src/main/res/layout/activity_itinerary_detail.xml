@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Itinerary_detail">
+    tools:context=".ui.Trips.Itinerary_detail">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
