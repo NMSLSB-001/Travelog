@@ -1,17 +1,26 @@
 package com.example.travelog;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -60,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         pref= PreferenceManager.getDefaultSharedPreferences(this);
-        login();
+        loginFirebase();
     }
 
     private void login() {
@@ -77,6 +86,9 @@ public class RegisterActivity extends AppCompatActivity {
                 psw=et_psw.getText().toString().trim();
                 // Define the method readPsw to get the password in order to read the username
                 spPsw=readPsw(userName);
+
+                isUser(userName, psw);
+
                 // TextUtils.isEmpty
                 if(TextUtils.isEmpty(userName)){
                     Toast.makeText(RegisterActivity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
@@ -115,6 +127,33 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void loginFirebase() {
+        et_user_name= (EditText) findViewById(R.id.et_1);
+        et_psw= (EditText) findViewById(R.id.et_2);
+
+        //Login button click event
+        Btn_signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Start logging in to get username and password  getText().toString().trim();
+                userName=et_user_name.getText().toString().trim();
+                psw=et_psw.getText().toString().trim();
+
+                // TextUtils.isEmpty
+                if(TextUtils.isEmpty(userName)){
+                    Toast.makeText(RegisterActivity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(TextUtils.isEmpty(psw)){
+                    Toast.makeText(RegisterActivity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    isUser(userName, psw);
+                }
+            }
+        });
+    }
+
     /**
      *从SharedPreferences中根据用户名读取密码
      */
@@ -122,6 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
         //getSharedPreferences("loginInfo",MODE_PRIVATE);
         //"loginInfo",mode_private; MODE_PRIVATE表示可以继续写入
         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+
         //sp.getString() userName, "";
         return sp.getString(userName , "");
     }
@@ -174,5 +214,46 @@ public class RegisterActivity extends AppCompatActivity {
                 et_user_name.setSelection(userName.length());
             }
         }
+    }
+
+    private boolean isUser(final String username, final String password) {
+        DatabaseReference databaseUser = FirebaseDatabase.getInstance() .getReference("users");
+
+        Query checkUser = databaseUser.orderByChild("username").equalTo(username);
+
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String passwordFromDB = snapshot.child(username).child("password").getValue(String.class);
+
+                    if(passwordFromDB.equals(password)){
+                        Toast.makeText(RegisterActivity.this, "Welcome "+editText1.getText().toString(), Toast.LENGTH_SHORT).show();
+                        editor=pref.edit();
+                        editor.apply();
+                        User.setName(userName);
+                        saveLoginStatus(true, userName);
+                        Intent data=new Intent();
+                        data.putExtra("isLogin",true);
+                        setResult(RESULT_OK,data);
+                        RegisterActivity.this.finish();
+                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                        return;
+
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "The Username and Password entered are inconsistent", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(RegisterActivity.this, "This Username does not exist", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return true;
     }
 }
