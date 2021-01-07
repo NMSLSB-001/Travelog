@@ -15,6 +15,10 @@ import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class Itinerary_create extends AppCompatActivity {
 
     private Button datePicker;
@@ -32,12 +36,15 @@ public class Itinerary_create extends AppCompatActivity {
         endDate = (TextView) findViewById(R.id.endDate);
 
         //calendar constraints
-        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
-        constraintsBuilder.setValidator(DateValidatorPointForward.now());
+        CalendarConstraints.Builder constraintBuilder = new CalendarConstraints.Builder();
+        constraintBuilder.setValidator(DateValidatorPointForward.now());
 
         //materialDatePicker
-        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        final MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("SELECT YOUR START DATE");
+        builder.setCalendarConstraints(constraintBuilder.build());
+
+        // now build the material date picker dialog
         final MaterialDatePicker materialDatePicker = builder.build();
 
         datePicker.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +58,18 @@ public class Itinerary_create extends AppCompatActivity {
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
             @Override
             public void onPositiveButtonClick(Pair<Long, Long> selection) {
-                startDate.setText(String.valueOf(selection.first));
-                endDate.setText(String.valueOf(selection.second));
+
+                Pair selectedDates = (Pair) materialDatePicker.getSelection();
+//              then obtain the startDate & endDate from the range
+                final Pair<Date, Date> rangeDate = new Pair<>(new Date((Long) selectedDates.first), new Date((Long) selectedDates.second));
+//              assigned variables
+                Date date1 = rangeDate.first;
+                Date date2 = rangeDate.second;
+//              Format the dates in ur desired display mode
+                SimpleDateFormat simpleFormat = new SimpleDateFormat("dd MMM yyyy");
+//              Display it by setText
+                startDate.setText(simpleFormat.format(date1));
+                endDate.setText(simpleFormat.format(date2));
 
             }
         });
