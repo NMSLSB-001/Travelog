@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "662926388150",
+    "firebase_url": "https://travellog-73c25-default-rtdb.firebaseio.com",
+    "project_id": "travellog-73c25",
+    "storage_bucket": "travellog-73c25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662926388150:android:37771ab6a600d62716ef17",
+        "android_client_info": {
+          "package_name": "com.example.assignment1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662926388150-cjtlc7l5anad6fsjt62ep2knjfdb5vlr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDofO73secpoP1ZTWTspH1WTqhQFNohR2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662926388150-cjtlc7l5anad6fsjt62ep2knjfdb5vlr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662926388150:android:555eb79ec9eb4a9c16ef17",
+        "android_client_info": {
+          "package_name": "com.example.testnoactivity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662926388150-cjtlc7l5anad6fsjt62ep2knjfdb5vlr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDofO73secpoP1ZTWTspH1WTqhQFNohR2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662926388150-cjtlc7l5anad6fsjt62ep2knjfdb5vlr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662926388150:android:2e26a2382e2432d216ef17",
+        "android_client_info": {
+          "package_name": "com.example.travelog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662926388150-cjtlc7l5anad6fsjt62ep2knjfdb5vlr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDofO73secpoP1ZTWTspH1WTqhQFNohR2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662926388150-cjtlc7l5anad6fsjt62ep2knjfdb5vlr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
