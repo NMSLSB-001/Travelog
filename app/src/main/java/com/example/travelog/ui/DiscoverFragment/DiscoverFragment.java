@@ -16,7 +16,7 @@ public class DiscoverFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.itinerary_create, container, false);
+        View view = inflater.inflate(R.layout.activity_itinerary_detail, container, false);
     return view;
     }
 }

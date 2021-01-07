@@ -11,16 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="Instantiatable" >
-        <activity
-            android:name=".ui.Trips.Itinerary_onDay"
-            android:label="@string/title_activity_itinerary_on_day"
-            android:theme="@style/NoActionBar" >
-        </activity>
-<activity android:name=".ui.Trips.Itinerary_create"/>
+        <activity android:name=".ui.Trips.Itinerary_create"/>
         <activity
             android:name=".ui.Trips.Itinerary_detail"
             android:label="@string/title_activity_itinerary_detail"
             android:theme="@style/NoActionBar" />
+        <activity android:name=".ui.Trips.Articles_create"/>
         <activity android:name=".change_password_Activity" />
         <activity android:name=".signup_page_Activity" />
         <activity android:name=".MainActivity" />
