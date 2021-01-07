@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.Trips.Itinerary_create">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,19 +21,21 @@
             android:textAlignment="center"
             android:layout_gravity="center"/>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginVertical="20dp">
 
-            <EditText
+            <TextView
+                android:id="@+id/startDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start Date"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:layout_marginHorizontal="30dp"
-                android:layout_gravity="start"/>
+                android:layout_gravity="left"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,17 +44,24 @@
                 android:textSize="24sp"
                 android:layout_gravity="center"/>
 
-            <EditText
+            <TextView
+                android:id="@+id/endDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="End Date"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:layout_marginHorizontal="30dp"
-                android:layout_gravity="right"
+                android:layout_gravity="end|right"
                 />
 
         </LinearLayout>
 
+<Button
+    android:id="@+id/datePicker"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Pick Date"
+    android:layout_gravity="center"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -78,4 +88,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>

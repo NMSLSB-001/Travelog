@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.travelog">
+    package="com.example.travelog" >
 
     <application
         android:allowBackup="true"
@@ -10,11 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        tools:ignore="Instantiatable">
+        tools:ignore="Instantiatable" >
         <activity
-            android:name=".itinerary_onDay"
+            android:name=".Itinerary_onDay"
             android:label="@string/title_activity_itinerary_on_day"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" >
+        </activity>
+        <activity android:name=".ui.Trips.Itinerary_create"/>
         <activity
             android:name=".Itinerary_detail"
             android:label="@string/title_activity_itinerary_detail"
@@ -22,7 +24,8 @@
         <activity android:name=".change_password_Activity" />
         <activity android:name=".signup_page_Activity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".RegisterActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
