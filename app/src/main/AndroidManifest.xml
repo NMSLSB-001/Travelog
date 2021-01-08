@@ -6,7 +6,6 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
@@ -14,7 +13,6 @@
         <activity android:name=".ui.Trips.Itinerary_create"/>
         <activity
             android:name=".ui.Trips.Itinerary_detail"
-            android:label="@string/title_activity_itinerary_detail"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity android:name=".ui.Trips.Itinerary_edit"/>
         <activity android:name=".ui.Trips.Articles_create"/>

@@ -22,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,12 +34,29 @@ public class Itinerary_detail extends AppCompatActivity {
     private ItineraryRowAdapter mAdapter;
     private RecyclerView recyclerView;
     private Button add;
+    private TextView itinerary_title;
+    private TextView date;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itinerary_detail);
+
+        Bundle extras = getIntent().getExtras();
+        String createdTitle = extras.getString(Itinerary_create.p_createdTitle);
+        String createdStartDate = extras.getString(Itinerary_create.p_createdStartDate);
+        String createdEndDate = extras.getString(Itinerary_create.p_createdEndDate);
+
+        CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout)
+                findViewById(R.id.toolbar_layout);
+        toolbarLayout.setTitle(" ");
+
+        itinerary_title = findViewById(R.id.itinerary_title);
+        date = findViewById(R.id.date);
+
+        itinerary_title.setText(createdTitle);
+        date.setText(createdStartDate + " - " + createdEndDate);
 
         buildRecyclerView();
 
@@ -90,7 +108,6 @@ public class Itinerary_detail extends AppCompatActivity {
 
     private void buildRecyclerView() {
         recyclerView = findViewById(R.id.recycleView);
-        ItineraryRowAdapter itineraryRowAdapter = new ItineraryRowAdapter(ItineraryList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ItineraryRowAdapter(ItineraryList);
@@ -125,6 +142,7 @@ public class Itinerary_detail extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
 
         }
     };
