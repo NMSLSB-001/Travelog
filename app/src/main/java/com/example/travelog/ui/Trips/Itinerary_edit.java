@@ -12,7 +12,7 @@ import com.example.travelog.R;
 public class Itinerary_edit extends AppCompatActivity {
 
     TextView rowTitle, description, location, startTime, endTime;
-    Button time_edit;
+    Button time_edit, submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class Itinerary_edit extends AppCompatActivity {
         startTime = findViewById(R.id.startTime);
         endTime = findViewById(R.id.endTime);
         time_edit = findViewById(R.id.time_edit);
+        submit = findViewById(R.id.submit);
 
     }
 }

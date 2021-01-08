@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
@@ -14,6 +15,7 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +27,17 @@ public class Itinerary_create extends AppCompatActivity {
     private TextView startDate;
     private TextView endDate;
     private Button create;
+    private EditText itinerary_title;
+    private TextView invite;
+
+    String createdStartDate;
+    String createdEndDate;
+    String createdTitle;
+
+
+    public static final String p_createdTitle = "p_createdTitle";
+    public static final String p_createdStartDate = "p_createdStartDate";
+    public static final String p_createdEndDate = "p_createdEndDate";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +47,9 @@ public class Itinerary_create extends AppCompatActivity {
         datePicker = (Button) findViewById(R.id.datePicker);
         startDate = (TextView) findViewById(R.id.startDate);
         endDate = (TextView) findViewById(R.id.endDate);
+        itinerary_title = (EditText) findViewById(R.id.itinerary_title);
+        invite = (TextView) findViewById(R.id.invite);
+
 
         //calendar constraints
         CalendarConstraints.Builder constraintBuilder = new CalendarConstraints.Builder();
@@ -71,6 +87,9 @@ public class Itinerary_create extends AppCompatActivity {
                 startDate.setText(simpleFormat.format(date1));
                 endDate.setText(simpleFormat.format(date2));
 
+                createdStartDate = startDate.getText().toString();
+                createdEndDate = endDate.getText().toString();
+
             }
         });
     }
@@ -79,6 +98,10 @@ public class Itinerary_create extends AppCompatActivity {
     public void create(View view) {
         Intent intent = new Intent(Itinerary_create.this, Itinerary_detail.class);
         create = (Button) findViewById(R.id.create);
+        intent.putExtra(p_createdTitle, itinerary_title.getText().toString());
+        intent.putExtra(p_createdStartDate, createdStartDate);
+        intent.putExtra(p_createdEndDate, createdEndDate);
+
         startActivity(intent);
     }
 
