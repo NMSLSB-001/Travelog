@@ -16,12 +16,12 @@
             android:name=".ui.Trips.Itinerary_detail"
             android:label="@string/title_activity_itinerary_detail"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".ui.Trips.Itinerary_edit"/>
         <activity android:name=".ui.Trips.Articles_create"/>
         <activity android:name=".change_password_Activity" />
         <activity android:name=".signup_page_Activity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
