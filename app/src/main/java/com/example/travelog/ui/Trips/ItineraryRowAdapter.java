@@ -26,7 +26,7 @@ public class ItineraryRowAdapter extends RecyclerView.Adapter<ItineraryRowAdapte
 
     public interface OnItemClickListener {
         void onDeleteClick(int position);
-        void onEditClick();
+        void onItemClick(ItineraryRow itineraryRow);
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
@@ -50,8 +50,8 @@ public class ItineraryRowAdapter extends RecyclerView.Adapter<ItineraryRowAdapte
         holder.rowTitle.setText(ItineraryRow.getRowTitle());
         holder.description.setText(ItineraryRow.getDescription());
         holder.location.setText(ItineraryRow.getLocation());
-        holder.startTime.setText(ItineraryRow.getStartTime());
-        holder.endTime.setText(ItineraryRow.getEndTime());
+        holder.startTime.setText(String.valueOf(ItineraryRow.getStartTime()));
+        holder.endTime.setText(String.valueOf(ItineraryRow.getEndTime()));
 
         Boolean isExpandable = ItineraryList.get(position).getExpandable();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE: View.GONE);
@@ -68,7 +68,7 @@ public class ItineraryRowAdapter extends RecyclerView.Adapter<ItineraryRowAdapte
         LinearLayout linearLayout;
         RelativeLayout expandableLayout;
         ImageView delete;
-        ImageView edit;
+        ImageView expand;
 
         public rowVH(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -78,12 +78,11 @@ public class ItineraryRowAdapter extends RecyclerView.Adapter<ItineraryRowAdapte
             location = itemView.findViewById(R.id.location);
             startTime = itemView.findViewById(R.id.startTime);
             endTime = itemView.findViewById(R.id.endTime);
-            linearLayout = itemView.findViewById(R.id.linearLayout);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             delete = itemView.findViewById(R.id.delete);
-            edit = itemView.findViewById(R.id.edit);
+            expand = itemView.findViewById(R.id.expand);
 
-            linearLayout.setOnClickListener(new View.OnClickListener() {
+            expand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -94,6 +93,17 @@ public class ItineraryRowAdapter extends RecyclerView.Adapter<ItineraryRowAdapte
 
                 }
             });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(ItineraryList.get(position));
+                    }
+                }
+            });
+
 
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,16 +119,9 @@ public class ItineraryRowAdapter extends RecyclerView.Adapter<ItineraryRowAdapte
             });
 
 
-            edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(listener!=null){
-                            listener.onEditClick();
-                        }
-                    }
 
-
-            });
         }
     }
+
+
 }
