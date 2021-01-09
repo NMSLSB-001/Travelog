@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,24 +32,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time"
             android:id="@+id/startTime"
-            android:textSize="15sp"
+            android:textSize="12sp"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time"
             android:id="@+id/endTime"
-            android:textSize="15sp"
+            android:textSize="12sp"
             />
 
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
             android:id="@+id/rowTitle"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -58,9 +56,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location"
             android:id="@+id/location"
-            android:textSize="15sp"
+            android:textSize="12sp"
             />
 
             </LinearLayout>
@@ -68,9 +65,9 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/edit"
+            android:id="@+id/expand"
             android:layout_gravity="center"
-            android:src="@drawable/ic_baseline_edit_24"
+            android:src="@drawable/ic_expand"
             android:layout_marginHorizontal="10dp"/>
 
                 <ImageView
@@ -92,7 +89,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description Text"
                 android:id="@+id/description"
                 android:textSize="16sp"
                 />

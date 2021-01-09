@@ -1,11 +1,15 @@
 package com.example.travelog.ui.Trips;
 
 
+import androidx.room.PrimaryKey;
+
 import java.util.Comparator;
 
 public class ItineraryRow {
 
-    private String rowTitle, description, location, startTime, endTime;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private String rowTitle, description, location ,startTime, endTime;
     private Boolean expandable;
 
     public ItineraryRow(String rowTitle, String description, String location, String startTime, String endTime)
@@ -16,6 +20,13 @@ public class ItineraryRow {
         this.startTime = startTime;
         this.endTime = endTime;
         this.expandable = false;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public int getId() {
+        return id;
     }
 
     public Boolean getExpandable() {

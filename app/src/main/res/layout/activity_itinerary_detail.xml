@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Itinerary Title"
-                android:textSize="25dp"
+                android:textSize="24sp"
                 android:layout_gravity="bottom"/>
 
             <TextView
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date"
-                android:textSize="15dp"
+                android:textSize="10sp"
                 android:layout_gravity="bottom"/>
             </LinearLayout>
 
@@ -60,7 +60,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_scrolling"/>
+    <include layout="@layout/content_scrolling" android:id="@+id/included"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
