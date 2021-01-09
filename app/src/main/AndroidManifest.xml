@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.travelog">
+    package="com.example.travelog" >
 
     <application
         android:allowBackup="true"
@@ -10,20 +10,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
-        tools:ignore="Instantiatable">
-        <activity android:name=".ui.Trips.Itinerary_create" />
+        tools:ignore="Instantiatable" >
+        <activity android:name=".ui.Trips.Itinerary_create"/>
         <activity
             android:name=".ui.Trips.Itinerary_detail"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity android:name=".ui.Trips.Articles_create" />
-        <activity android:name=".ui.Trips.SwipeViewPager.Itinerary_OnDay"/>
-        <activity
-            android:name=".ui.Trips.Itinerary_add"
-            android:parentActivityName=".ui.Trips.Itinerary_detail" />
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            android:launchMode="singleTop"/>
+        <activity android:name=".ui.Trips.Articles_create"/>
+        <activity android:name=".ui.Trips.Itinerary_add"
+            android:parentActivityName=".ui.Trips.Itinerary_detail"/>
         <activity android:name=".change_password_Activity" />
         <activity android:name=".signup_page_Activity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".RegisterActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
