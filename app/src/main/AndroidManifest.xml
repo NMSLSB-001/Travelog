@@ -16,10 +16,11 @@
             android:name=".ui.Trips.Itinerary_detail"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:launchMode="singleTop"/>
-        <activity android:name=".ui.Trips.Articles_create"/>
         <activity android:name=".ui.Trips.Itinerary_add"
             android:parentActivityName=".ui.Trips.Itinerary_detail"/>
         <activity android:name=".change_password_Activity" />
+        <activity android:name=".ui.Trips.ArticleAdd.AddActivity"/>
+        <activity android:name=".ui.Trips.TripsFragment"/>
         <activity android:name=".signup_page_Activity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" >
