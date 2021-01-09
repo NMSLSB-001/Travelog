@@ -1,9 +1,11 @@
 package com.example.travelog.ui.Trips;
 
 import android.content.Intent;
+import android.database.DatabaseErrorHandler;
 import android.os.Bundle;
 
 import com.example.travelog.R;
+import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_OnDay;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import androidx.annotation.NonNull;
@@ -14,16 +16,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Itinerary_detail extends AppCompatActivity{
 
@@ -34,25 +52,24 @@ public class Itinerary_detail extends AppCompatActivity{
     private ItineraryRowAdapter mAdapter;
     private RecyclerView recyclerView;
     private Button add;
-    private TextView itinerary_title, date;
-
-    private String createdRowTitle, createdLocation, createdDescription, createdStartTime, createdEndTime ;
+    private TextView day, date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itinerary_detail);
 
-        Bundle extras = getIntent().getExtras();
-        String createdTitle = extras.getString(Itinerary_create.p_createdTitle);
-        String createdStartDate = extras.getString(Itinerary_create.p_createdStartDate);
-        String createdEndDate = extras.getString(Itinerary_create.p_createdEndDate);
+        Intent mIntent = getIntent();
+        int days = mIntent.getIntExtra("daynum", 0);
 
-        itinerary_title = findViewById(R.id.itinerary_title);
+        System.out.println(days);
+        System.out.println(days);
+        System.out.println(days);
+
+        day = findViewById(R.id.day);
         date = findViewById(R.id.date);
 
-        itinerary_title.setText(createdTitle);
-        date.setText(createdStartDate + " - " + createdEndDate);
+        day.setText("Day " + (days+1));
 
         createItineraryList();
         buildRecyclerView();
@@ -208,6 +225,16 @@ public class Itinerary_detail extends AppCompatActivity{
     }
 
 
+
+    private Date stringToDate(String aDate,String aFormat) {
+
+        if(aDate==null) return null;
+        ParsePosition pos = new ParsePosition(0);
+        SimpleDateFormat simpledateformat = new SimpleDateFormat(aFormat);
+        Date stringDate = simpledateformat.parse(aDate, pos);
+        return stringDate;
+
+    }
 
 }
 
