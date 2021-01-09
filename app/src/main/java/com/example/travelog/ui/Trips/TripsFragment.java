@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.example.travelog.R;
+import com.example.travelog.ui.Trips.ArticleAdd.AddActivity;
 
 
 public class TripsFragment extends Fragment {
@@ -79,7 +80,7 @@ public class TripsFragment extends Fragment {
         articles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),Articles_create.class);
+                Intent intent=new Intent(getActivity(), AddActivity.class);
                 startActivity(intent);
 
             }
