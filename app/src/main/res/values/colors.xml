@@ -3,4 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- Custom color -->
+    <color name="Yellow">#ffdd00</color>
+    <color name="White">#fff</color>
+
+    <!-- Color Dialog Time Picker-->
+    <color name="CyanWater">#09b6b3</color>
 </resources>
