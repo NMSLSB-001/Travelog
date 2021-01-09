@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btn_fill_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/back"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+        android:id="@+id/logo_fill_info"
+        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pencil"/>
+
+    <EditText
+        android:id="@+id/et_info_name"
+        android:layout_width="330dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="50dp"
+        android:hint="Your Name"
+        android:background="@drawable/btn_username"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:drawableLeft="@drawable/name"
+        android:digits="qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM ." />
+    <EditText
+        android:id="@+id/et_info_address"
+        android:layout_width="330dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:singleLine="true"
+        android:background="@drawable/btn_username"
+        android:drawableLeft="@drawable/address"
+        android:hint="Your Current Address"
+        android:maxLines="1"
+        android:paddingLeft="8dp"
+        android:paddingRight="10dp" />
+        <EditText
+            android:id="@+id/et_email_address"
+            android:layout_width="330dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:singleLine="true"
+            android:background="@drawable/btn_username"
+            android:drawableLeft="@drawable/email_address"
+            android:hint="Your Email Address"
+            android:maxLines="1"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="8dp"
+            android:paddingRight="10dp"/>
+        <EditText
+            android:id="@+id/et_phone_number"
+            android:layout_width="330dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:singleLine="true"
+            android:background="@drawable/btn_username"
+            android:drawableLeft="@drawable/phone_number"
+            android:hint="Your Phone Number"
+            android:maxLines="1"
+            android:inputType="phone"
+            android:paddingLeft="8dp"
+            android:paddingRight="10dp" />
+        <Button
+            android:id="@+id/btn_pop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Gender:"
+            android:layout_gravity="center_horizontal"
+            android:textAllCaps="false"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/btn2dong"/>
+        <Button
+            android:id="@+id/btn_save_info"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="85dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/confirm"
+            android:textAllCaps="false"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+</ScrollView>

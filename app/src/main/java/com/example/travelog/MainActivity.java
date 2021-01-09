@@ -1,106 +1,100 @@
 package com.example.travelog;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.example.travelog.ui.DiscoverFragment.DiscoverFragment;
-import com.example.travelog.ui.NotificationsFragment.NotificationsFragment;
-import com.example.travelog.ui.Profile.ProfileFragment;
-import com.example.travelog.ui.Trips.TripsFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity{
+import com.example.travelog.fragement.Fragment_Activity1;
+import com.example.travelog.fragement.Fragment_Activity2;
+import com.example.travelog.fragement.Fragment_Activity3;
 
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private TextView bm_title;
+    private TextView bm_back;
+    private RelativeLayout bottom_title_bar;
+    int Tag;
+
+    private RelativeLayout main_body;
+    private TextView bottome_bar_text_1;
+    private TextView bottome_bar_text_2;
+    private TextView bottome_bar_text_3;
+    private ImageView bottom_bar_image_1;
+    private ImageView bottom_bar_image_2;
+    private ImageView bottom_bar_image_3;
+
+    private LinearLayout main_body_bar;
+    private RelativeLayout bottom_bar_1_btn;
+    private RelativeLayout bottom_bar_2_btn;
+    private RelativeLayout bottom_bar_3_btn;
+
+    private Fragment_Activity1 fragment1;
+    private Fragment_Activity2 fragment2;
+    private Fragment_Activity3 fragment3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        BottomNavigationView bottom_nav_menu =findViewById(R.id.bottom_nav_menu);
-        bottom_nav_menu.setOnNavigationItemSelectedListener(navListener);
-
+        initView();
+        fragment1=new Fragment_Activity1();
+        fragment2=new Fragment_Activity2();
+        fragment3=new Fragment_Activity3();
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment = null;
+    private void initView(){
+        main_body=findViewById(R.id.main_body);
+        bottome_bar_text_1=findViewById(R.id.bottom_bar_text_1);
+        bottome_bar_text_2=findViewById(R.id.bottom_bar_text_2);
+        bottome_bar_text_3=findViewById(R.id.bottom_bar_text_3);
+        bottom_bar_image_1=findViewById(R.id.bottom_bar_image_1);
+        bottom_bar_image_2=findViewById(R.id.bottom_bar_image_2);
+        bottom_bar_image_3=findViewById(R.id.bottom_bar_image_3);
 
-                switch (item.getItemId()){
-                    case R.id.nav_discover:
-                        selectedFragment = new DiscoverFragment();
-                        break;
-                    case R.id.nav_trips:
-                        selectedFragment = new TripsFragment();
-                        break;
-                    case R.id.nav_notifications:
-                        selectedFragment = new NotificationsFragment();
-                        break;
-                    case R.id.nav_profile:
-                        selectedFragment = new ProfileFragment();
-                        break;
-                }
+        main_body_bar=findViewById(R.id.main_body_bar);
+        bottom_bar_1_btn=findViewById(R.id.bottom_bar_1_btn);
+        bottom_bar_2_btn=findViewById(R.id.bottom_bar_2_btn);
+        bottom_bar_3_btn=findViewById(R.id.bottom_bar_3_btn);
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+        bottom_bar_1_btn.setOnClickListener(this);
+        bottom_bar_2_btn.setOnClickListener(this);
+        bottom_bar_3_btn.setOnClickListener(this);
 
-                return true;
-            }
-
-    };
-
-//    private void initView(){
-//        main_body=findViewById(R.id.main_body);
-//        bottom_bar_text_1=findViewById(R.id.bottom_bar_text_1);
-//        bottom_bar_text_2=findViewById(R.id.bottom_bar_text_2);
-//        bottom_bar_text_3=findViewById(R.id.bottom_bar_text_3);
-//        bottom_bar_image_1=findViewById(R.id.bottom_bar_image_1);
-//        bottom_bar_image_2=findViewById(R.id.bottom_bar_image_2);
-//        bottom_bar_image_3=findViewById(R.id.bottom_bar_image_3);
-//
-//        main_body_bar=findViewById(R.id.main_body_bar);
-//        bottom_bar_1_btn=findViewById(R.id.bottom_bar_1_btn);
-//        bottom_bar_2_btn=findViewById(R.id.bottom_bar_2_btn);
-//        bottom_bar_3_btn=findViewById(R.id.bottom_bar_3_btn);
-//
-//        bottom_bar_1_btn.setOnClickListener(this);
-//        bottom_bar_2_btn.setOnClickListener(this);
-//        bottom_bar_3_btn.setOnClickListener(this);
-//
-//    }
+    }
 //导航栏三个按钮的点击事件
-//    @Override
-//    public void onClick(View v) {
-//        if (Tag == 0){
-//            Tag=1;
-//            switch (v.getId()){
-//                case R.id.bottom_bar_1_btn:
-//                    getSupportFragmentManager().beginTransaction().add(R.id.fl_container,fragment1).commitAllowingStateLoss();
-//                    break;
-//                case R.id.bottom_bar_2_btn:
-//                    getSupportFragmentManager().beginTransaction().add(R.id.fl_container,fragment2).commitAllowingStateLoss();
-//                    break;
-//                case R.id.bottom_bar_3_btn:
-//                    getSupportFragmentManager().beginTransaction().add(R.id.fl_container,fragment3).commitAllowingStateLoss();
-//                    break;
-//            }
-//        }else if(Tag==1){
-//            switch (v.getId()){
-//                case R.id.bottom_bar_1_btn:
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,fragment1).commitAllowingStateLoss();
-//                    break;
-//                case R.id.bottom_bar_2_btn:
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,fragment2).commitAllowingStateLoss();
-//                    break;
-//                case R.id.bottom_bar_3_btn:
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,fragment3).commitAllowingStateLoss();
-//                    break;
-//            }
-//        }
-//    }
+    @Override
+    public void onClick(View v) {
+        if (Tag == 0){
+            Tag=1;
+            switch (v.getId()){
+                case R.id.bottom_bar_1_btn:
+                    getSupportFragmentManager().beginTransaction().add(R.id.fl_container,fragment1).commitAllowingStateLoss();
+                    break;
+                case R.id.bottom_bar_2_btn:
+                    getSupportFragmentManager().beginTransaction().add(R.id.fl_container,fragment2).commitAllowingStateLoss();
+                    break;
+                case R.id.bottom_bar_3_btn:
+                    getSupportFragmentManager().beginTransaction().add(R.id.fl_container,fragment3).commitAllowingStateLoss();
+                    break;
+            }
+        }else if(Tag==1){
+            switch (v.getId()){
+                case R.id.bottom_bar_1_btn:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,fragment1).commitAllowingStateLoss();
+                    break;
+                case R.id.bottom_bar_2_btn:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,fragment2).commitAllowingStateLoss();
+                    break;
+                case R.id.bottom_bar_3_btn:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,fragment3).commitAllowingStateLoss();
+                    break;
+            }
+        }
+    }
 }

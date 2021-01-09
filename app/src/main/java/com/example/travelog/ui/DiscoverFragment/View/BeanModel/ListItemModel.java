@@ -1,4 +1,4 @@
-package com.example.travelog.ui.DiscoverFragment.View.JsonModel;
+package com.example.travelog.ui.DiscoverFragment.View.BeanModel;
 
 import java.util.List;
 

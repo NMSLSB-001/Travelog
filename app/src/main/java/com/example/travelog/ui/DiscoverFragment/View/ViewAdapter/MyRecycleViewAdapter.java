@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.travelog.R;
-import com.example.travelog.ui.DiscoverFragment.View.JsonModel.ListItemModel;
+import com.example.travelog.ui.DiscoverFragment.View.BeanModel.ListItemModel;
 import com.example.travelog.ui.DiscoverFragment.View.ViewGalleryActivity;
 import com.example.travelog.ui.DiscoverFragment.View.Viewer.MultiImageView;
 
