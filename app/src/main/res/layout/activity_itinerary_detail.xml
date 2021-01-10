@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.Trips.Itinerary_detail">
+    tools:context=".ui.Trips.Itinerary_detail_day">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -25,15 +25,14 @@
             app:titleEnabled="false"
             app:toolbarId="@+id/toolbar">
 
+
             <LinearLayout
-                android:layout_gravity="bottom"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="15dp">
+                android:layout_gravity="bottom">
             <TextView
-                android:id="@+id/itinerary_title"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Itinerary Title"
@@ -49,6 +48,7 @@
                 android:layout_gravity="bottom"/>
             </LinearLayout>
 
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -62,13 +62,5 @@
 
     <include layout="@layout/content_scrolling" android:id="@+id/included"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
