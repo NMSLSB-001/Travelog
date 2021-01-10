@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
 import com.example.travelog.R;
+import com.example.travelog.User;
 import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_View;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -30,8 +31,10 @@ public class Itinerary_create extends AppCompatActivity{
     private Button datePicker;
     private TextView startDate;
     private TextView endDate;
+    private TextView textView2;
     private Button create;
     private EditText itinerary_title, location;
+    String Username;
     Integer num;
     String createdTitle, createdStartDate, createdEndDate, createdLocation;
     List<Date> dates = new ArrayList<Date>();
@@ -51,6 +54,8 @@ public class Itinerary_create extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.itinerary_create);
+
+        Username = User.getName();
 
         datePicker = findViewById(R.id.datePicker);
         startDate = findViewById(R.id.startDate);
@@ -110,14 +115,12 @@ public class Itinerary_create extends AppCompatActivity{
 
                 }
 
-
                 num = dates.size();
-
 
             }
         });
     }
-
+    
     public void create(View view) {
         Intent intent = new Intent(Itinerary_create.this, Itinerary_View.class);
         create = (Button) findViewById(R.id.create);
@@ -125,13 +128,21 @@ public class Itinerary_create extends AppCompatActivity{
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("itinerary");
 
+        createdTitle = itinerary_title.getText().toString().trim();
+        createdLocation = location.getText().toString().trim();
+
+        SimpleDateFormat timeStampFormat = new SimpleDateFormat("ddMMyyyyHHmm");
+        Date GetDate = new Date();
+        String itineraryID = timeStampFormat.format(GetDate);
+
         firebase_itinerary firebase_itinerary = new firebase_itinerary(createdTitle, createdStartDate, createdEndDate, createdLocation);
-        reference.child(createdTitle).setValue(firebase_itinerary);
+        reference.child(Username).child(itineraryID).setValue(firebase_itinerary);
 //        intent.putExtra("Number", num);
         startActivity(intent);
 
     }
 }
+
 
 
 
