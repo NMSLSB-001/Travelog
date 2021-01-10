@@ -40,6 +40,7 @@ public class firebase_itinerary {
         this.startDate = startDate;
         this.endDate = endDate;
         this.location = location;
+
     }
 
 }
