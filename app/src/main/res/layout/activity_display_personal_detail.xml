@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Display_personal_detailActivity">
+
+    <ImageView
+        android:id="@+id/im_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/address"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+
+        />
+
+    <ImageView
+        android:id="@+id/im_email"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/im_address"
+        android:layout_height="wrap_content"
+        android:background="@drawable/email_address"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"/>
+
+
+    <ImageView
+        android:id="@+id/im_gender"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/im_email"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gender"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"/>
+
+    <ImageView
+        android:id="@+id/im_name"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/im_gender"
+        android:layout_height="wrap_content"
+        android:background="@drawable/name"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"/>
+
+    <ImageView
+        android:id="@+id/im_phone"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/im_name"
+        android:layout_height="wrap_content"
+        android:background="@drawable/phone_number"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"/>
+    <ImageView
+        android:id="@+id/im_keyID"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/im_phone"
+        android:layout_height="wrap_content"
+        android:background="@drawable/key_id"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"/>
+
+    <Button
+        android:id="@+id/btn_bcak_display"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/back"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/im_gender"
+        android:layout_below="@id/btn_bcak_display"
+        android:id="@+id/listview"
+        android:divider="#00000000"
+        android:paddingTop="6dp"
+        android:dividerHeight="33dp"/>
+
+
+
+</RelativeLayout>
