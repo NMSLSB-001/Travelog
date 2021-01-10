@@ -2,13 +2,86 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragement.ProfileFragment">
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        <Button
+            android:id="@+id/img_portrait"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/portrait"/>
+        <ImageView
+            android:id="@+id/im_portrait"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/portait_male" />
+
+        <TextView
+            android:id="@+id/tv_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            android:text=""
+            android:layout_marginTop="80sp"
+            android:layout_marginLeft="20sp"
+            android:textSize="25dp"
+            android:layout_toRightOf="@id/img_portrait"/>
+        <TextView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_portrait"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:text="———————————————————————————————————" />
+        <Button
+            android:id="@+id/btn_focus"
+            android:layout_below="@id/divider"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/focus"
+            android:text=""
+            android:textSize="20dp"
+            android:background="@drawable/btn_signup_dong"/>
+        <Button
+            android:id="@+id/btn_collection"
+            android:layout_toRightOf="@id/btn_focus"
+            android:layout_below="@id/divider"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/collection"
+            android:text=""
+            android:textSize="20dp"
+            android:background="@drawable/btn_signup_dong"/>
+        <Button
+            android:id="@+id/btn_article"
+            android:layout_toRightOf="@id/btn_collection"
+            android:layout_below="@id/divider"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/article"
+            android:text=""
+            android:textSize="20dp"
+            android:background="@drawable/btn_signup_dong"/>
+
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_setting"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:layout_alignRight="@+id/tv_text2"
+        android:layout_gravity="right"
+        android:background="@drawable/setting2"/>
+
 
 </FrameLayout>

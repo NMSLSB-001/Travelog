@@ -47,7 +47,6 @@ public class ItineraryRowHourAdapter extends RecyclerView.Adapter<ItineraryRowHo
         holder.description.setText(ItineraryRowHour.getDescription());
         holder.location.setText(ItineraryRowHour.getLocation());
         holder.startTime.setText(String.valueOf(ItineraryRowHour.getStartTime()));
-        holder.endTime.setText(String.valueOf(ItineraryRowHour.getEndTime()));
 
         Boolean isExpandable = ItineraryListHour.get(position).getExpandable();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE: View.GONE);
@@ -60,7 +59,7 @@ public class ItineraryRowHourAdapter extends RecyclerView.Adapter<ItineraryRowHo
 
     public class rowVH extends RecyclerView.ViewHolder {
 
-        TextView rowTitle, description, location, startTime, endTime;
+        TextView rowTitle, description, location, startTime;
         LinearLayout linearLayout;
         RelativeLayout expandableLayout;
         ImageView delete;
@@ -73,7 +72,6 @@ public class ItineraryRowHourAdapter extends RecyclerView.Adapter<ItineraryRowHo
             description = itemView.findViewById(R.id.description);
             location = itemView.findViewById(R.id.location);
             startTime = itemView.findViewById(R.id.startTime);
-            endTime = itemView.findViewById(R.id.endTime);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             delete = itemView.findViewById(R.id.delete);
             expand = itemView.findViewById(R.id.expand);

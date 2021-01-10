@@ -25,10 +25,7 @@ public class Itinerary_add_hour extends AppCompatActivity {
             "com.example.travelog.ui.Trips.EXTRA_LOCATION";
     public static final String EXTRA_STARTTIME =
             "com.example.travelog.ui.Trips.EXTRA_STARTTIME";
-    public static final String EXTRA_ENDTIME =
-            "com.example.travelog.ui.Trips.EXTRA_ENDTIME";
-    public static final String EXTRA_DAYNUM =
-            "com.example.travelog.ui.Trips.EXTRA_DAYNUM";
+
     public static final String EXTRA_TITLE_OLD =
             "com.example.travelog.ui.Trips.EXTRA_TITLE_OLD";
     public static final String EXTRA_DESCRIPTION_OLD =
@@ -37,13 +34,12 @@ public class Itinerary_add_hour extends AppCompatActivity {
             "com.example.travelog.ui.Trips.EXTRA_LOCATION_OLD";
     public static final String EXTRA_STARTTIME_OLD =
             "com.example.travelog.ui.Trips.EXTRA_STARTTIME_OLD";
-    public static final String EXTRA_ENDTIME_OLD =
-            "com.example.travelog.ui.Trips.EXTRA_ENDTIME_OLD";
+
 
     private EditText editTextRowTitle;
     private EditText editTextDescription;
     private EditText editTextLocation;
-    private TextView startTime, endTime;
+    private TextView startTime;
     private TimePicker timePicker1, timePicker2;
     private String titleOld, descriptionOld, locationOld, startingTimeOld, endingTimeOld;
 
@@ -56,7 +52,6 @@ public class Itinerary_add_hour extends AppCompatActivity {
         editTextDescription = findViewById(R.id.description_edit);
         editTextLocation = findViewById(R.id.location_edit);
         startTime = findViewById(R.id.startTime);
-        endTime = findViewById(R.id.endTime);
         timePicker1 = findViewById(R.id.time_picker1);
         timePicker2 = findViewById(R.id.time_picker2);
 
@@ -68,19 +63,19 @@ public class Itinerary_add_hour extends AppCompatActivity {
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             editTextLocation.setText(intent.getStringExtra(EXTRA_LOCATION));
             startTime.setText(intent.getStringExtra(EXTRA_STARTTIME));
-            endTime.setText(intent.getStringExtra(EXTRA_ENDTIME));
 
             titleOld = intent.getStringExtra(EXTRA_TITLE);
             descriptionOld = intent.getStringExtra(EXTRA_DESCRIPTION);
             locationOld = intent.getStringExtra(EXTRA_LOCATION);
             startingTimeOld = intent.getStringExtra(EXTRA_STARTTIME);
-            endingTimeOld = intent.getStringExtra(EXTRA_ENDTIME);
 
         } else {
             setTitle("Add Row");
         }
 
     }
+
+    //here need add data to database
     private void saveRow() {
 
         String title = editTextRowTitle.getText().toString();
@@ -91,27 +86,22 @@ public class Itinerary_add_hour extends AppCompatActivity {
         int hour2 = timePicker2.getCurrentHour();
         int min2 = timePicker2.getCurrentMinute();
         String startingTime = hour1 + ":" + min1;
-        String endingTime = hour2 + ":" + min2;
-        if (title.trim().isEmpty() || description.trim().isEmpty() || location.trim().isEmpty() || startingTime.trim().isEmpty() || endingTime.trim().isEmpty()) {
+        if (title.trim().isEmpty() || description.trim().isEmpty() || location.trim().isEmpty() || startingTime.trim().isEmpty()) {
             Toast.makeText(this, "Please insert complete info", Toast.LENGTH_SHORT).show();
             return;
         }
         Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, title);
-        data.putExtra(EXTRA_DESCRIPTION, description);
-        data.putExtra(EXTRA_LOCATION, location);
-        data.putExtra(EXTRA_STARTTIME, startingTime);
-        data.putExtra(EXTRA_ENDTIME, endingTime);
 
 
+        //update data to database
+
+
+        //this tell previous activity either edit or add new
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id != -1) {
+
             data.putExtra(EXTRA_ID, id);
-            data.putExtra(EXTRA_TITLE_OLD, titleOld);
-            data.putExtra(EXTRA_DESCRIPTION_OLD, descriptionOld);
-            data.putExtra(EXTRA_LOCATION_OLD, locationOld);
-            data.putExtra(EXTRA_STARTTIME_OLD, startingTimeOld);
-            data.putExtra(EXTRA_ENDTIME_OLD, endingTimeOld);
+
         }
 
         setResult(RESULT_OK, data);

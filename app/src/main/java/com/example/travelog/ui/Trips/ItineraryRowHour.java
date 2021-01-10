@@ -9,16 +9,15 @@ public class ItineraryRowHour {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String rowTitle, description, location ,startTime, endTime;
+    private String rowTitle, description, location ,startTime;
     private Boolean expandable;
 
-    public ItineraryRowHour(String rowTitle, String description, String location, String startTime, String endTime)
+    public ItineraryRowHour(String rowTitle, String description, String location, String startTime)
     {
         this.rowTitle = rowTitle;
         this.description = description;
         this.location = location;
         this.startTime = startTime;
-        this.endTime = endTime;
         this.expandable = false;
     }
 
@@ -73,13 +72,6 @@ public class ItineraryRowHour {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
 
     @Override
     public String toString() {
@@ -88,11 +80,11 @@ public class ItineraryRowHour {
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
                 ", startTime=" + startTime +
-                ", endTime=" + endTime +
                 '}';
     }
 
 
+    //reorder to ascending order function
     public static final Comparator<ItineraryRowHour> AscendingHour = new Comparator<ItineraryRowHour>() {
         @Override
         public int compare(ItineraryRowHour o1, ItineraryRowHour o2) {

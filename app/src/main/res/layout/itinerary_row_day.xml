@@ -52,20 +52,13 @@
 
             </LinearLayout>
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/expand"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_expand"
-            android:layout_marginHorizontal="10dp"/>
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/delete"
+                    android:id="@+id/expand"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_delete_24"/>
+                    android:src="@drawable/ic_expand"/>
 
 
     </LinearLayout>

@@ -21,7 +21,6 @@ public class ItineraryRowDayAdapter extends RecyclerView.Adapter<ItineraryRowDay
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        void onDeleteClick(int position);
         void onItemClick(ItineraryRowDay itineraryRowDay);
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -61,7 +60,6 @@ public class ItineraryRowDayAdapter extends RecyclerView.Adapter<ItineraryRowDay
         TextView dayTitle, description, day;
         LinearLayout linearLayout;
         RelativeLayout expandableLayout;
-        ImageView delete;
         ImageView expand;
 
         public rowVH(@NonNull View itemView, final OnItemClickListener listener) {
@@ -71,7 +69,6 @@ public class ItineraryRowDayAdapter extends RecyclerView.Adapter<ItineraryRowDay
             description = itemView.findViewById(R.id.description);
             day = itemView.findViewById(R.id.day);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
-            delete = itemView.findViewById(R.id.delete);
             expand = itemView.findViewById(R.id.expand);
 
             expand.setOnClickListener(new View.OnClickListener() {
@@ -97,18 +94,6 @@ public class ItineraryRowDayAdapter extends RecyclerView.Adapter<ItineraryRowDay
             });
 
 
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onDeleteClick(position);
-                        }
-                    }
-
-                }
-            });
 
 
 

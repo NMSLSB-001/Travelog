@@ -15,8 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelog.R;
+import com.example.travelog.User;
 import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_View;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -36,14 +42,37 @@ public class Itinerary_detail_hour extends AppCompatActivity{
     private Button add;
     private TextView title, date;
 
+    String Username;
+    DatabaseReference ref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itinerary_on_hour);
 
+        //retrieve data
+        Username = User.getName();
+        ref = FirebaseDatabase.getInstance().getReference().child("itinerary").child(Username);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //retrieve data
+                //display them into list of hours
+                //the recyclerview is using ItineraryListHour arraylist;
+                //click them to edit, add button to add
+                //use StartDate for unique ID ok kut
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         createItineraryListHour();
         buildRecyclerView();
 
+        //add button
         add = findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +82,7 @@ public class Itinerary_detail_hour extends AppCompatActivity{
             }
         });
 
-
+        //swipe function ---
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
@@ -67,8 +96,8 @@ public class Itinerary_detail_hour extends AppCompatActivity{
 
     public void createItineraryListHour() {
         ItineraryListHour = new ArrayList<>();
-        ItineraryListHour.add(new ItineraryRowHour("New Title1", "New Description", "Location" , "8:00", "9:00"));
-        ItineraryListHour.add(new ItineraryRowHour("New Title2", "New Description", "Location" , "9:00", "10:00"));
+        ItineraryListHour.add(new ItineraryRowHour("New Title1", "New Description", "Location" , "8:00"));
+        ItineraryListHour.add(new ItineraryRowHour("New Title2", "New Description", "Location" , "9:00"));
     }
 
     private void buildRecyclerView() {
@@ -93,7 +122,6 @@ public class Itinerary_detail_hour extends AppCompatActivity{
                 intent.putExtra(Itinerary_add_hour.EXTRA_DESCRIPTION, itineraryRowDay.getDescription());
                 intent.putExtra(Itinerary_add_hour.EXTRA_LOCATION, itineraryRowDay.getLocation());
                 intent.putExtra(Itinerary_add_hour.EXTRA_STARTTIME, itineraryRowDay.getStartTime());
-                intent.putExtra(Itinerary_add_hour.EXTRA_ENDTIME, itineraryRowDay.getEndTime());
 
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
 
@@ -102,6 +130,8 @@ public class Itinerary_detail_hour extends AppCompatActivity{
 
     }
 
+
+    //Swipe function
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END , 0) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -121,17 +151,16 @@ public class Itinerary_detail_hour extends AppCompatActivity{
         }
     };
 
-
+    //activity on add & edit item
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(Itinerary_add_hour.EXTRA_TITLE);
-            String description = data.getStringExtra(Itinerary_add_hour.EXTRA_DESCRIPTION);
-            String location = data.getStringExtra(Itinerary_add_hour.EXTRA_LOCATION);
-            String start = data.getStringExtra(Itinerary_add_hour.EXTRA_STARTTIME);
-            String end = data.getStringExtra(Itinerary_add_hour.EXTRA_ENDTIME);
-            ItineraryListHour.add(new ItineraryRowHour(title, description, location , start, end));
+//            String title = data.getStringExtra(Itinerary_add_hour.EXTRA_TITLE);
+//            String description = data.getStringExtra(Itinerary_add_hour.EXTRA_DESCRIPTION);
+//            String location = data.getStringExtra(Itinerary_add_hour.EXTRA_LOCATION);
+//            String start = data.getStringExtra(Itinerary_add_hour.EXTRA_STARTTIME);
+//            ItineraryListHour.add(new ItineraryRowHour(title, description, location , start));
             Collections.sort(ItineraryListHour, ItineraryRowHour.AscendingHour);
             buildRecyclerView();
             Toast.makeText(this, "Row saved", Toast.LENGTH_SHORT).show();
@@ -142,36 +171,32 @@ public class Itinerary_detail_hour extends AppCompatActivity{
                 Toast.makeText(this, "Row can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
-            String title = data.getStringExtra(Itinerary_add_hour.EXTRA_TITLE);
-            String description = data.getStringExtra(Itinerary_add_hour.EXTRA_DESCRIPTION);
-            String location = data.getStringExtra(Itinerary_add_hour.EXTRA_LOCATION);
-            String start = data.getStringExtra(Itinerary_add_hour.EXTRA_STARTTIME);
-            String end = data.getStringExtra(Itinerary_add_hour.EXTRA_ENDTIME);
+//            String title = data.getStringExtra(Itinerary_add_hour.EXTRA_TITLE);
+//            String description = data.getStringExtra(Itinerary_add_hour.EXTRA_DESCRIPTION);
+//            String location = data.getStringExtra(Itinerary_add_hour.EXTRA_LOCATION);
+//            String start = data.getStringExtra(Itinerary_add_hour.EXTRA_STARTTIME);
+//
+//            String titleOld = data.getStringExtra(Itinerary_add_hour.EXTRA_TITLE_OLD);
+//            String descriptionOld = data.getStringExtra(Itinerary_add_hour.EXTRA_DESCRIPTION_OLD);
+//            String locationOld = data.getStringExtra(Itinerary_add_hour.EXTRA_LOCATION_OLD);
+//            String startOld = data.getStringExtra(Itinerary_add_hour.EXTRA_STARTTIME_OLD);
+//
+//            ItineraryRowHour rowToDelete = null;
+//            for(ItineraryRowHour row:ItineraryListHour){
+//                if(row.getStartTime().equals(startOld)  && row.getRowTitle().equals(titleOld) && row.getDescription().equals(descriptionOld) && row.getLocation().equals(locationOld))
+//                    rowToDelete = row;
+//            }
+//
+//            if(rowToDelete==null) {
+//                System.out.println("No customer found");
+//            }
+//            else
+//                ItineraryListHour.remove(rowToDelete);
+//
+//            ItineraryRowHour row = new ItineraryRowHour(title, description, location , start);
+//            row.setId(id);
+//            ItineraryListHour.add(row);
 
-            String titleOld = data.getStringExtra(Itinerary_add_hour.EXTRA_TITLE_OLD);
-            String descriptionOld = data.getStringExtra(Itinerary_add_hour.EXTRA_DESCRIPTION_OLD);
-            String locationOld = data.getStringExtra(Itinerary_add_hour.EXTRA_LOCATION_OLD);
-            String startOld = data.getStringExtra(Itinerary_add_hour.EXTRA_STARTTIME_OLD);
-            String endOld = data.getStringExtra(Itinerary_add_hour.EXTRA_ENDTIME_OLD);
-
-            ItineraryRowHour rowToDelete = null;
-            for(ItineraryRowHour row:ItineraryListHour){
-                if(row.getStartTime().equals(startOld) && row.getEndTime().equals(endOld) && row.getRowTitle().equals(titleOld) && row.getDescription().equals(descriptionOld) && row.getLocation().equals(locationOld))
-                    rowToDelete = row;
-            }
-
-            if(rowToDelete==null) {
-                System.out.println("No customer found");
-                System.out.println(startOld);
-                System.out.println(endOld);
-                System.out.println(titleOld);
-            }
-            else
-                ItineraryListHour.remove(rowToDelete);
-
-            ItineraryRowHour row = new ItineraryRowHour(title, description, location , start, end);
-            row.setId(id);
-            ItineraryListHour.add(row);
             Collections.sort(ItineraryListHour, ItineraryRowHour.AscendingHour);
             buildRecyclerView();
             Toast.makeText(this, "Row updated", Toast.LENGTH_SHORT).show();
@@ -183,16 +208,6 @@ public class Itinerary_detail_hour extends AppCompatActivity{
     }
 
 
-
-    private Date stringToDate(String aDate,String aFormat) {
-
-        if(aDate==null) return null;
-        ParsePosition pos = new ParsePosition(0);
-        SimpleDateFormat simpledateformat = new SimpleDateFormat(aFormat);
-        Date stringDate = simpledateformat.parse(aDate, pos);
-        return stringDate;
-
-    }
 
 }
 

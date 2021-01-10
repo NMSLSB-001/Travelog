@@ -16,8 +16,6 @@
             android:name=".ui.Trips.Itinerary_detail_day"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:launchMode="singleTop"/>
-        <activity android:name=".ui.Trips.Itinerary_add_day"
-            android:parentActivityName=".ui.Trips.Itinerary_detail_day"/>
         <activity android:name=".change_password_Activity" />
         <activity android:name=".ui.Trips.ArticleAdd.AddActivity"/>
         <activity android:name=".ui.Trips.Itinerary_detail_hour"/>

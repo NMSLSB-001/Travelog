@@ -36,13 +36,6 @@
             android:textSize="12sp"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/endTime"
-            android:textSize="12sp"
-            />
-
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"

@@ -45,18 +45,13 @@ public class Adapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.item, container, false);
 
         ImageView imageView;
-        TextView title, date, loc;
+        TextView title;
 
         imageView = view.findViewById(R.id.image);
         title = view.findViewById(R.id.title);
-        date = view.findViewById(R.id.date);
-        loc = view.findViewById(R.id.location);
 
         imageView.setImageResource(models.get(position).getImage());
         title.setText(models.get(position).getTitle());
-        loc.setText(models.get(position).getLoc());
-        String temp = models.get(position).getStartDate() + " - " + models.get(position).getEndDate();
-        date.setText(temp);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
