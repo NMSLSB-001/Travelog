@@ -1,13 +1,9 @@
 package com.example.travelog;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,12 +37,19 @@ public class RegisterActivity extends AppCompatActivity {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        /**
+         * 这一段为测试部分，连接数据库传输用户信息
+         */
 
+        /**
+         * 这一段为测试部分，结束
+         */
         tvTest=findViewById(R.id.logo);
         tvTest.animate().translationYBy(60).setDuration(2000).start();
 
@@ -61,19 +70,33 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //跳转到 注册界面
-                Intent intent=new Intent(RegisterActivity.this, signup_page_Activity.class);
+                Intent intent=new Intent(com.example.travelog.RegisterActivity.this, signup_page_Activity.class);
                 startActivity(intent);
             }
         });
 
 
-
         pref= PreferenceManager.getDefaultSharedPreferences(this);
-        loginFirebase();
+        login();
     }
+    /**
+     * 这一段为测试部分，连接数据库传输用户信息
+     */
+    private void loginUser(String username, String password) {
+        auth.signInWithEmailAndPassword(username,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                Toast.makeText(com.example.travelog.RegisterActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(com.example.travelog.RegisterActivity.this, MainActivity.class));
+            }
+        });
+    }
+    /**
+     * 这一段为测试部分，结束
+     */
 
     private void login() {
-        //从signup_page的activity里那数据
+        //从signup_page的activity里拿数据
         et_user_name= (EditText) findViewById(R.id.et_1);
         et_psw= (EditText) findViewById(R.id.et_2);
 
@@ -86,73 +109,21 @@ public class RegisterActivity extends AppCompatActivity {
                 psw=et_psw.getText().toString().trim();
                 // Define the method readPsw to get the password in order to read the username
                 spPsw=readPsw(userName);
-
-                isUser(userName, psw);
-
                 // TextUtils.isEmpty
                 if(TextUtils.isEmpty(userName)){
-                    Toast.makeText(RegisterActivity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.example.travelog.RegisterActivity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
                     return;
                 }else if(TextUtils.isEmpty(psw)){
-                    Toast.makeText(RegisterActivity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else if(psw.equals(spPsw)){
-                    //一致登录成功
-                    Toast.makeText(RegisterActivity.this, "Welcome "+editText1.getText().toString(), Toast.LENGTH_SHORT).show();
-                    editor=pref.edit();
-                    editor.apply();
-                    //保存登录状态，在界面保存登录的用户名 定义个方法 saveLoginStatus boolean 状态 , userName 用户名;
-                    User.setName(userName);
-                    saveLoginStatus(true, userName);
-                    //登录成功后关闭此页面进入主页
-                    Intent data=new Intent();
-                    //datad.putExtra( ); name , value ;
-                    data.putExtra("isLogin",true);
-                    //RESULT_OK为Activity系统常量，状态码为-1
-                    // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
-                    setResult(RESULT_OK,data);
-                    //销毁登录界面
-                    RegisterActivity.this.finish();
-                    //跳转到主界面，登录成功的状态传递到 MainActivity 中
-                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                    return;
-                }else if((spPsw!=null&&!TextUtils.isEmpty(spPsw)&&!psw.equals(spPsw))){
-                    Toast.makeText(RegisterActivity.this, "The Username and Password entered are inconsistent", Toast.LENGTH_SHORT).show();
-                    return;
-                }else{
-                    Toast.makeText(RegisterActivity.this, "This Username does not exist", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    private void loginFirebase() {
-        et_user_name= (EditText) findViewById(R.id.et_1);
-        et_psw= (EditText) findViewById(R.id.et_2);
-
-        //Login button click event
-        Btn_signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Start logging in to get username and password  getText().toString().trim();
-                userName=et_user_name.getText().toString().trim();
-                psw=et_psw.getText().toString().trim();
-
-                // TextUtils.isEmpty
-                if(TextUtils.isEmpty(userName)){
-                    Toast.makeText(RegisterActivity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
-                    return;
-                }else if(TextUtils.isEmpty(psw)){
-                    Toast.makeText(RegisterActivity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.example.travelog.RegisterActivity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else {
-                    isUser(userName, psw);
+                    isUser(userName,psw);
                 }
             }
         });
     }
+
 
     /**
      *从SharedPreferences中根据用户名读取密码
@@ -161,7 +132,6 @@ public class RegisterActivity extends AppCompatActivity {
         //getSharedPreferences("loginInfo",MODE_PRIVATE);
         //"loginInfo",mode_private; MODE_PRIVATE表示可以继续写入
         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
-
         //sp.getString() userName, "";
         return sp.getString(userName , "");
     }
@@ -215,36 +185,38 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
-
-    private boolean isUser(final String username, final String password) {
-        DatabaseReference databaseUser = FirebaseDatabase.getInstance() .getReference("users");
-
-        Query checkUser = databaseUser.orderByChild("username").equalTo(username);
-
+    private boolean isUser(final String username,final String password){
+        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("users");
+        Query checkUser = databaseUser.orderByChild("user").equalTo(username);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    String passwordFromDB = snapshot.child(username).child("password").getValue(String.class);
-
+                    String passwordFromDB=snapshot.child(username).child("password").getValue(String.class);
                     if(passwordFromDB.equals(password)){
-                        Toast.makeText(RegisterActivity.this, "Welcome "+editText1.getText().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(com.example.travelog.RegisterActivity.this, "Welcome "+editText1.getText().toString(), Toast.LENGTH_SHORT).show();
                         editor=pref.edit();
                         editor.apply();
-                        User.setName(userName);
+                        //保存登录状态，在界面保存登录的用户名 定义个方法 saveLoginStatus boolean 状态 , userName 用户名;
+                        User1.setName(userName);
                         saveLoginStatus(true, userName);
+                        //登录成功后关闭此页面进入主页
                         Intent data=new Intent();
+                        //datad.putExtra( ); name , value ;
                         data.putExtra("isLogin",true);
+                        //RESULT_OK为Activity系统常量，状态码为-1
+                        // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
                         setResult(RESULT_OK,data);
-                        RegisterActivity.this.finish();
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                        //销毁登录界面
+                        com.example.travelog.RegisterActivity.this.finish();
+                        //跳转到主界面，登录成功的状态传递到 MainActivity 中
+                        startActivity(new Intent(com.example.travelog.RegisterActivity.this, MainActivity.class));
                         return;
-
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "The Username and Password entered are inconsistent", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(com.example.travelog.RegisterActivity.this, "The Username and Password entered are inconsistent", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(RegisterActivity.this, "This Username does not exist", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(com.example.travelog.RegisterActivity.this, "This Username does not exist", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -253,7 +225,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-
         return true;
-    }
+        }
 }

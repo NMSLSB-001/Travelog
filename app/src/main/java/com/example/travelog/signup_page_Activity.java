@@ -10,16 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 
 public class signup_page_Activity extends AppCompatActivity {
@@ -29,7 +23,7 @@ public class signup_page_Activity extends AppCompatActivity {
     //用户名，密码，再次输入的密码的控件
     private EditText et_user_name,et_psw,et_psw_again;
     //用户名，密码，再次输入的密码的控件的获取值
-    private String userName,password,pswAgain;
+    private String userName,psw,pswAgain;
 
     DatabaseReference databaseUser;
 
@@ -38,10 +32,15 @@ public class signup_page_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page_);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        /**
+         * 这一段为测试部分，连接数据库传输用户信息
+         */
+        databaseUser= FirebaseDatabase.getInstance().getReference("users");
 
-        databaseUser = FirebaseDatabase.getInstance().getReference("users");
-
-        initFirebase();
+        /**
+         * 这一段为测试部分，结束
+         */
+        init();
 
     }
 
@@ -52,6 +51,7 @@ public class signup_page_Activity extends AppCompatActivity {
         et_psw= (EditText) findViewById(R.id.et_psw);
         et_psw_again= (EditText) findViewById(R.id.et_psw_again);
 
+
          //注册按钮
         btn_register.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -60,127 +60,64 @@ public class signup_page_Activity extends AppCompatActivity {
             getEditString();
             //判断输入框内容
             if(TextUtils.isEmpty(userName)){
-                Toast.makeText(signup_page_Activity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
-            }else if(TextUtils.isEmpty(password)){
-                Toast.makeText(signup_page_Activity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
+            }else if(TextUtils.isEmpty(psw)){
+                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
             }else if(TextUtils.isEmpty(pswAgain)){
-                Toast.makeText(signup_page_Activity.this, "Please enter the password again", Toast.LENGTH_SHORT).show();
-            }else if(!password.equals(pswAgain)){
-                Toast.makeText(signup_page_Activity.this, "The password entered twice is different", Toast.LENGTH_SHORT).show();
+                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Please enter the password again", Toast.LENGTH_SHORT).show();
+            }else if(!psw.equals(pswAgain)){
+                Toast.makeText(com.example.travelog.signup_page_Activity.this, "The password entered twice is different", Toast.LENGTH_SHORT).show();
                 /**
                  *从SharedPreferences中读取输入的用户名，判断SharedPreferences中是否有此用户名
                  */
-            } else if(password.length()<8){
-                Toast.makeText(signup_page_Activity.this, "Password must be greater than 8 digits", Toast.LENGTH_SHORT).show();
+            } else if(psw.length()<8){
+                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Password must be greater than 8 digits", Toast.LENGTH_SHORT).show();
             }
             else if(userName.length()<6){
-                Toast.makeText(signup_page_Activity.this, "Username must be greater than 6 digits", Toast.LENGTH_SHORT).show();
+                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Username must be greater than 6 digits", Toast.LENGTH_SHORT).show();
             }
             else if(userName.matches("[0-9]+")){
-                Toast.makeText(signup_page_Activity.this, "Username must contain letters", Toast.LENGTH_SHORT).show();
+                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Username must contain letters", Toast.LENGTH_SHORT).show();
             }
-            else if(isExistUserName(userName)){
-                Toast.makeText(signup_page_Activity.this, "This Username already exists", Toast.LENGTH_SHORT).show();
+             else if(isExistUserName(userName)){
+                Toast.makeText(com.example.travelog.signup_page_Activity.this, "This Username already exists", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(signup_page_Activity.this, "Register successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Register successfully", Toast.LENGTH_SHORT).show();
                 //把账号、密码和账号标识保存到sp里面
                 /**
                  * 保存账号和密码到SharedPreferences中
                  */
-                saveRegisterInfo(userName, password);
-
-                addUser(userName, password);
+                saveRegisterInfo(userName, psw);
                 //注册成功后把账号传递到RegisterActivity.java中
                 // 返回值到RegisterActivity显示
                 Intent data = new Intent();
                 data.putExtra("userName", userName);
                 setResult(RESULT_OK, data);
                 //RESULT_OK为Activity系统常量，状态码为-1，
+                //把用户登陆输入传入数据库
+                add(userName,psw);
+
                 // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
-                signup_page_Activity.this.finish();
+                com.example.travelog.signup_page_Activity.this.finish();
             }
         }
     });
 }
 
-    private void initFirebase() {
-        //从activity_register.xml 页面中获取对应的UI控件
-        btn_register= (Button) findViewById(R.id.btn_register);
-        et_user_name= (EditText) findViewById(R.id.et_user_name);
-        et_psw= (EditText) findViewById(R.id.et_psw);
-        et_psw_again= (EditText) findViewById(R.id.et_psw_again);
-
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //获取输入在相应控件中的字符串
-                getEditString();
-                //判断输入框内容
-                if(TextUtils.isEmpty(userName)){
-                    Toast.makeText(signup_page_Activity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
-                }else if(TextUtils.isEmpty(password)){
-                    Toast.makeText(signup_page_Activity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
-                }else if(TextUtils.isEmpty(pswAgain)){
-                    Toast.makeText(signup_page_Activity.this, "Please enter the password again", Toast.LENGTH_SHORT).show();
-                }else if(!password.equals(pswAgain)){
-                    Toast.makeText(signup_page_Activity.this, "The password entered twice is different", Toast.LENGTH_SHORT).show();
-                    /**
-                     *从SharedPreferences中读取输入的用户名，判断SharedPreferences中是否有此用户名
-                     */
-                } else if(password.length()<8){
-                    Toast.makeText(signup_page_Activity.this, "Password must be greater than 8 digits", Toast.LENGTH_SHORT).show();
-                }
-                else if(userName.length()<6){
-                    Toast.makeText(signup_page_Activity.this, "Username must be greater than 6 digits", Toast.LENGTH_SHORT).show();
-                }
-                else if(userName.matches("[0-9]+")){
-                    Toast.makeText(signup_page_Activity.this, "Username must contain letters", Toast.LENGTH_SHORT).show();
-                } else{
-                    validateUser(userName);
-                }
-            }
-        });
+    /**
+     用户信息传入数据库
+     */
+    private void add(String username,String password){
+        String id= databaseUser.push().getKey();
+        User_info user=new User_info(id,username,password);
+        databaseUser.child(username).setValue(user);
     }
-
-    private void validateUser(final String username){
-        Query checkUser = databaseUser.orderByChild("username").equalTo(String.valueOf(et_user_name));
-        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.exists()){
-                    Toast.makeText(signup_page_Activity.this, "This Username already exists", Toast.LENGTH_SHORT).show();
-                    init();
-                } else {
-                    Toast.makeText(signup_page_Activity.this, "Register successfully", Toast.LENGTH_SHORT).show();
-                    saveRegisterInfo(username, password);
-
-                    addUser(username, password);
-                    //注册成功后把账号传递到RegisterActivity.java中
-                    // 返回值到RegisterActivity显示
-                    Intent data = new Intent();
-                    data.putExtra("userName", username);
-                    setResult(RESULT_OK, data);
-                    //RESULT_OK为Activity系统常量，状态码为-1，
-                    // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
-                    signup_page_Activity.this.finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-
-
     /**
      获取控件中的字符串
      */
     private void getEditString(){
         userName=et_user_name.getText().toString().trim();
-        password=et_psw.getText().toString().trim();
+        psw=et_psw.getText().toString().trim();
         pswAgain=et_psw_again.getText().toString().trim();
     }
     /**
@@ -197,7 +134,6 @@ public class signup_page_Activity extends AppCompatActivity {
         if(!TextUtils.isEmpty(spPsw)) {
             has_userName=true;
         }
-
         return has_userName;
     }
     /**
@@ -213,15 +149,6 @@ public class signup_page_Activity extends AppCompatActivity {
         editor.putString(userName, psw);
         //提交修改 editor.commit();
         editor.commit();
-    }
-
-    private void addUser(String username, String password) {
-        String userID = databaseUser.push().getKey();
-
-        firebaseUser user = new firebaseUser(userID, username, password);
-
-        databaseUser.child(username).setValue(user);
-
     }
 
 

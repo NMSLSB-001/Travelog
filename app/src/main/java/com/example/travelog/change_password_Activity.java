@@ -1,7 +1,5 @@
 package com.example.travelog;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class change_password_Activity extends AppCompatActivity {
 
     private Button mBtnback;
@@ -21,12 +24,18 @@ public class change_password_Activity extends AppCompatActivity {
     private EditText et_psw,et_new_psw,et_new_psw1;//edit
     private String userName,psw,spPsw,newpsw,newpsw1;//get username and password
     private Button mBtn_delete_account;
+    private Button mBtn_add_info;//完善个人信息
+
+    DatabaseReference databaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password_);
-        userName=User.getName();
+
+        databaseUser= FirebaseDatabase.getInstance().getReference("users");
+
+        userName= User1.getName();
 
 
 /**
@@ -37,7 +46,7 @@ public class change_password_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //返回上一界面
-                Intent intent=new Intent(change_password_Activity.this, MainActivity.class);
+                Intent intent=new Intent(com.example.travelog.change_password_Activity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -49,11 +58,11 @@ public class change_password_Activity extends AppCompatActivity {
                 SharedPreferences.Editor editor=sp.edit();
                 editor.putBoolean("isLogin", false);
                 //User name when saving in login status
-                editor.putString("loginUserName", User.getName());
+                editor.putString("loginUserName", User1.getName());
                 //Submit changes
                 editor.commit();
-                change_password_Activity.this.finish();
-                startActivity(new Intent(change_password_Activity.this, RegisterActivity.class));
+                com.example.travelog.change_password_Activity.this.finish();
+                startActivity(new Intent(com.example.travelog.change_password_Activity.this, RegisterActivity.class));
             }
         });
         mBtn_delete_account=findViewById(R.id.btn_delete);
@@ -61,9 +70,20 @@ public class change_password_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+                //在数据库里删除账号
+                delete_account(userName);
+                //在sharedperference里删掉账号
                 sp.edit().clear().apply();
-                Toast.makeText(change_password_Activity.this, "Account was deleted successfully", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(change_password_Activity.this, RegisterActivity.class);
+                Toast.makeText(com.example.travelog.change_password_Activity.this, "Account was deleted successfully", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(com.example.travelog.change_password_Activity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+        mBtn_add_info=findViewById(R.id.btn_add_info);
+        mBtn_add_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(com.example.travelog.change_password_Activity.this, fill_info_Activity.class);
                 startActivity(intent);
             }
         });
@@ -73,6 +93,10 @@ public class change_password_Activity extends AppCompatActivity {
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         change();
 
+    }
+    private void delete_account(String userName){
+        DatabaseReference delete_account=FirebaseDatabase.getInstance().getReference("users").child(userName);
+        delete_account.removeValue();
     }
 
     private void change()
@@ -91,30 +115,40 @@ public class change_password_Activity extends AppCompatActivity {
                 newpsw1=et_new_psw1.getText().toString().trim();
                 spPsw=readPsw(userName);
                 if(TextUtils.isEmpty(psw)){
-                    Toast.makeText(change_password_Activity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.example.travelog.change_password_Activity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
                     return;
                 }else if(TextUtils.isEmpty(newpsw)){
-                    Toast.makeText(change_password_Activity.this, "Please enter New Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.example.travelog.change_password_Activity.this, "Please enter New Password", Toast.LENGTH_SHORT).show();
                     return;
                 }else if(TextUtils.isEmpty(newpsw1)){
-                    Toast.makeText(change_password_Activity.this, "Please Confirm New Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.example.travelog.change_password_Activity.this, "Please Confirm New Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(newpsw.equals(newpsw1)){
                     if(psw.equals(spPsw)){
                         saveRegisterInfo(userName,newpsw);
-                        Toast.makeText(change_password_Activity.this, "Successful Change ", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(change_password_Activity.this, RegisterActivity.class);
+                        //把新数据放入数据库
+                        add(userName,newpsw);
+                        Toast.makeText(com.example.travelog.change_password_Activity.this, "Successful Change ", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(com.example.travelog.change_password_Activity.this, RegisterActivity.class);
                         startActivity(intent);
                     }else{
-                        Toast.makeText(change_password_Activity.this, "Incorrect Password ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(com.example.travelog.change_password_Activity.this, "Incorrect Password ", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(change_password_Activity.this, "Please Confirm Your New Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.example.travelog.change_password_Activity.this, "Please Confirm Your New Password", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+    }
+    /**
+     用户信息传入数据库
+     */
+    private void add(String username,String password){
+        String id= databaseUser.push().getKey();
+        User_info user=new User_info(id,username,password);
+        databaseUser.child(username).setValue(user);
     }
 
     /**

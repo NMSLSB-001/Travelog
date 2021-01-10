@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelog.R;
-import com.example.travelog.ui.DiscoverFragment.View.JsonModel.GridImageModel;
+import com.example.travelog.ui.DiscoverFragment.View.BeanModel.GridImageModel;
 import com.example.travelog.ui.DiscoverFragment.View.ViewAdapter.MyRecycleViewAdapter;
 import com.google.gson.Gson;
 
