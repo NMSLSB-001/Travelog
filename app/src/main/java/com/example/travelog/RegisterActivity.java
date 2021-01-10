@@ -22,13 +22,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextView tvTest;
+    private CircleImageView tvTest;
     private EditText editText1;
     private EditText editText2;
     private Button  Btn_signin;
-    private Button Btn_signup;
+    private TextView Btn_signup;
 
     private String userName,psw,spPsw;//get username and password
     private EditText et_user_name,et_psw;//edit
