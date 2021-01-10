@@ -5,14 +5,14 @@ import androidx.room.PrimaryKey;
 
 import java.util.Comparator;
 
-public class ItineraryRow {
+public class ItineraryRowHour {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String rowTitle, description, location ,startTime, endTime;
     private Boolean expandable;
 
-    public ItineraryRow(String rowTitle, String description, String location, String startTime, String endTime)
+    public ItineraryRowHour(String rowTitle, String description, String location, String startTime, String endTime)
     {
         this.rowTitle = rowTitle;
         this.description = description;
@@ -37,7 +37,7 @@ public class ItineraryRow {
         this.expandable = expandable;
     }
 
-    public ItineraryRow(Boolean expandable) {
+    public ItineraryRowHour(Boolean expandable) {
         this.expandable = expandable;
     }
 
@@ -93,9 +93,9 @@ public class ItineraryRow {
     }
 
 
-    public static final Comparator<ItineraryRow> AscendingHour = new Comparator<ItineraryRow>() {
+    public static final Comparator<ItineraryRowHour> AscendingHour = new Comparator<ItineraryRowHour>() {
         @Override
-        public int compare(ItineraryRow o1, ItineraryRow o2) {
+        public int compare(ItineraryRowHour o1, ItineraryRowHour o2) {
             return o1.getStartTime().compareTo(o2.getStartTime());
         }
     };

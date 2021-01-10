@@ -13,13 +13,16 @@
         tools:ignore="Instantiatable" >
         <activity android:name=".ui.Trips.Itinerary_create"/>
         <activity
-            android:name=".ui.Trips.Itinerary_detail"
+            android:name=".ui.Trips.Itinerary_detail_day"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:launchMode="singleTop"/>
-        <activity android:name=".ui.Trips.Itinerary_add"
-            android:parentActivityName=".ui.Trips.Itinerary_detail"/>
+        <activity android:name=".ui.Trips.Itinerary_add_day"
+            android:parentActivityName=".ui.Trips.Itinerary_detail_day"/>
         <activity android:name=".change_password_Activity" />
         <activity android:name=".ui.Trips.ArticleAdd.AddActivity"/>
+        <activity android:name=".ui.Trips.Itinerary_detail_hour"/>
+        <activity android:name=".ui.Trips.SwipeViewPager.Itinerary_View"/>
+        <activity android:name=".ui.Trips.Itinerary_add_hour"/>
         <activity android:name=".ui.Trips.TripsFragment"/>
         <activity android:name=".signup_page_Activity" />
         <activity android:name=".MainActivity" />

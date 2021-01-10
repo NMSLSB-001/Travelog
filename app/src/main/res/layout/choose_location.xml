@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.Trips.ChooseLocation">
+
+    <RelativeLayout
+        android:id="@+id/activity_search_city_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/white_border"
+        android:elevation="10dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/search_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Where to go?"
+            android:textColor="@color/colorPrimary"
+            android:drawableLeft="@drawable/search_img"
+            android:drawablePadding="10dp"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:imeOptions="actionSearch"
+            android:layout_margin="10dp"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity"/>
+
+</RelativeLayout>

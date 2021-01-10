@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.travelog.R;
-import com.example.travelog.ui.Trips.Itinerary_detail;
+import com.example.travelog.ui.Trips.Itinerary_detail_day;
 
 import java.util.List;
 
@@ -44,20 +45,23 @@ public class Adapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.item, container, false);
 
         ImageView imageView;
-        TextView title, desc;
+        TextView title, date, loc;
 
         imageView = view.findViewById(R.id.image);
         title = view.findViewById(R.id.title);
-        desc = view.findViewById(R.id.date);
+        date = view.findViewById(R.id.date);
+        loc = view.findViewById(R.id.location);
 
         imageView.setImageResource(models.get(position).getImage());
         title.setText(models.get(position).getTitle());
-        desc.setText(models.get(position).getDesc());
+        loc.setText(models.get(position).getLoc());
+        String temp = models.get(position).getStartDate() + " - " + models.get(position).getEndDate();
+        date.setText(temp);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Itinerary_detail.class);
+                Intent intent = new Intent(context, Itinerary_detail_day.class);
                 intent.putExtra("param", models.get(position).getTitle());
                 context.startActivity(intent);
                 // finish();

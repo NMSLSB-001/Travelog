@@ -3,31 +3,28 @@ package com.example.travelog.ui.Trips.SwipeViewPager;
 import android.animation.ArgbEvaluator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.travelog.R;
 import com.example.travelog.ui.Trips.Itinerary_create;
-import com.example.travelog.ui.Trips.Itinerary_detail;
+import com.example.travelog.ui.Trips.Itinerary_detail_day;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class Itinerary_OnDay extends AppCompatActivity {
+public class Itinerary_View extends AppCompatActivity {
     ViewPager viewPager;
     Adapter adapter;
-    List<Model> models;
+    List<Model> models = new ArrayList<>();
     Integer[] colors = null;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
-    TextView title;
+
+    public static final String p_createdTitle = "p_createdTitle";
+    public static final String p_createdStartDate = "p_createdStartDate";
+    public static final String p_createdEndDate = "p_createdEndDate";
+    public static final String p_createdLoc = "p_createdLoc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,30 +32,20 @@ public class Itinerary_OnDay extends AppCompatActivity {
         if (getIntent().getBooleanExtra("EXIT", false)) {
             finish();
         }
-        setContentView(R.layout.onday);
+        setContentView(R.layout.itinerary_view);
 
         Bundle extras = getIntent().getExtras();
         String createdTitle = extras.getString(Itinerary_create.p_createdTitle);
         String createdStartDate = extras.getString(Itinerary_create.p_createdStartDate);
         String createdEndDate = extras.getString(Itinerary_create.p_createdEndDate);
+        String createdLoc = extras.getString(Itinerary_create.p_createdLoc);
         int numOfDay = extras.getInt("Number", 0);
-        System.out.println(numOfDay);
-        System.out.println(numOfDay);
-        System.out.println(numOfDay);
-        System.out.println(numOfDay);
-        System.out.println(numOfDay);
 
-        title = findViewById(R.id.title);
-        title.setText(createdTitle);
-
-        models = new ArrayList<>();
         adapter = new Adapter(models, this);
 
-        int count = 0;
-        for (int i=0; i<=numOfDay ;i++) {
-            count++;
-            models.add(new Model(R.drawable.brochure, "Day " + count, "Here is your description!"));
-        }
+
+        models.add(new Model(R.drawable.brochure, createdTitle, createdStartDate,createdEndDate,"Here is your description!"));
+
 
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
@@ -98,11 +85,12 @@ public class Itinerary_OnDay extends AppCompatActivity {
 
                 // TODO Auto-generated method stub
                 if(position==viewPager.getAdapter().getCount()){
-                    Intent reg = new Intent(Itinerary_OnDay.this,Itinerary_detail.class);
-                    reg.putExtra("daynum", position);
-                    System.out.println(position);
-                    System.out.println(position);
-                    System.out.println(position);
+                    Intent reg = new Intent(Itinerary_View.this, Itinerary_detail_day.class);
+                    reg.putExtra(p_createdTitle, createdTitle);
+                    reg.putExtra(p_createdStartDate, createdStartDate);
+                    reg.putExtra(p_createdEndDate, createdEndDate);
+                    reg.putExtra(p_createdLoc, createdLoc);
+                    reg.putExtra("num", numOfDay);
                     startActivity(reg);
                 }
 

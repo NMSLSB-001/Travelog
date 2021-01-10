@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelog.R;
 
-public class Itinerary_add extends AppCompatActivity {
+public class Itinerary_add_hour extends AppCompatActivity {
     public static final String EXTRA_ID =
             "com.example.travelog.ui.Trips.EXTRA_ID";
     public static final String EXTRA_TITLE =
@@ -27,7 +27,8 @@ public class Itinerary_add extends AppCompatActivity {
             "com.example.travelog.ui.Trips.EXTRA_STARTTIME";
     public static final String EXTRA_ENDTIME =
             "com.example.travelog.ui.Trips.EXTRA_ENDTIME";
-
+    public static final String EXTRA_DAYNUM =
+            "com.example.travelog.ui.Trips.EXTRA_DAYNUM";
     public static final String EXTRA_TITLE_OLD =
             "com.example.travelog.ui.Trips.EXTRA_TITLE_OLD";
     public static final String EXTRA_DESCRIPTION_OLD =
@@ -49,7 +50,7 @@ public class Itinerary_add extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_dialog);
+        setContentView(R.layout.layout_dialog_hour);
 
         editTextRowTitle = findViewById(R.id.rowTitle_edit);
         editTextDescription = findViewById(R.id.description_edit);

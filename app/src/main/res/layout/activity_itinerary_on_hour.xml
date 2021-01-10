@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="15dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.Trips.Itinerary_detail_day"
-    tools:showIn="@layout/activity_itinerary_detail">
+    android:padding="10dp">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="500dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_marginBottom="100dp"
             android:scrollbars="vertical"/>
 
         <Button
@@ -29,10 +25,13 @@
             android:layout_height="wrap_content"
             android:text="Add"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom|center"
+            android:layout_gravity="center"
             android:textSize="25sp"
             />
 
-        </LinearLayout>
+    </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,6 @@ package com.example.travelog.ui.Trips;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,14 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
 import com.example.travelog.R;
-import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_OnDay;
+import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_View;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,16 +32,18 @@ public class Itinerary_create extends AppCompatActivity{
     private TextView startDate;
     private TextView endDate;
     private Button create;
-    private EditText itinerary_title;
-    private TextView invite;
+    private EditText itinerary_title, location;
     Integer num;
-    String createdStartDate;
-    String createdEndDate;
+    String createdTitle, createdStartDate, createdEndDate, createdLocation;
     List<Date> dates = new ArrayList<Date>();
+
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
     public static final String p_createdTitle = "p_createdTitle";
     public static final String p_createdStartDate = "p_createdStartDate";
     public static final String p_createdEndDate = "p_createdEndDate";
+    public static final String p_createdLoc = "p_createdLoc";
 
     public Itinerary_create(){};
 
@@ -50,15 +51,13 @@ public class Itinerary_create extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.itinerary_create);
 
-        datePicker = (Button) findViewById(R.id.datePicker);
-        startDate = (TextView) findViewById(R.id.startDate);
+        datePicker = findViewById(R.id.datePicker);
+        startDate = findViewById(R.id.startDate);
         endDate = (TextView) findViewById(R.id.endDate);
         itinerary_title = (EditText) findViewById(R.id.itinerary_title);
-        invite = (TextView) findViewById(R.id.invite);
-
+        location = (EditText) findViewById(R.id.location);
 
         //calendar constraints
         CalendarConstraints.Builder constraintBuilder = new CalendarConstraints.Builder();
@@ -123,12 +122,15 @@ public class Itinerary_create extends AppCompatActivity{
 
 
     public void create(View view) {
-        Intent intent = new Intent(Itinerary_create.this, Itinerary_OnDay.class);
+        Intent intent = new Intent(Itinerary_create.this, Itinerary_View.class);
         create = (Button) findViewById(R.id.create);
-        intent.putExtra(p_createdTitle, itinerary_title.getText().toString());
-        intent.putExtra(p_createdStartDate, createdStartDate);
-        intent.putExtra(p_createdEndDate, createdEndDate);
-        intent.putExtra("Number", num);
+
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("itinerary");
+
+        firebase_itinerary firebase_itinerary = new firebase_itinerary(createdTitle, createdStartDate, createdEndDate, createdLocation);
+        reference.child(createdTitle).setValue(firebase_itinerary);
+//        intent.putExtra("Number", num);
         startActivity(intent);
 
     }

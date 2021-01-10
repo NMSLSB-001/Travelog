@@ -3,7 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.Trips.Itinerary_create">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
 
         <EditText
             android:id="@+id/itinerary_title"
+            android:hint="Itinerary Title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="24sp"
@@ -62,20 +64,14 @@
     android:text="Pick Date"
     android:layout_gravity="center"/>
 
-        <TextView
-            android:id="@+id/invite"
+        <EditText
+            android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="+ Invite Tripmate"
+            android:hint="Location"
             android:textSize="20dp"
             android:layout_marginVertical="12dp"
             android:layout_gravity="left|center" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:background="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/create"
