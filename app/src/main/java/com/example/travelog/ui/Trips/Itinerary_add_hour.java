@@ -40,7 +40,7 @@ public class Itinerary_add_hour extends AppCompatActivity {
     private EditText editTextDescription;
     private EditText editTextLocation;
     private TextView startTime;
-    private TimePicker timePicker1, timePicker2;
+    private TimePicker timePicker1;
     private String titleOld, descriptionOld, locationOld, startingTimeOld, endingTimeOld;
 
     @Override
@@ -53,7 +53,6 @@ public class Itinerary_add_hour extends AppCompatActivity {
         editTextLocation = findViewById(R.id.location_edit);
         startTime = findViewById(R.id.startTime);
         timePicker1 = findViewById(R.id.time_picker1);
-        timePicker2 = findViewById(R.id.time_picker2);
 
         Intent intent = getIntent();
 
@@ -83,8 +82,6 @@ public class Itinerary_add_hour extends AppCompatActivity {
         String location = editTextLocation.getText().toString();
         int hour1 = timePicker1.getCurrentHour();
         int min1 = timePicker1.getCurrentMinute();
-        int hour2 = timePicker2.getCurrentHour();
-        int min2 = timePicker2.getCurrentMinute();
         String startingTime = hour1 + ":" + min1;
         if (title.trim().isEmpty() || description.trim().isEmpty() || location.trim().isEmpty() || startingTime.trim().isEmpty()) {
             Toast.makeText(this, "Please insert complete info", Toast.LENGTH_SHORT).show();

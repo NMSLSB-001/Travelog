@@ -24,6 +24,7 @@
         app:menu="@menu/bottom_nav_menu"
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/colorPrimaryDark"
+        app:itemRippleColor="@color/colorAccent"
         app:itemTextColor="@color/colorPrimaryDark">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

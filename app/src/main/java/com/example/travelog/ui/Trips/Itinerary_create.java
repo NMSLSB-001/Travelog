@@ -19,6 +19,8 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,7 +33,7 @@ public class Itinerary_create extends AppCompatActivity{
     private Button datePicker;
     private TextView startDate;
     private TextView endDate;
-    private TextView textView2;
+    private TextView journeyReady;
     private Button create;
     private EditText itinerary_title, location;
     String Username;
@@ -62,6 +64,7 @@ public class Itinerary_create extends AppCompatActivity{
         endDate = (TextView) findViewById(R.id.endDate);
         itinerary_title = (EditText) findViewById(R.id.itinerary_title);
         location = (EditText) findViewById(R.id.location);
+        journeyReady = (TextView) findViewById(R.id.journeyready);
 
         //calendar constraints
         CalendarConstraints.Builder constraintBuilder = new CalendarConstraints.Builder();

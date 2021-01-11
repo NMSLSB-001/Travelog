@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-
-    android:padding="8dp">
+    android:padding="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +12,16 @@
 
         <ImageView
             android:id="@+id/iv_head"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
 
         <TextView
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:text="Teng Wei Herr"
+            android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp" />
@@ -28,6 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <TextView
@@ -53,8 +56,9 @@
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="9, Jalan Terubok, Taman Sri Paya, 86000 Kluang."
                 android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="40dp" />
         </RelativeLayout>
 
         <TextView
@@ -94,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="30dp"
-        android:text="-----------------------------------------------------------------" />
+        android:text="-------------------------------------------------------------------------------------------" />
 
     <LinearLayout
         android:layout_width="match_parent"

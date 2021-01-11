@@ -27,9 +27,10 @@
 
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
                 android:layout_gravity="bottom">
             <TextView
                 android:id="@+id/title"
@@ -37,15 +38,20 @@
                 android:layout_height="wrap_content"
                 android:text="Itinerary Title"
                 android:textSize="24sp"
-                android:layout_gravity="bottom"/>
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="start"/>
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Date"
-                android:textSize="10sp"
-                android:layout_gravity="bottom"/>
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textAlignment="viewEnd"
+                android:gravity="end|center_vertical"
+                android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
 

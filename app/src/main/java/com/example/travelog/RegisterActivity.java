@@ -221,7 +221,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isUser(final String username, final String password) {
         DatabaseReference databaseUser = FirebaseDatabase.getInstance() .getReference("users");
 
-        Query checkUser = databaseUser.orderByChild("username").equalTo(username);
+        Query checkUser = databaseUser.orderByChild("user").equalTo(username);
 
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

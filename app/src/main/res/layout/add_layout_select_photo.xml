@@ -7,7 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/btn_style_alert_dialog_background"
+        android:background="@color/colorPrimaryDark"
         android:padding="20dp">
 
             <TextView
@@ -15,7 +15,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:background="@drawable/btn_style_alert_dialog_button"
+                android:background="@drawable/button_bg"
                 android:textColor="#0f0f0f"
                 android:text="Take a photo"
                 android:shadowDx="0.5"

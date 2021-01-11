@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp">
-
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="15dp"
-        android:id="@+id/linearLayout">
 
 
         <TextView
@@ -26,62 +14,60 @@
             android:layout_height="wrap_content"
             android:text="Start Time"
             android:id="@+id/startTime"
-            android:textSize="15sp"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="100dp"
+            android:textStyle="bold"
             android:layout_gravity="center"
             />
 
         <TimePicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:timePickerMode="spinner"
             android:id="@+id/time_picker1"
             android:layout_gravity="center"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="End Time"
-            android:id="@+id/endTime"
-            android:textSize="15sp"
-            android:layout_gravity="center"
-            />
-
-        <TimePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:timePickerMode="spinner"
-            android:id="@+id/time_picker2"
-            android:layout_gravity="center"/>
-
-
-
-
-    </LinearLayout>
 
     <EditText
         android:id="@+id/rowTitle_edit"
+        android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:textSize="16sp"
         android:hint="Title" />
 
     <EditText
         android:id="@+id/location_edit"
+        android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rowTitle_edit"
-        android:hint="Location"
-        android:layout_alignParentLeft="true" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:hint="Location" />
 
     <EditText
         android:id="@+id/description_edit"
+        android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/location_edit"
-        android:layout_alignParentStart="true"
-        android:hint="Description"
-        android:layout_alignParentLeft="true" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:hint="Description" />
 
     </LinearLayout>
-
-</ScrollView>

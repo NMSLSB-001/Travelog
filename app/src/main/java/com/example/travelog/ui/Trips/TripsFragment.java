@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -17,6 +18,7 @@ public class TripsFragment extends Fragment {
 
         Button itinerary;
         Button articles;
+        TextView label;
 
 
         // TODO: Rename parameter arguments, choose names that match
@@ -67,6 +69,8 @@ public class TripsFragment extends Fragment {
 
         itinerary = view.findViewById(R.id.itinerary);
         articles = view.findViewById(R.id.articles);
+        label = view.findViewById(R.id.label);
+        label.animate().translationYBy(-60).setDuration(2000).start();
 
         itinerary.setOnClickListener(new View.OnClickListener() {
             @Override
