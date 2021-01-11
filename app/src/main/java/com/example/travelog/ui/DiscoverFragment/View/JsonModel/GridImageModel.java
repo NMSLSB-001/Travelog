@@ -1,4 +1,4 @@
-package com.example.travelog.ui.DiscoverFragment.View.BeanModel;
+package com.example.travelog.ui.DiscoverFragment.View.JsonModel;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class GridImageModel {
     private String imgUrl;
-    private List<com.example.travelog.ui.DiscoverFragment.View.BeanModel.ListItemModel> list;
+    private List<ListItemModel> list;
 
     public String getImgUrl() {
         return imgUrl;
@@ -18,11 +18,11 @@ public class GridImageModel {
         this.imgUrl = imgUrl;
     }
 
-    public List<com.example.travelog.ui.DiscoverFragment.View.BeanModel.ListItemModel> getList() {
+    public List<ListItemModel> getList() {
         return list;
     }
 
-    public void setList(List<com.example.travelog.ui.DiscoverFragment.View.BeanModel.ListItemModel> list) {
+    public void setList(List<ListItemModel> list) {
         this.list = list;
     }
 

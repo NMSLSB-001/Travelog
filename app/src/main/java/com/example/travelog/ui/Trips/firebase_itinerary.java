@@ -33,14 +33,21 @@ public class firebase_itinerary {
         this.location = location;
     }
 
-    String itinerary_title, startDate, endDate, location;
+    String itinerary_title, startDate, endDate, location, itineraryID;
 
-    public firebase_itinerary(String itinerary_title, String startDate, String endDate, String location) {
+    public String getItineraryID() {
+        return itineraryID;
+    }
+
+    public void setItineraryID(String itineraryID) {
+        this.itineraryID = itineraryID;
+    }
+
+    public firebase_itinerary(String itinerary_title, String startDate, String endDate, String location, String itineraryID) {
         this.itinerary_title = itinerary_title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.location = location;
-
+        this.itineraryID = itineraryID;
     }
-
 }

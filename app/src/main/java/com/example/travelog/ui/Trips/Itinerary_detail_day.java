@@ -88,7 +88,8 @@ public class Itinerary_detail_day extends AppCompatActivity{
 
     public void createItineraryListDay() {
         ItineraryListDay = new ArrayList<>();
-        ItineraryListDay.add(new ItineraryRowDay("New title ", "Make your own notes.", "Day "));
+        ItineraryListDay.add(new ItineraryRowDay("New title ", "Make your own notes.", "Day 1"));
+        ItineraryListDay.add(new ItineraryRowDay("New title 2 ", "Make your own notes 2.", "Day 2"));
 
     }
 

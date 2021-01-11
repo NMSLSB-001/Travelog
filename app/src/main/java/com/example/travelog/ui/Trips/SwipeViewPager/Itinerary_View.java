@@ -45,7 +45,7 @@ public class Itinerary_View extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//get all child itinerary under user in loop
+            //get all child itinerary under user in loop
                 for(DataSnapshot dataSnapshot: snapshot.getChildren())
                 {
                             //retrieve data

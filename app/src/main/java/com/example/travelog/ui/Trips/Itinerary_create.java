@@ -138,10 +138,10 @@ public class Itinerary_create extends AppCompatActivity{
         Date GetDate = new Date();
         String itineraryID = timeStampFormat.format(GetDate);
 
-        firebase_itinerary firebase_itinerary = new firebase_itinerary(createdTitle, createdStartDate, createdEndDate, createdLocation);
+        firebase_itinerary firebase_itinerary = new firebase_itinerary(itineraryID, createdTitle, createdStartDate, createdEndDate, createdLocation);
         reference.child(Username).child(itineraryID).setValue(firebase_itinerary);
 
-//        intent.putExtra("Number", num);
+        //intent.putExtra("Number", num);
         startActivity(intent);
 
     }

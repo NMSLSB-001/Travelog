@@ -87,7 +87,7 @@ public class ViewGalleryActivity extends Activity implements ViewPager.OnPageCha
             photoView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
                 @Override
                 public void onViewTap(View view, float x, float y) {
-                    ViewGalleryActivity.this.finish();
+                    com.example.travelog.ui.DiscoverFragment.View.ViewGalleryActivity.this.finish();
                 }
             });
 
