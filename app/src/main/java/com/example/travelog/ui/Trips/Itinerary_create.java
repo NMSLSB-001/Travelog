@@ -18,6 +18,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 import org.w3c.dom.Text;
 
@@ -26,7 +27,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Itinerary_create extends AppCompatActivity{
 
@@ -38,11 +41,13 @@ public class Itinerary_create extends AppCompatActivity{
     private EditText itinerary_title, location;
     String Username;
     Integer num;
+    int duration;
     String createdTitle, createdStartDate, createdEndDate, createdLocation;
     List<Date> dates = new ArrayList<Date>();
 
     FirebaseDatabase rootNode;
     DatabaseReference reference;
+    DatabaseReference itinerary_Details;
 
     public static final String p_createdTitle = "p_createdTitle";
     public static final String p_createdStartDate = "p_createdStartDate";
@@ -102,6 +107,9 @@ public class Itinerary_create extends AppCompatActivity{
                 startDate.setText(simpleFormat.format(date1));
                 endDate.setText(simpleFormat.format(date2));
 
+                long difference = Math.abs(date2.getTime() - date1.getTime());
+                duration = (int) (difference / (1000 * 60 * 60 * 24));
+
                 createdStartDate = startDate.getText().toString();
                 createdEndDate = endDate.getText().toString();
 
@@ -130,18 +138,32 @@ public class Itinerary_create extends AppCompatActivity{
 
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("itinerary");
+        itinerary_Details = rootNode.getReference("itineraryDetails");
 
         createdTitle = itinerary_title.getText().toString().trim();
         createdLocation = location.getText().toString().trim();
+
+        String[] days = new String[duration];
+        for(int i = 0; i < duration; i++){
+            int add = i+1;
+            days[i] = "day" + add;
+        }
 
         SimpleDateFormat timeStampFormat = new SimpleDateFormat("ddMMyyyyHHmm");
         Date GetDate = new Date();
         String itineraryID = timeStampFormat.format(GetDate);
 
-        firebase_itinerary firebase_itinerary = new firebase_itinerary(createdTitle, createdStartDate, createdEndDate, createdLocation);
+        firebase_itinerary firebase_itinerary = new firebase_itinerary(createdTitle, createdStartDate, createdEndDate, createdLocation, itineraryID);
         reference.child(Username).child(itineraryID).setValue(firebase_itinerary);
 
-//        intent.putExtra("Number", num);
+
+        String input = "base_data";
+        itineraryDetails itineraryInput = new itineraryDetails(input);
+        for(int i = 0; i < duration; i++){
+            itinerary_Details.child(Username).child(itineraryID).child(days[i]).child("baseData").setValue(itineraryInput);
+        }
+
+        //intent.putExtra("Number", num);
         startActivity(intent);
 
     }

@@ -42,6 +42,7 @@ public class Itinerary_detail_day extends AppCompatActivity{
 
     DatabaseReference ref;
     String Username;
+    //String selected = getIntent().getStringExtra("selected");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class Itinerary_detail_day extends AppCompatActivity{
 
         title = findViewById(R.id.title);
         date = findViewById(R.id.date);
+
+        title.setText("hehek");
 
         //retrieve data
         Username = User.getName();
@@ -88,7 +91,8 @@ public class Itinerary_detail_day extends AppCompatActivity{
 
     public void createItineraryListDay() {
         ItineraryListDay = new ArrayList<>();
-        ItineraryListDay.add(new ItineraryRowDay("New title ", "Make your own notes.", "Day "));
+        ItineraryListDay.add(new ItineraryRowDay("New title ", "Make your own notes.", "Day 1"));
+        ItineraryListDay.add(new ItineraryRowDay("New title 2 ", "Make your own notes 2.", "Day 2"));
 
     }
 
