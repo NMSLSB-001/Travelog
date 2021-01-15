@@ -180,7 +180,6 @@ public class ProfileFragment extends Fragment {
         //跳转到修改密码的activity上
         //设置跳转到MainActivity并销毁WelcomeActivity
         mBtn_setting = view.findViewById(R.id.btn_setting);//找到当前Fragment的Button按钮
-        mBtn_setting.animate().rotation(180).setDuration(2000).start();
         mBtn_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
