@@ -12,10 +12,10 @@ public class Upload {
         this.imageName = imageName;
         this.imageUrl = imageUrl;
     }
-    public String getName() {
+    public String getImageId() {
         return imageId;
     }
-    public void setName(String imageId) {
+    public void setImageId(String imageId) {
         this.imageId = imageId;
     }
     public String getImageName() {

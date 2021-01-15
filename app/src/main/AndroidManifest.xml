@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.travelog" >
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="Instantiatable" >
+
         <activity android:name=".ui.Trips.Itinerary_create"/>
         <activity
             android:name=".ui.Trips.Itinerary_detail_day"
@@ -21,6 +23,10 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".ui.Trips.Itinerary_detail_hour"/>
         <activity android:name=".ui.Trips.SwipeViewPager.Itinerary_View"/>
+        <activity android:name=".ui.DiscoverFragment.View.CommentActivity"/>
+        <activity android:name=".ui.DiscoverFragment.View.SeeCommentActivity"/>
+        <activity android:name=".ui.DiscoverFragment.View.ViewActivity"/>
+        <activity android:name=".ui.DiscoverFragment.View.ViewGalleryActivity"/>
         <activity android:name=".ui.Trips.Itinerary_add_hour"
             android:theme="@style/AppTheme"/>
         <activity android:name=".ui.Trips.TripsFragment"

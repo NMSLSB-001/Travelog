@@ -7,4 +7,5 @@ public class DiscoverBean {
     public String userName;
     public String icon;
     public String title;
+    public int commentNumber;
 }

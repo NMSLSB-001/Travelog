@@ -1,7 +1,7 @@
 package com.example.travelog.ui.Trips.ArticleAdd;
 
 public class ArticleInfo {
-    private int articleId;
+    private int id;
     private String userId;
     private String location;
     private String title;
@@ -9,8 +9,8 @@ public class ArticleInfo {
     private String time;
     private String urlJson;
 
-    public ArticleInfo(int articleId, String userId, String location, String title, String content, String time, String urlJson) {
-        this.articleId = articleId;
+    public ArticleInfo(int id, String userId, String location, String title, String content, String time, String urlJson) {
+        this.id = id;
         this.userId = userId;
         this.location = location;
         this.title = title;
@@ -20,11 +20,11 @@ public class ArticleInfo {
     }
 
     public int getId() {
-        return articleId;
+        return id;
     }
 
-    public void setId(int articleId) {
-        this.articleId = articleId;
+    public void setId(int id) {
+        this.id = id;
     }
     //
     public String getUserId() {

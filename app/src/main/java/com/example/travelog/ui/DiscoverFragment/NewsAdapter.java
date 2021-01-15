@@ -20,20 +20,20 @@ import java.util.ArrayList;
 
 public class NewsAdapter extends BaseAdapter {
 
-    private ArrayList<com.example.travelog.ui.DiscoverFragment.DiscoverBean> mList;
+    private ArrayList<DiscoverBean> mList;
     Context context;
 
-    public NewsAdapter(Context context, ArrayList<com.example.travelog.ui.DiscoverFragment.DiscoverBean> data){
+    public NewsAdapter(Context context, ArrayList<DiscoverBean> data){
         mList = data;
         this.context = context;
-        }
+    }
     @Override
     public int getCount() {
         return mList.size();
     }
 
     @Override
-    public com.example.travelog.ui.DiscoverFragment.DiscoverBean getItem(int position) {
+    public DiscoverBean getItem(int position) {
         return mList.get(position);
     }
 
@@ -53,11 +53,12 @@ public class NewsAdapter extends BaseAdapter {
             holder.tvUserName = (TextView) convertView.findViewById(R.id.tv_username);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
             holder.ivIcon = (ImageView) convertView.findViewById(R.id.iv_icon);
+            holder.tvCommentNumber = (TextView) convertView.findViewById(R.id.tv_comment_number);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        com.example.travelog.ui.DiscoverFragment.DiscoverBean item = getItem(position);
+        DiscoverBean item = getItem(position);
         holder.tvArticleID.setText(item.articleId);
         holder.tvUserName.setText(item.userName);
         Glide.with(context).asBitmap().load(item.headImage).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(new BitmapImageViewTarget(holder.ivHeadImage) {
@@ -78,7 +79,7 @@ public class NewsAdapter extends BaseAdapter {
                 skipMemoryCache(true).
                 diskCacheStrategy(DiskCacheStrategy.NONE).
                 into(holder.ivIcon);
-
+        holder.tvCommentNumber.setText(String.valueOf(item.commentNumber));
         return convertView;
     }
 
@@ -88,6 +89,7 @@ public class NewsAdapter extends BaseAdapter {
         ImageView ivHeadImage;
         TextView tvTitle;
         ImageView ivIcon;
+        TextView tvCommentNumber;
 
     }
 }

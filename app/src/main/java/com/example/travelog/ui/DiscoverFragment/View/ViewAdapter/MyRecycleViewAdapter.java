@@ -60,15 +60,15 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter {
         viewHolder.tvContent.setText(itemModle.getContent());
         viewHolder.tvTime.setText(itemModle.getTime());
         Glide.with(mContext).asBitmap().load(itemModle.getHeadImg()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(new BitmapImageViewTarget(viewHolder.ivHead) {
-                    @Override
-                    protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable rounde = RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
-                        rounde.setCircular(true);
-                        //要实现圆角，只需要加上这句
-                        rounde.setCornerRadius(100L);
-                        viewHolder.ivHead.setImageDrawable(rounde);
-                    }
-                });
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable rounde = RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
+                rounde.setCircular(true);
+                //要实现圆角，只需要加上这句
+                rounde.setCornerRadius(100L);
+                viewHolder.ivHead.setImageDrawable(rounde);
+            }
+        });
 
 
         if (itemModle != null && itemModle.getUrls().size() > 0) {

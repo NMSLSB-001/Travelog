@@ -1,21 +1,28 @@
 package com.example.travelog.ui.Trips.ArticleAdd;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -35,12 +42,12 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.travelog.MainActivity;
 import com.example.travelog.R;
-import com.example.travelog.ui.DiscoverFragment.DiscoverFragment;
-import com.example.travelog.ui.Trips.Itinerary_create;
-import com.example.travelog.ui.Trips.TripsFragment;
+import com.example.travelog.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -48,14 +55,23 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
+
+//import com.example.travelog.D.DiscoverActivity;
 
 public class AddActivity extends Activity implements
         MyDialog.OnButtonClickListener, OnItemClickListener {
@@ -98,6 +114,14 @@ public class AddActivity extends Activity implements
     private StorageReference mStorageRef;
     private DatabaseReference mArticleRef;
     private DatabaseReference mImageRef;
+    private DatabaseReference mImageRef2;
+    private DatabaseReference mArticleRef2;
+
+    public static final int LOCATION_CODE = 301;
+    private LocationManager locationManager;
+    private String locationProvider = null;
+    // 定位的经纬度
+    private String locationStr = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +180,8 @@ public class AddActivity extends Activity implements
         ivLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                etLocation.setText("1");
+                getLocation();
+                getAddressAndWeather();
             }
         });
     }
@@ -171,14 +196,15 @@ public class AddActivity extends Activity implements
         } else if (TextUtils.isEmpty(unVerifyContent)) {
             Toast.makeText(AddActivity.this, "Please enter some contents", Toast.LENGTH_SHORT).show();
         }else if (TextUtils.isEmpty(unVerifyLocation)) {
-                Toast.makeText(AddActivity.this, "Please enter a location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddActivity.this, "Please enter a location", Toast.LENGTH_SHORT).show();
         } else {
             uploadImage();
 
             uploadInfo();
-            Toast.makeText(AddActivity.this, "Upload successful!", Toast.LENGTH_LONG).show();
+
             AddActivity.this.finish();
-            startActivity(new Intent(AddActivity.this, TripsFragment.class));
+            startActivity(new Intent(AddActivity.this, MainActivity.class));
+
         }
     }
 
@@ -189,10 +215,10 @@ public class AddActivity extends Activity implements
             if (photoData.get(i) != null) {
                 isUrl = String.valueOf(index);
                 path = "photo/" + UUID.randomUUID() + ".png";
-                final String finalPath = path.substring(6);
+                String finalPath = path.substring(6);
                 buttonSubmit.setEnabled(false);
                 topBarImage_1.setEnabled(false);
-                final StorageReference Ref = mStorageRef.child(path);
+                StorageReference Ref = mStorageRef.child(path);
 
                 StorageTask uploadTask = Ref.putBytes(photoData.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -201,26 +227,34 @@ public class AddActivity extends Activity implements
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                progressBar.setProgress(0);
+                                //progressBar.setProgress(0);
                             }
                         }, 500);
 
-                        Upload upload = new Upload(String.valueOf(index), finalPath, Ref.getDownloadUrl().toString());
+                        Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                        while (!urlTask.isSuccessful());
+                        Uri downloadUrl = urlTask.getResult();
+                        Upload upload = new Upload(String.valueOf(articleId) + index, finalPath, downloadUrl.toString());
+                        Gson gson = new Gson();
                         mImageRef.child(String.valueOf(articleId) + index).setValue(upload);
+                        String imJson = gson.toJson(upload);
+                        mImageRef2.child(String.valueOf(articleId) + index).setValue(imJson);
+
+                        Toast.makeText(AddActivity.this, "Upload successful!", Toast.LENGTH_LONG).show();
                         index++;
                     }
                 })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(AddActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         })
                         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                                 double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                                progressBar.setProgress((int) progress);
+                                //progressBar.setProgress((int) progress);
                             }
                         });
             }
@@ -232,12 +266,14 @@ public class AddActivity extends Activity implements
         content = etContent.getText().toString().trim();
         location = etLocation.getText().toString().trim();
 
-        userId = com.example.travelog.ui.DiscoverFragment.View.StringData.getUserName();
-
+        userId = User.getName();
         time = getDate();
         //Toast.makeText(AddActivity.this, sp.getString("1" , ""),Toast.LENGTH_LONG).show();
         ArticleInfo articleInfo = new ArticleInfo(articleId, userId, location, title, content, time, isUrl);
         mArticleRef.child(String.valueOf(articleId)).setValue(articleInfo);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(articleInfo);
+        mArticleRef2.child(String.valueOf(articleId)).setValue(userJson);
     }
 
     private int getArticleId() {
@@ -279,7 +315,7 @@ public class AddActivity extends Activity implements
         ivLocation = findViewById(R.id.iv_location);
         etLocation = findViewById(R.id.et_location);
         buttonSubmit = findViewById(R.id.bt_submit);
-        progressBar = findViewById(R.id.progress_bar);
+        //progressBar = findViewById(R.id.progress_bar);
 
         gridView = (GridView) findViewById(R.id.gridView);
         gridView.setOnItemClickListener(this);
@@ -294,6 +330,8 @@ public class AddActivity extends Activity implements
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mArticleRef = FirebaseDatabase.getInstance().getReference("articles");
         mImageRef = FirebaseDatabase.getInstance().getReference("images");
+        mImageRef2 = FirebaseDatabase.getInstance().getReference("imagesJson");
+        mArticleRef2 = FirebaseDatabase.getInstance().getReference("articlesJson");
 
         articleId = getArticleId();
         imageUrls = new ArrayList<>();
@@ -464,7 +502,7 @@ public class AddActivity extends Activity implements
             if (position != 0) {
                 dialog(position);
             } else {
-                Toast.makeText(com.example.travelog.ui.Trips.ArticleAdd.AddActivity.this, "Maximum 9 photos allowed",
+                Toast.makeText(AddActivity.this, "Maximum 9 photos allowed",
                         Toast.LENGTH_SHORT).show();
             }
 
@@ -481,7 +519,7 @@ public class AddActivity extends Activity implements
      * Dialog对话框提示用户删除操作 position为删除图片位置
      */
     protected void dialog(final int position) {
-        Builder builder = new Builder(com.example.travelog.ui.Trips.ArticleAdd.AddActivity.this);
+        Builder builder = new Builder(AddActivity.this);
         builder.setMessage("Are you sure to remove this photo?");
         builder.setTitle("Notice");
         builder.setPositiveButton("YES", (dialog, which) -> {
@@ -506,6 +544,187 @@ public class AddActivity extends Activity implements
         intent.putExtra("outputY", 500);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_ZOOM);
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0x0001:
+                    Toast.makeText(AddActivity.this, "Get location successful!", Toast.LENGTH_SHORT).show();
+                    JSONObject res = (JSONObject) msg.obj;
+                    try {
+                        JSONObject basic = res.getJSONObject("basic");
+                        String address = basic.getString("location");
+                        String parentCity = basic.getString("admin_area");
+
+                        JSONObject now = res.getJSONObject("now");
+
+                        String condTxt = now.getString("cond_txt");
+                        String windDir = now.getString("wind_dir");
+                        String tmp = now.getString("tmp");
+
+                        String toMsg = parentCity + " " + address + " " + condTxt + " " + windDir + " " + tmp + "℃\n";
+                        etLocation.setText(toMsg);
+
+                    } catch (Exception e) {
+                        Toast.makeText(AddActivity.this, "Wrong： " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+
+                    break;
+                case 0x0002:
+                    Toast.makeText(AddActivity.this, "Wrong： " + (String) msg.obj, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
+    private void getAddressAndWeather() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                OkHttpClient client = new OkHttpClient();
+
+                String url = "https://free-api.heweather.net/s6/weather/now?key=7bed08b4386e4bfd8dc621e30d8190cb&location=" + locationStr;
+                Log.d("urlMsg", url);
+                // 获取地址和天气
+                Request request = new Request.Builder()
+                        .url(url)
+                        .get()  //默认为GET请求，可以不写
+                        .build();
+                try {
+                    Response execute = client.newCall(request).execute();
+                    JSONObject jsonObject = new JSONObject(execute.body().string());
+                    JSONObject res = jsonObject.getJSONArray("HeWeather6").getJSONObject(0);
+
+                    Message msg = new Message();
+                    msg.what = 0x0001;
+                    msg.obj = res;
+                    mHandler.sendMessage(msg);
+
+                } catch (Exception e) {
+                    Message msg = new Message();
+                    msg.what = 0x0002;
+                    msg.obj = e.getMessage();
+                    mHandler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    private void getLocation() {
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //获取权限（如果没有开启权限，会弹出对话框，询问是否开启权限）
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                //请求权限
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_CODE);
+            } else {
+
+                List<String> providers = locationManager.getProviders(true);
+                if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+                    //如果是Network
+                    locationProvider = LocationManager.NETWORK_PROVIDER;
+                }else if (providers.contains(LocationManager.GPS_PROVIDER)) {
+                    //如果是GPS
+                    locationProvider = LocationManager.GPS_PROVIDER;
+                }
+
+                //监视地理位置变化
+                locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
+                Location location = locationManager.getLastKnownLocation(locationProvider);
+                if (location != null) {
+                    locationStr = location.getLongitude() + "," + location.getLatitude();
+                    locationManager.removeUpdates(locationListener);
+                }
+
+            }
+        } else {
+            List<String> providers = locationManager.getProviders(true);
+            if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+                //如果是Network
+                locationProvider = LocationManager.NETWORK_PROVIDER;
+            }else if (providers.contains(LocationManager.GPS_PROVIDER)) {
+                //如果是GPS
+                locationProvider = LocationManager.GPS_PROVIDER;
+            }
+
+            //监视地理位置变化
+            locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
+            Location location = locationManager.getLastKnownLocation(locationProvider);
+            if (location != null) {
+                locationStr = location.getLongitude() + "," + location.getLatitude();
+                locationManager.removeUpdates(locationListener);
+            }
+        }
+    }
+
+    public LocationListener locationListener = new LocationListener() {
+        // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        // Provider被enable时触发此函数，比如GPS被打开
+        @Override
+        public void onProviderEnabled(String provider) {
+        }
+
+        // Provider被disable时触发此函数，比如GPS被关闭
+        @Override
+        public void onProviderDisabled(String provider) {
+        }
+
+        //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
+        @Override
+        public void onLocationChanged(Location location) {
+            if (location != null) {
+                //不为空
+                locationStr = location.getLongitude() + "," + location.getLatitude();
+                locationManager.removeUpdates(locationListener);
+            }
+        }
+    };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case LOCATION_CODE:
+                if (grantResults.length > 0 && grantResults[0] == getPackageManager().PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Request permission", Toast.LENGTH_LONG).show();
+                    try {
+                        List<String> providers = locationManager.getProviders(true);
+                        if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+                            //如果是Network
+                            locationProvider = LocationManager.NETWORK_PROVIDER;
+                        }else if (providers.contains(LocationManager.GPS_PROVIDER)) {
+                            //如果是GPS
+                            locationProvider = LocationManager.GPS_PROVIDER;
+                        }
+
+                        //监视地理位置变化
+                        locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
+                        Location location = locationManager.getLastKnownLocation(locationProvider);
+                        if (location != null) {
+                            locationStr = location.getLongitude() + "," + location.getLatitude();
+                            locationManager.removeUpdates(locationListener);
+                        }
+                    } catch (SecurityException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(this, "The lack of permissions", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                break;
+        }
     }
 
 }
