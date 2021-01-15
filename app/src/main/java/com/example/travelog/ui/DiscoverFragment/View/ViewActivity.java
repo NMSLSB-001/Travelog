@@ -40,6 +40,7 @@ public class ViewActivity extends Activity {
     DatabaseReference mImageRef2;
 
     private String articleId;
+    private String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class ViewActivity extends Activity {
         Intent intent = getIntent();
         //getXxxExtra方法获取Intent传递过来的数据
         articleId = intent.getStringExtra("data");
+        status = intent.getStringExtra("status");
 
         init();
         social();
@@ -131,13 +133,24 @@ public class ViewActivity extends Activity {
     }
 
     private void social() {
-        topBarImage_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewActivity.this.finish();
-                startActivity(new Intent(ViewActivity.this, MainActivity.class));
-            }
-        });
+        if (status.equals("0")){
+            topBarImage_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewActivity.this.finish();
+                    startActivity(new Intent(ViewActivity.this, MainActivity.class));
+                }
+            });
+        } else if (status.equals("1")) {
+            topBarImage_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewActivity.this.finish();
+                    //startActivity(new Intent(ViewActivity.this, MainActivity.class));
+                }
+            });
+        }
+
 
         ivComment.setOnClickListener(new View.OnClickListener() {
             @Override
