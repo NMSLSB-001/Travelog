@@ -159,7 +159,7 @@ public class Itinerary_create extends AppCompatActivity{
     }
     
     public void create(View view) {
-        Intent intent = new Intent(Itinerary_create.this, Itinerary_View.class);
+        Intent intent = new Intent(Itinerary_create.this, Itinerary_detail_day.class);
         create = (Button) findViewById(R.id.create);
 
         rootNode = FirebaseDatabase.getInstance();
@@ -172,7 +172,7 @@ public class Itinerary_create extends AppCompatActivity{
         String[] days = new String[duration];
         for(int i = 0; i < duration; i++){
             int add = i+1;
-            days[i] = "day" + add;
+            days[i] = "Day " + add;
         }
 
         SimpleDateFormat timeStampFormat = new SimpleDateFormat("ddMMyyyyHHmm");
@@ -184,12 +184,12 @@ public class Itinerary_create extends AppCompatActivity{
 
 
         String input = "base_data";
-        itineraryDetails itineraryInput = new itineraryDetails(input);
+        itineraryDetails itineraryInput = new itineraryDetails(input, input, input, input);
         for(int i = 0; i < duration; i++){
             itinerary_Details.child(Username).child(itineraryID).child(days[i]).child("baseData").setValue(itineraryInput);
         }
 
-        //intent.putExtra("Number", num);
+        intent.putExtra("itineraryID", itineraryID);
         startActivity(intent);
 
     }

@@ -38,6 +38,10 @@ public class Itinerary_detail_hour extends AppCompatActivity{
 
     String Username;
     DatabaseReference ref;
+    List<String> hourTime = new ArrayList<>();
+    List<String> hourTitle = new ArrayList<>();
+    List<String> hourDescription = new ArrayList<>();
+    List<String> hourLocation = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,40 +50,46 @@ public class Itinerary_detail_hour extends AppCompatActivity{
 
         //retrieve data
         Username = User.getName();
-        ref = FirebaseDatabase.getInstance().getReference().child("itinerary").child(Username);
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //retrieve data
-                //display them into list of hours
-                //the recyclerview is using ItineraryListHour arraylist;
-                //click them to edit, add button to add
-                //use StartDate for unique ID ok kut
-            }
+        Intent intent = getIntent();
+        String dayTitle = intent.getStringExtra("dayTitle");
+        String itineraryID = intent.getStringExtra("itineraryID");
+        ref = FirebaseDatabase.getInstance().getReference().child("itineraryDetails").child(Username).child(itineraryID).child(dayTitle);
 
+
+        ItineraryListHour = new ArrayList<>();
+
+        readHour(new FirebaseCallback() {
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCallback(List<String> list) {
+                ItineraryListHour = new ArrayList<>();
+                for(int i = 0; i < hourTime.size(); i++) {
+                    ItineraryListHour.add(new ItineraryRowHour(hourTitle.get(i), hourDescription.get(i), hourLocation.get(i), hourTime.get(i)));
+                }
+
+                buildRecyclerView();
+
+                //add button
+                add = findViewById(R.id.add);
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = getIntent();
+                        String dayTitle = intent.getStringExtra("dayTitle");
+                        String itineraryID = intent.getStringExtra("itineraryID");
+                        Intent intent2 = new Intent(Itinerary_detail_hour.this, Itinerary_add_hour.class);
+                        intent2.putExtra("dayTitle", dayTitle);
+                        intent2.putExtra("itineraryID", itineraryID);
+                        startActivity(intent2);
+                        ItineraryListHour = new ArrayList<>();
+                    }
+                });
+
+                //swipe function ---
+                ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+                itemTouchHelper.attachToRecyclerView(recyclerView);
 
             }
         });
-
-        createItineraryListHour();
-        buildRecyclerView();
-
-        //add button
-        add = findViewById(R.id.add);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Itinerary_detail_hour.this, Itinerary_add_hour.class);
-                startActivityForResult(intent, ADD_NOTE_REQUEST);
-            }
-        });
-
-        //swipe function ---
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
     }
 
 
@@ -88,10 +98,38 @@ public class Itinerary_detail_hour extends AppCompatActivity{
         mAdapter.notifyItemRemoved(position);
     }
 
-    public void createItineraryListHour() {
-        ItineraryListHour = new ArrayList<>();
-        ItineraryListHour.add(new ItineraryRowHour("New Title1", "New Description", "Location" , "8:00"));
-        ItineraryListHour.add(new ItineraryRowHour("New Title2", "New Description", "Location" , "9:00"));
+    private void readHour(FirebaseCallback firebaseCallback){
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dss: snapshot.getChildren()) {
+                    String time = dss.getKey();
+                    if(time == "base_data"){
+                        continue;
+                    } else {
+                        String description = String.valueOf(dss.child("description").getValue());
+                        String location = String.valueOf(dss.child("location").getValue());
+                        String title = String.valueOf(dss.child("title").getValue());
+                        hourTime.add(time);
+                        hourDescription.add(description);
+                        hourLocation.add(location);
+                        hourTitle.add(title);
+                    }
+
+                }
+
+                firebaseCallback.onCallback(hourTime);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public interface FirebaseCallback {
+        void onCallback(List<String> list);
     }
 
     private void buildRecyclerView() {

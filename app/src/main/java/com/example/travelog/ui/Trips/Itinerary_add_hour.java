@@ -5,25 +5,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelog.R;
-import com.google.android.gms.common.api.Status;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.Autocomplete;
-import com.google.android.libraries.places.widget.AutocompleteActivity;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-
-import java.util.Arrays;
-import java.util.List;
+import com.example.travelog.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Itinerary_add_hour extends AppCompatActivity {
     public static final String EXTRA_ID =
@@ -52,7 +44,8 @@ public class Itinerary_add_hour extends AppCompatActivity {
     private EditText editTextLocation;
     private TextView startTime;
     private TimePicker timePicker1;
-    private String titleOld, descriptionOld, locationOld, startingTimeOld, endingTimeOld;
+    private String titleOld, descriptionOld, locationOld, startingTimeOld, endingTimeOld, Username;
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,27 +58,10 @@ public class Itinerary_add_hour extends AppCompatActivity {
         startTime = findViewById(R.id.startTime);
         timePicker1 = findViewById(R.id.time_picker1);
 
-        //initialize places API
-        Places.initialize(getApplicationContext(), "AIzaSyDG7fly7vSrxUUFggJA9ZBzMNeuoQeoyiA");
-
-        //Set edittext non focusable
-        editTextLocation.setFocusable(false);
-        editTextLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //initialize place field list
-                List<Place.Field> fieldList= Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG,Place.Field.NAME);
-
-                //create intent
-                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(Itinerary_add_hour.this);
-
-                //start activity
-                startActivityForResult(intent, 100);
-            }
-        });
-
+        Username = User.getName();
 
         Intent intent = getIntent();
+
 
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Row");
@@ -114,6 +90,7 @@ public class Itinerary_add_hour extends AppCompatActivity {
         int hour1 = timePicker1.getCurrentHour();
         int min1 = timePicker1.getCurrentMinute();
         String startingTime = hour1 + ":" + min1;
+        String timeTitle = hour1 + "" + min1;
         if (title.trim().isEmpty() || description.trim().isEmpty() || location.trim().isEmpty() || startingTime.trim().isEmpty()) {
             Toast.makeText(this, "Please insert complete info", Toast.LENGTH_SHORT).show();
             return;
@@ -122,17 +99,16 @@ public class Itinerary_add_hour extends AppCompatActivity {
 
 
         //update data to database
+        Intent intent = getIntent();
+        String dayTitle = intent.getStringExtra("dayTitle");
+        String itineraryID = intent.getStringExtra("itineraryID");
+
+        firebase_addHour firebase_addHour = new firebase_addHour(title, location, description, startingTime);
+        ref = FirebaseDatabase.getInstance().getReference().child("itineraryDetails").child(Username).child(itineraryID).child(dayTitle);
+        ref.child(timeTitle).setValue(firebase_addHour);
 
 
         //this tell previous activity either edit or add new
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
-        if (id != -1) {
-
-            data.putExtra(EXTRA_ID, id);
-
-        }
-
-        setResult(RESULT_OK, data);
         finish();
 
 
@@ -151,24 +127,6 @@ public class Itinerary_add_hour extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==100 && resultCode==RESULT_OK){
-            //when success
-            //initialize places
-            Place place = Autocomplete.getPlaceFromIntent(data);
-            //Set address in edittext
-            editTextLocation.setText(place.getAddress());
-        }else if(resultCode== AutocompleteActivity.RESULT_ERROR){
-            //when error
-            //initialize status
-            Status status = Autocomplete.getStatusFromIntent(data);
-            //toast message
-            Toast.makeText(getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

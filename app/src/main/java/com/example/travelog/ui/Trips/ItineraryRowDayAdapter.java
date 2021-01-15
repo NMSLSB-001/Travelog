@@ -1,5 +1,6 @@
 package com.example.travelog.ui.Trips;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,8 @@ public class ItineraryRowDayAdapter extends RecyclerView.Adapter<ItineraryRowDay
                     itineraryRowDay.setExpandable(!itineraryRowDay.getExpandable());
                     notifyItemChanged(getAdapterPosition());
 
+                    Log.i("testing:", "expand");
+
 
                 }
             });
@@ -89,13 +92,10 @@ public class ItineraryRowDayAdapter extends RecyclerView.Adapter<ItineraryRowDay
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(ItineraryListDay.get(position));
+
                     }
                 }
             });
-
-
-
-
 
         }
     }

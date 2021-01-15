@@ -57,7 +57,7 @@ public class Adapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Itinerary_detail_day.class);
-                intent.putExtra("param", models.get(position).getTitle());
+                intent.putExtra("itineraryID", models.get(position).getItineraryID());
                 context.startActivity(intent);
                 // finish();
             }

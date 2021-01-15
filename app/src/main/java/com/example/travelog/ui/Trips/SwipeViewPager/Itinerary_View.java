@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.travelog.R;
 import com.example.travelog.ui.Profile.User;
 import com.example.travelog.ui.Trips.Itinerary_detail_day;
+import com.example.travelog.selectedItinerary;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -86,15 +87,15 @@ public class Itinerary_View extends AppCompatActivity {
 
                     @Override
                     public void onPageSelected(int position) {
-
                         // TODO Auto-generated method stub
                         if(position==viewPager.getAdapter().getCount()){
-                            Intent reg = new Intent(Itinerary_View.this, Itinerary_detail_day.class);
+                            //Intent reg = new Intent(Itinerary_View.this, Itinerary_detail_day.class);
+
+                            Log.i("testing:", "ur mom");
 
                             //tell the next activity which model title is selected
-                            reg.putExtra("selected", models.get(position).getTitle());
-                            reg.putExtra("selectedID", models.get(position).getItineraryID());
-                            startActivity(reg);
+                            //startActivity(reg);
+                            return;
                         }
 
                     }
@@ -116,7 +117,6 @@ public class Itinerary_View extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dss: snapshot.getChildren()) {
-                    int i = (int) snapshot.getChildrenCount();
                     String title = String.valueOf(dss.child("itinerary_title").getValue());
                     String id = String.valueOf(dss.child("itineraryID").getValue());
 

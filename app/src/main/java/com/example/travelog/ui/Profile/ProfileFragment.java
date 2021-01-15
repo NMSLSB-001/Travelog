@@ -19,6 +19,10 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.travelog.R;
+import com.example.travelog.User;
+import com.example.travelog.change_password_Activity;
+import com.example.travelog.ui.Trips.Itinerary_detail_day;
+import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_View;
 
 import java.io.File;
 
@@ -41,6 +45,7 @@ public class ProfileFragment extends Fragment {
 
     private Button mFromAlbum; // 从相册选取
     private Button mTakePhotos; // 照相
+    private Button btn_itinerary;
     private final int FROM_ALBUM = 0;
     private final String FILE_NAME = "tempimg.jpg";
     private final int FROM_TAKE_PHOTOS = 1;
@@ -160,6 +165,18 @@ public class ProfileFragment extends Fragment {
                 });
             }
         });
+        btn_itinerary = view.findViewById(R.id.btn_focus);
+        btn_itinerary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(getActivity(), Itinerary_View.class);
+                startActivity(intent);
+
+                //这里可以进行设置，比如把性别写进txt文件
+            }
+        });
+
         //跳转到修改密码的activity上
         //设置跳转到MainActivity并销毁WelcomeActivity
         mBtn_setting = view.findViewById(R.id.btn_setting);//找到当前Fragment的Button按钮
