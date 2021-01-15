@@ -36,7 +36,7 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <com.example.travelog.ui.DiscoverFragment.View.Viewer.PhotoViewPager
+    <com.example.testnoactivity.View.Viewer.PhotoViewPager
         android:id="@+id/images_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

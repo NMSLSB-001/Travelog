@@ -19,11 +19,11 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.travelog.Display_personal_detailActivity;
-import com.example.travelog.Follow_functionActivity;
+import com.example.travelog.ui.Profile.Display_personal_detailActivity;
+import com.example.travelog.ui.Profile.Follow_functionActivity;
 import com.example.travelog.R;
-import com.example.travelog.User1;
-import com.example.travelog.change_password_Activity;
+import com.example.travelog.ui.Profile.User1;
+import com.example.travelog.ui.Profile.change_password_Activity;
 
 import java.io.File;
 

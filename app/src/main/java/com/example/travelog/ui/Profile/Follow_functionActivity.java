@@ -1,4 +1,4 @@
-package com.example.travelog;
+package com.example.travelog.ui.Profile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.travelog.MainActivity;
+import com.example.travelog.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,13 +48,13 @@ public class Follow_functionActivity extends AppCompatActivity {
         follow_button=findViewById(R.id.btn_follow_follow);
         ok_button=findViewById(R.id.btn_ok);
         follow_info=findViewById(R.id.tv_follow);
-        current_username=User1.getName();
+        current_username= User1.getName();
         //返回页面
         back=findViewById(R.id.btn_back_follow);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(com.example.travelog.Follow_functionActivity.this, MainActivity.class);
+                Intent intent=new Intent(Follow_functionActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -61,7 +63,7 @@ public class Follow_functionActivity extends AppCompatActivity {
         follow_list_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(com.example.travelog.Follow_functionActivity.this, Follow_listActivity.class);
+                Intent intent=new Intent(Follow_functionActivity.this, Follow_listActivity.class);
                 startActivity(intent);
             }
         });
@@ -76,9 +78,9 @@ public class Follow_functionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 username=editText.getText().toString().trim();
                 if(TextUtils.isEmpty(username)){
-                    Toast.makeText(com.example.travelog.Follow_functionActivity.this, "Please enter Target Username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Follow_functionActivity.this, "Please enter Target Username", Toast.LENGTH_SHORT).show();
                 }else if(username.equals(current_username)){
-                    Toast.makeText(com.example.travelog.Follow_functionActivity.this, "Do not enter your account number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Follow_functionActivity.this, "Do not enter your account number", Toast.LENGTH_SHORT).show();
                 }else{
                     isUser(username);
                 }
@@ -93,7 +95,7 @@ public class Follow_functionActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    Toast.makeText(com.example.travelog.Follow_functionActivity.this, "发现用户", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Follow_functionActivity.this, "发现用户", Toast.LENGTH_SHORT).show();
                     //显示当前用户
                     follow_info.setText(username);
                     follow_button.setText("Follow");
@@ -106,7 +108,7 @@ public class Follow_functionActivity extends AppCompatActivity {
                         }
                     });
                 }else{
-                    Toast.makeText(com.example.travelog.Follow_functionActivity.this, "没有这个用户", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Follow_functionActivity.this, "没有这个用户", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -125,13 +127,13 @@ public class Follow_functionActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //发现已经关注了改用户
                 if(snapshot.exists()){
-                    Toast.makeText(com.example.travelog.Follow_functionActivity.this, "You already followed this user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Follow_functionActivity.this, "You already followed this user", Toast.LENGTH_SHORT).show();
                     follow_button.setText("Unfollow");
                     follow_button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             unfollow();
-                            Toast.makeText(com.example.travelog.Follow_functionActivity.this, "Successfully unfollow", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Follow_functionActivity.this, "Successfully unfollow", Toast.LENGTH_SHORT).show();
                             follow_button.setText("");
                             follow_button.setBackground(getResources().getDrawable(R.drawable.btn_signup_dong));
                             follow_info.setText("");
@@ -172,7 +174,7 @@ public class Follow_functionActivity extends AppCompatActivity {
         follow_detail user=new follow_detail(star,current_username,time);
         databaseUser.child(star).setValue(user);
         follow_button.setText("Unfollow");
-        Toast.makeText(com.example.travelog.Follow_functionActivity.this, "Focus on success", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Follow_functionActivity.this, "Focus on success", Toast.LENGTH_SHORT).show();
 
     }
 

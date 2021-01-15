@@ -1,4 +1,4 @@
-package com.example.travelog;
+package com.example.travelog.ui.Profile;
 
 public class personal_detail {
     String username;//唯一的ID

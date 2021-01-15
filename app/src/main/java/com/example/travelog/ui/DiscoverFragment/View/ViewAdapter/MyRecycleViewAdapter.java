@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,11 +19,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.travelog.R;
+import com.example.travelog.ui.DiscoverFragment.DiscoverBean;
 import com.example.travelog.ui.DiscoverFragment.View.BeanModel.ListItemModel;
 import com.example.travelog.ui.DiscoverFragment.View.ViewGalleryActivity;
 import com.example.travelog.ui.DiscoverFragment.View.Viewer.MultiImageView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class MyRecycleViewAdapter extends RecyclerView.Adapter {
@@ -30,11 +34,13 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter {
     private List<ListItemModel> list;
     private LayoutInflater mInflater;
     private ArrayList<String> images;
+//    List<ListItemModel> listAll;
 
     public MyRecycleViewAdapter(Context mContext) {
 
         this.mContext = mContext;
         mInflater = LayoutInflater.from(mContext);
+//        this.listAll = new ArrayList<>(list);
     }
 
     public void setList(List<ListItemModel> list) {
@@ -60,15 +66,15 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter {
         viewHolder.tvContent.setText(itemModle.getContent());
         viewHolder.tvTime.setText(itemModle.getTime());
         Glide.with(mContext).asBitmap().load(itemModle.getHeadImg()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(new BitmapImageViewTarget(viewHolder.ivHead) {
-                    @Override
-                    protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable rounde = RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
-                        rounde.setCircular(true);
-                        //要实现圆角，只需要加上这句
-                        rounde.setCornerRadius(100L);
-                        viewHolder.ivHead.setImageDrawable(rounde);
-                    }
-                });
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable rounde = RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
+                rounde.setCircular(true);
+                //要实现圆角，只需要加上这句
+                rounde.setCornerRadius(100L);
+                viewHolder.ivHead.setImageDrawable(rounde);
+            }
+        });
 
 
         if (itemModle != null && itemModle.getUrls().size() > 0) {
@@ -94,6 +100,45 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return list.size();
     }
+
+//    @Override
+//    public Filter getFilter() {
+//
+//        return filter;
+//    }
+//
+//    Filter filter = new Filter() {
+//
+//        //run on background
+//        @Override
+//        protected FilterResults performFiltering(CharSequence constraint) {
+//
+//            List<ListItemModel> filteredList = new ArrayList<>();
+//            if(constraint.toString().isEmpty()){
+//                filteredList.addAll(listAll);
+//            }else{
+//                for(ListItemModel item: listAll){
+//                    if(item.getTitle().toLowerCase().contains(constraint.toString().toLowerCase())){
+//                        filteredList.add(item);
+//                    }
+//                }
+//            }
+//
+//            FilterResults filterResults = new FilterResults();
+//            filterResults.values = filteredList;
+//            return filterResults;
+//        }
+//
+//        //run on ui thread
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//
+//            list.clear();
+//            list.addAll((Collection<? extends ListItemModel>) results.values);
+//            notifyDataSetChanged();
+//        }
+//
+//    };
 
     class ViewHolder extends RecyclerView.ViewHolder {
 

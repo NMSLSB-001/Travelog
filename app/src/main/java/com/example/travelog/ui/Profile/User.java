@@ -1,4 +1,4 @@
-package com.example.travelog;
+package com.example.travelog.ui.Profile;
 
 public class User {
     private static String name ="";

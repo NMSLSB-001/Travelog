@@ -15,7 +15,7 @@ public class ListItemModel {
     private String title;
     private String content;
     private String time;
-//  public String[] urls;
+    //  public String[] urls;
     public List<String> urls;
     //
     public int getId() {

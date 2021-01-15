@@ -1,4 +1,4 @@
-package com.example.travelog;
+package com.example.travelog.ui.Profile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.travelog.MainActivity;
+import com.example.travelog.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -46,7 +48,7 @@ public class change_password_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //返回上一界面
-                Intent intent=new Intent(com.example.travelog.change_password_Activity.this, MainActivity.class);
+                Intent intent=new Intent(change_password_Activity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -61,8 +63,8 @@ public class change_password_Activity extends AppCompatActivity {
                 editor.putString("loginUserName", User1.getName());
                 //Submit changes
                 editor.commit();
-                com.example.travelog.change_password_Activity.this.finish();
-                startActivity(new Intent(com.example.travelog.change_password_Activity.this, RegisterActivity.class));
+                change_password_Activity.this.finish();
+                startActivity(new Intent(change_password_Activity.this, RegisterActivity.class));
             }
         });
         mBtn_delete_account=findViewById(R.id.btn_delete);
@@ -74,8 +76,8 @@ public class change_password_Activity extends AppCompatActivity {
                 delete_account(userName);
                 //在sharedperference里删掉账号
                 sp.edit().clear().apply();
-                Toast.makeText(com.example.travelog.change_password_Activity.this, "Account was deleted successfully", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(com.example.travelog.change_password_Activity.this, RegisterActivity.class);
+                Toast.makeText(change_password_Activity.this, "Account was deleted successfully", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(change_password_Activity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -83,7 +85,7 @@ public class change_password_Activity extends AppCompatActivity {
         mBtn_add_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(com.example.travelog.change_password_Activity.this, fill_info_Activity.class);
+                Intent intent=new Intent(change_password_Activity.this, fill_info_Activity.class);
                 startActivity(intent);
             }
         });
@@ -115,13 +117,13 @@ public class change_password_Activity extends AppCompatActivity {
                 newpsw1=et_new_psw1.getText().toString().trim();
                 spPsw=readPsw(userName);
                 if(TextUtils.isEmpty(psw)){
-                    Toast.makeText(com.example.travelog.change_password_Activity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(change_password_Activity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
                     return;
                 }else if(TextUtils.isEmpty(newpsw)){
-                    Toast.makeText(com.example.travelog.change_password_Activity.this, "Please enter New Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(change_password_Activity.this, "Please enter New Password", Toast.LENGTH_SHORT).show();
                     return;
                 }else if(TextUtils.isEmpty(newpsw1)){
-                    Toast.makeText(com.example.travelog.change_password_Activity.this, "Please Confirm New Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(change_password_Activity.this, "Please Confirm New Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(newpsw.equals(newpsw1)){
@@ -129,14 +131,14 @@ public class change_password_Activity extends AppCompatActivity {
                         saveRegisterInfo(userName,newpsw);
                         //把新数据放入数据库
                         add(userName,newpsw);
-                        Toast.makeText(com.example.travelog.change_password_Activity.this, "Successful Change ", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(com.example.travelog.change_password_Activity.this, RegisterActivity.class);
+                        Toast.makeText(change_password_Activity.this, "Successful Change ", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(change_password_Activity.this, RegisterActivity.class);
                         startActivity(intent);
                     }else{
-                        Toast.makeText(com.example.travelog.change_password_Activity.this, "Incorrect Password ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(change_password_Activity.this, "Incorrect Password ", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(com.example.travelog.change_password_Activity.this, "Please Confirm Your New Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(change_password_Activity.this, "Please Confirm Your New Password", Toast.LENGTH_SHORT).show();
                 }
 
             }

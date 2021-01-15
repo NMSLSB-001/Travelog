@@ -9,6 +9,9 @@ public class GetArticle {
     private String time;
     private String urlJson;
 
+    public GetArticle() {
+
+    }
     public GetArticle(int id, String userId, String location, String title, String content, String time, String urlJson) {
         this.id = id;
         this.userId = userId;

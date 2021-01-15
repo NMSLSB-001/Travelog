@@ -1,4 +1,4 @@
-package com.example.travelog;
+package com.example.travelog.ui.Profile;
 
 public class User1 {
     private static String name ="";
@@ -13,33 +13,33 @@ public class User1 {
         return name;
     }
     public static void setName(String name) {
-        com.example.travelog.User1.name = name;
+        User1.name = name;
     }
 
     public static String getReal_Name() {
         return real_name;
     }
     public static void setReal_Name(String realname) {
-        com.example.travelog.User1.real_name = realname;
+        User1.real_name = realname;
     }
 
     public static String getaddress() {
         return address;
     }
-    public static void setaddress(String address) { com.example.travelog.User1.address = address; }
+    public static void setaddress(String address) { User1.address = address; }
 
     public static String getemail() {
         return email;
     }
-    public static void setemail(String email) { com.example.travelog.User1.email = email; }
+    public static void setemail(String email) { User1.email = email; }
 
     public static String getphone() {
         return phone;
     }
-    public static void setphone(String phone) { com.example.travelog.User1.phone = phone; }
+    public static void setphone(String phone) { User1.phone = phone; }
 
     public static String getgender() {
         return gender;
     }
-    public static void setgender(String gender) { com.example.travelog.User1.gender = gender; }
+    public static void setgender(String gender) { User1.gender = gender; }
 }

@@ -1,4 +1,4 @@
-package com.example.travelog;
+package com.example.travelog.ui.Profile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.travelog.MainActivity;
+import com.example.travelog.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,7 +38,7 @@ public class fill_info_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_info_);
 
-        Username= com.example.travelog.User1.getName();
+        Username= User1.getName();
         databaseUser= FirebaseDatabase.getInstance().getReference("personal_detail");
 
         mBtnback=findViewById(R.id.btn_fill_back);
@@ -44,7 +46,7 @@ public class fill_info_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //返回上一界面
-                Intent intent=new Intent(com.example.travelog.fill_info_Activity.this, com.example.travelog.change_password_Activity.class);
+                Intent intent=new Intent(fill_info_Activity.this, change_password_Activity.class);
                 startActivity(intent);
             }
         });
@@ -64,7 +66,7 @@ public class fill_info_Activity extends AppCompatActivity {
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(com.example.travelog.fill_info_Activity.this, "Male", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(fill_info_Activity.this, "Male", Toast.LENGTH_SHORT).show();
                         gender="Male";
                         mPop.dismiss();
                         //这里可以进行设置，比如把性别写进txt文件
@@ -74,7 +76,7 @@ public class fill_info_Activity extends AppCompatActivity {
                 textView1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(com.example.travelog.fill_info_Activity.this, "Female", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(fill_info_Activity.this, "Female", Toast.LENGTH_SHORT).show();
                         gender="Female";
                         mPop.dismiss();
                         //这里可以进行设置，比如把性别写进txt文件
@@ -84,7 +86,7 @@ public class fill_info_Activity extends AppCompatActivity {
                 textView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(com.example.travelog.fill_info_Activity.this, "Hidden gender", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(fill_info_Activity.this, "Hidden gender", Toast.LENGTH_SHORT).show();
                         gender="Hidden";
                         mPop.dismiss();
                         //这里可以进行设置，比如把性别写进txt文件
@@ -110,19 +112,19 @@ public class fill_info_Activity extends AppCompatActivity {
                 getEditString();
                 //判断输入框内容是否为空
                 if(TextUtils.isEmpty(name)){
-                    Toast.makeText(com.example.travelog.fill_info_Activity.this, "Please enter Your Real Name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fill_info_Activity.this, "Please enter Your Real Name", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(address)){
-                    Toast.makeText(com.example.travelog.fill_info_Activity.this, "Please enter Address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fill_info_Activity.this, "Please enter Address", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(email)){
-                    Toast.makeText(com.example.travelog.fill_info_Activity.this, "Please enter the E-Mail ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fill_info_Activity.this, "Please enter the E-Mail ", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(phone)){
-                    Toast.makeText(com.example.travelog.fill_info_Activity.this, "Please enter the Phone Number ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fill_info_Activity.this, "Please enter the Phone Number ", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(gender)){
-                    Toast.makeText(com.example.travelog.fill_info_Activity.this, "Please select the Gender ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fill_info_Activity.this, "Please select the Gender ", Toast.LENGTH_SHORT).show();
                 }else if(!email.contains("@")){
-                    Toast.makeText(com.example.travelog.fill_info_Activity.this, "Please enter Correct Email Address ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fill_info_Activity.this, "Please enter Correct Email Address ", Toast.LENGTH_SHORT).show();
                 }else if(!email.contains(".com")){
-                    Toast.makeText(com.example.travelog.fill_info_Activity.this, "Please enter Correct Email Address ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fill_info_Activity.this, "Please enter Correct Email Address ", Toast.LENGTH_SHORT).show();
                 }else{
                     /**
                      * 保存个人信息到SharedPreferences中
@@ -138,7 +140,7 @@ public class fill_info_Activity extends AppCompatActivity {
                     add(Username,name,address,email,phone,gender);
                     //暂存个人数据用于显示给用户看
                     setdata(name,address,email,phone,gender);
-                    Intent intent=new Intent(com.example.travelog.fill_info_Activity.this, MainActivity.class);
+                    Intent intent=new Intent(fill_info_Activity.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
@@ -148,11 +150,11 @@ public class fill_info_Activity extends AppCompatActivity {
      暂存用户信息用于显示
      */
     private void setdata(String name, String address, String email, String phone, String gender) {
-        com.example.travelog.User1.setaddress(address);
-        com.example.travelog.User1.setemail(email);
-        com.example.travelog.User1.setgender(gender);
-        com.example.travelog.User1.setReal_Name(name);
-        com.example.travelog.User1.setphone(phone);
+        User1.setaddress(address);
+        User1.setemail(email);
+        User1.setgender(gender);
+        User1.setReal_Name(name);
+        User1.setphone(phone);
     }
 
     /**
@@ -160,9 +162,9 @@ public class fill_info_Activity extends AppCompatActivity {
      */
     private void add(String username,String name,String address,String email,String phone,String gender){
         String id= databaseUser.push().getKey();
-        com.example.travelog.personal_detail user=new com.example.travelog.personal_detail(id,name,address,email,phone,gender);
+        personal_detail user=new personal_detail(id,name,address,email,phone,gender);
         databaseUser.child(username).setValue(user);
-        Toast.makeText(com.example.travelog.fill_info_Activity.this, "Information added successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(fill_info_Activity.this, "Information added successfully", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -180,7 +182,7 @@ public class fill_info_Activity extends AppCompatActivity {
      保存账号和密码到SharedPreferences中SharedPreferences
      */
     private void saveRegisterInfo(String name,String address,String email,String phone,String gender){
-        Username= com.example.travelog.User1.getName();
+        Username= User1.getName();
         //loginInfo表示文件名, mode_private SharedPreferences sp = getSharedPreferences( );
         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
         //获取编辑器， SharedPreferences.Editor  editor -> sp.edit();
