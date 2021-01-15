@@ -40,7 +40,6 @@ public class UpdateActivity extends Activity {
 
     private String articleId;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
