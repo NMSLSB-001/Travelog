@@ -1,4 +1,4 @@
-package com.example.travelog;
+package com.example.travelog.ui.Profile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.travelog.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -60,29 +61,29 @@ public class signup_page_Activity extends AppCompatActivity {
             getEditString();
             //判断输入框内容
             if(TextUtils.isEmpty(userName)){
-                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page_Activity.this, "Please enter Username", Toast.LENGTH_SHORT).show();
             }else if(TextUtils.isEmpty(psw)){
-                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page_Activity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
             }else if(TextUtils.isEmpty(pswAgain)){
-                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Please enter the password again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page_Activity.this, "Please enter the password again", Toast.LENGTH_SHORT).show();
             }else if(!psw.equals(pswAgain)){
-                Toast.makeText(com.example.travelog.signup_page_Activity.this, "The password entered twice is different", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page_Activity.this, "The password entered twice is different", Toast.LENGTH_SHORT).show();
                 /**
                  *从SharedPreferences中读取输入的用户名，判断SharedPreferences中是否有此用户名
                  */
             } else if(psw.length()<8){
-                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Password must be greater than 8 digits", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page_Activity.this, "Password must be greater than 8 digits", Toast.LENGTH_SHORT).show();
             }
             else if(userName.length()<6){
-                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Username must be greater than 6 digits", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page_Activity.this, "Username must be greater than 6 digits", Toast.LENGTH_SHORT).show();
             }
             else if(userName.matches("[0-9]+")){
-                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Username must contain letters", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page_Activity.this, "Username must contain letters", Toast.LENGTH_SHORT).show();
             }
              else if(isExistUserName(userName)){
-                Toast.makeText(com.example.travelog.signup_page_Activity.this, "This Username already exists", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page_Activity.this, "This Username already exists", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(com.example.travelog.signup_page_Activity.this, "Register successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page_Activity.this, "Register successfully", Toast.LENGTH_SHORT).show();
                 //把账号、密码和账号标识保存到sp里面
                 /**
                  * 保存账号和密码到SharedPreferences中
@@ -98,7 +99,7 @@ public class signup_page_Activity extends AppCompatActivity {
                 add(userName,psw);
 
                 // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
-                com.example.travelog.signup_page_Activity.this.finish();
+                signup_page_Activity.this.finish();
             }
         }
     });

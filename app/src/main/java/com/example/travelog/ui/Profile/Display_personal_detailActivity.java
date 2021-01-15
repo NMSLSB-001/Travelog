@@ -1,4 +1,4 @@
-package com.example.travelog;
+package com.example.travelog.ui.Profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.travelog.MainActivity;
+import com.example.travelog.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,15 +32,15 @@ public class Display_personal_detailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_personal_detail);
 
         listView=findViewById(R.id.listview);
-        username= com.example.travelog.User1.getName();
+        username= User1.getName();
         /*
         这些会全删
         */
-        name= com.example.travelog.User1.getReal_Name();
-        address= com.example.travelog.User1.getaddress();
-        gender= com.example.travelog.User1.getgender();
-        email= com.example.travelog.User1.getemail();
-        phone= com.example.travelog.User1.getphone();
+        name= User1.getReal_Name();
+        address= User1.getaddress();
+        gender= User1.getgender();
+        email= User1.getemail();
+        phone= User1.getphone();
 
         /*
         这些会全删，结束
@@ -48,7 +50,7 @@ public class Display_personal_detailActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(com.example.travelog.Display_personal_detailActivity.this, MainActivity.class);
+                Intent intent=new Intent(Display_personal_detailActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

@@ -12,14 +12,14 @@
         android:label=" "
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
+        android:theme="@style/AppTheme"
         tools:ignore="Instantiatable" >
         <activity android:name=".ui.Trips.Itinerary_create"/>
         <activity
             android:name=".ui.Trips.Itinerary_detail_day"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:launchMode="singleTop"/>
-        <activity android:name=".change_password_Activity" />
+        <activity android:name=".ui.Profile.change_password_Activity" />
         <activity android:name=".ui.Trips.ArticleAdd.AddActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".ui.Trips.Itinerary_detail_hour"/>
@@ -28,11 +28,12 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".ui.Trips.TripsFragment"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".signup_page_Activity"
+        <activity android:name=".ui.Profile.signup_page_Activity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".MainActivity"
             android:theme ="@style/AppTheme"/>
-        <activity android:name=".fill_info_Activity"/>
+        <activity android:name=".ui.Profile.fill_info_Activity"/>
+        <activity android:name=".ui.DiscoverFragment.View.UpdateActivity"/>
         <activity android:name=".ui.DiscoverFragment.View.ViewActivity">
         </activity>
         <activity android:name=".ui.DiscoverFragment.View.ViewGalleryActivity">
@@ -41,7 +42,7 @@
         </activity>
         <activity android:name=".ui.DiscoverFragment.View.SeeCommentActivity">
         </activity>
-        <activity android:name=".RegisterActivity"
+        <activity android:name=".ui.Profile.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="Travelog">
             <intent-filter>

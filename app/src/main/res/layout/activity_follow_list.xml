@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Follow_listActivity">
+    tools:context=".ui.Profile.Follow_listActivity">
     <Button
         android:id="@+id/btn_bcak_follow_list"
         android:layout_width="40dp"

@@ -1,4 +1,4 @@
-package com.example.travelog;
+package com.example.travelog.ui.Profile;
 
 public class follow_detail {
     String star;//要关注的用户名

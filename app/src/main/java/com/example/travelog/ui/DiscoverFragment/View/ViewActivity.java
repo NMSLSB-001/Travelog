@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelog.MainActivity;
-import com.example.travelog.User;
-import com.example.travelog.ui.DiscoverFragment.DiscoverFragment;
+import com.example.travelog.ui.Profile.User;
 import com.example.travelog.R;
 import com.example.travelog.ui.DiscoverFragment.View.BeanModel.GridImageModel;
 import com.example.travelog.ui.DiscoverFragment.View.BeanModel.ViewUtil;

@@ -44,7 +44,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.travelog.MainActivity;
 import com.example.travelog.R;
-import com.example.travelog.User;
+import com.example.travelog.ui.Profile.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
