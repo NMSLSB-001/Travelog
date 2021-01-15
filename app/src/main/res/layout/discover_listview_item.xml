@@ -4,19 +4,23 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="15dp"
+    android:layout_margin="15dp"
+    android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
 
 
         <ImageView
             android:id="@+id/iv_head"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@color/black"/>
+            android:src="@color/black"
+            android:layout_margin="10dp"/>
 
         <TextView
             android:id="@+id/tv_username"
@@ -24,13 +28,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
-            android:text="asas"/>
+            android:text="Teng Wei Herr"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginHorizontal="10dp"/>
 
         <TextView
             android:id="@+id/tv_articleid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:textSize="0sp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp" />
 
@@ -48,13 +57,15 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
+                android:layout_marginVertical="5dp"
+                android:layout_marginTop="5dp"
                 android:maxLines="1"
                 android:text="新闻标题"
-                android:textColor="#000000"
-                android:textSize="25sp"/>
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="26sp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -71,7 +82,7 @@
         android:src="@mipmap/ic_launcher"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
@@ -81,7 +92,13 @@
 
         <TextView
             android:id="@+id/tv_comment_number"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:text="20"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 

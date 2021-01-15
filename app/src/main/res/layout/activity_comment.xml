@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="bottom"
-        android:background="@drawable/btn_style_alert_dialog_background"
+        android:background="@color/colorPrimaryDark"
         android:padding="20dp">
 
         <LinearLayout
@@ -78,7 +78,7 @@
             android:layout_height="100dp"
             android:textSize="18sp"
             android:background="@drawable/btn_style_alert_dialog_button"
-            android:hint="Write a comment~"
+            android:hint="Write your comment"
             android:shadowDx="0.5"
             android:shadowDy="0.5"
             android:shadowRadius="0.5"
