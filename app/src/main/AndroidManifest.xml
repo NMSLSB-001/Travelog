@@ -21,7 +21,11 @@
             android:launchMode="singleTop"/>
         <activity android:name=".change_password_Activity" />
         <activity android:name=".ui.Trips.ArticleAdd.AddActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" android:screenOrientation="portrait"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.Trips.Itinerary_detail_hour"/>
         <activity android:name=".ui.Trips.SwipeViewPager.Itinerary_View"/>
         <activity android:name=".ui.Trips.Itinerary_add_hour"
