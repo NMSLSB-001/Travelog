@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.travelog.R;
-import com.example.travelog.User;
+import com.example.travelog.ui.Profile.User;
 import com.example.travelog.selectedItinerary;
 import com.example.travelog.ui.Trips.SwipeViewPager.Model;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
