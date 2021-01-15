@@ -4,56 +4,63 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="8dp"
+        android:background="@color/colorPrimaryDark">
 
         <TextView
             android:id="@+id/tv_commentusername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="4dp"/>
+            android:layout_gravity="start"
+            android:textStyle="bold"
+            android:text="Teng Wei Herr"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="5dp"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="4dp"
-            android:text=":"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="4dp"
-            android:text="Comment:"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="4dp"/>
-
-        <TextView
-            android:id="@+id/tv_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="4dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="4dp"
-            android:text="Rating:"/>
+            android:layout_gravity="start"
+            android:textStyle="bold"
+            android:text="Rated: "
+            android:textColor="@color/colorAccent"/>
 
         <TextView
             android:id="@+id/tv_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="4dp"/>
+            android:layout_gravity="start"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:textStyle="bold"
+            android:text="Comment: "
+            android:textColor="@color/colorAccent"/>
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="hello i am comment ~~~~"
+            android:textColor="@android:color/white"/>
+
+
 
     </LinearLayout>
 
