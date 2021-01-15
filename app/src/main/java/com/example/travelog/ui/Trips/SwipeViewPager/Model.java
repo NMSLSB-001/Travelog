@@ -4,10 +4,20 @@ public class Model {
 
     private int image;
     private String title;
+    private String itineraryID;
 
-    public Model(int image, String title) {
+    public String getItineraryID() {
+        return itineraryID;
+    }
+
+    public void setItineraryID(String itineraryID) {
+        this.itineraryID = itineraryID;
+    }
+
+    public Model(int image, String title, String itineraryID) {
         this.image = image;
         this.title = title;
+        this.itineraryID = itineraryID;
     }
 
     public int getImage() {

@@ -3,7 +3,7 @@ package com.example.travelog.ui.Trips.ArticleAdd;
 public class GetUrl {
     public String testUrl;
 
-    public GetUrl(String testUrl) {
+    public GetUrl (String testUrl) {
         this.testUrl = testUrl;
     }
 
