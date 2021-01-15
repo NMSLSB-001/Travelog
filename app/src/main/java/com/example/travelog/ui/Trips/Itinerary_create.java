@@ -6,12 +6,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
 import com.example.travelog.R;
 import com.example.travelog.ui.Profile.User;
 import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_View;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -21,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -65,6 +75,27 @@ public class Itinerary_create extends AppCompatActivity{
         itinerary_title = (EditText) findViewById(R.id.itinerary_title);
         location = (EditText) findViewById(R.id.location);
         journeyReady = (TextView) findViewById(R.id.journeyready);
+
+        //initialize places API
+        Places.initialize(getApplicationContext(), "AIzaSyDG7fly7vSrxUUFggJA9ZBzMNeuoQeoyiA");
+
+        //Set edittext non focusable
+        location.setFocusable(false);
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //initialize place field list
+                List<Place.Field>fieldList= Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG,Place.Field.NAME);
+
+                //create intent
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(Itinerary_create.this);
+
+                //start activity
+                startActivityForResult(intent, 100);
+            }
+        });
+
+
 
         //calendar constraints
         CalendarConstraints.Builder constraintBuilder = new CalendarConstraints.Builder();
@@ -161,6 +192,24 @@ public class Itinerary_create extends AppCompatActivity{
         //intent.putExtra("Number", num);
         startActivity(intent);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100 && resultCode==RESULT_OK){
+            //when success
+            //initialize places
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            //Set address in edittext
+            location.setText(place.getAddress());
+        }else if(resultCode== AutocompleteActivity.RESULT_ERROR){
+            //when error
+            //initialize status
+            Status status = Autocomplete.getStatusFromIntent(data);
+            //toast message
+            Toast.makeText(getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
