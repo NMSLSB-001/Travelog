@@ -48,6 +48,8 @@
         </activity>
         <activity android:name=".ui.DiscoverFragment.Search.SearchActivity">
         </activity>
+        <activity android:name=".ui.Profile.ViewCreatedActivity">
+        </activity>
         <activity android:name=".ui.Profile.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="Travelog">

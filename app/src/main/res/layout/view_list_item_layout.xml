@@ -3,28 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="32dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_head"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
-
         <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
-            android:text="Teng Wei Herr"
+            android:textSize="22dp"
+            android:text="Here is my Title, hello i am here."
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             android:layout_gravity="center"
+            android:textAlignment="center"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -33,13 +31,19 @@
         android:layout_marginTop="20dp"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Title"
-            android:textColor="@color/pink"
+            android:text="Teng Wei Herr"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
             android:textSize="20sp" />
 
         <RelativeLayout
@@ -54,21 +58,24 @@
 
             <TextView
                 android:id="@+id/tv_location"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="9, Jalan Terubok, Taman Sri Paya, 86000 Kluang."
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginLeft="40dp" />
         </RelativeLayout>
+
+        <View
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
     <com.example.travelog.ui.DiscoverFragment.View.Viewer.MultiImageView
@@ -92,14 +99,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp" />
     </RelativeLayout>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="30dp"
-        android:text="-------------------------------------------------------------------------------------------" />
-
 
 
 </LinearLayout>

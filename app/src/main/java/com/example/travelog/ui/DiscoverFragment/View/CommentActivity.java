@@ -13,6 +13,7 @@ import com.example.travelog.R;
 import com.example.travelog.ui.Profile.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 
 public class CommentActivity extends Activity {
@@ -25,6 +26,9 @@ public class CommentActivity extends Activity {
     private String RCId;
     private String comment;
 
+    DatabaseReference mCommentRef;
+    DatabaseReference mCommentRef2;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -36,6 +40,8 @@ public class CommentActivity extends Activity {
     }
 
     private void init() {
+        mCommentRef = FirebaseDatabase.getInstance().getReference("ratingComment");
+        mCommentRef2 = FirebaseDatabase.getInstance().getReference("ratingCommentJson");
         etComment = findViewById(R.id.et_comment);
         ratingBar = findViewById(R.id.ratingBar);
         ivClose = findViewById(R.id.iv_close);
@@ -69,8 +75,7 @@ public class CommentActivity extends Activity {
 
     private void comment() {
 
-        DatabaseReference mCommentRef;
-        mCommentRef = FirebaseDatabase.getInstance().getReference("ratingComment");
+
         long l;
         int i = 0;
         l = System.currentTimeMillis();
@@ -79,5 +84,8 @@ public class CommentActivity extends Activity {
         comment = etComment.getText().toString().trim();
         RatingComment ratingComment = new RatingComment(RCId,articleId,ratingBar.getRating(),comment, User.getName());
         mCommentRef.child(RCId).setValue(ratingComment);
+        Gson gson = new Gson();
+        String commentJson = gson.toJson(ratingComment);
+        mCommentRef2.child(RCId).setValue(commentJson);
     }
 }

@@ -54,6 +54,7 @@ public class ProfileFragment extends Fragment {
     private Button mFromAlbum; // 从相册选取
     private Button mTakePhotos; // 照相
     private Button btn_itinerary;
+    private Button btn_article;
     private final int FROM_ALBUM = 0;
     private final String FILE_NAME = "tempimg.jpg";
     private final int FROM_TAKE_PHOTOS = 1;
@@ -61,9 +62,7 @@ public class ProfileFragment extends Fragment {
     private Bitmap bitmap;
     private final int PHOTO_CUT = 2;
     private ImageView mImgView;
-    private ListView profileLv;
-    private ArrayList<DiscoverBean> mList;
-    private ArrayList<DiscoverBean> currentList;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -185,7 +184,15 @@ public class ProfileFragment extends Fragment {
                 //这里可以进行设置，比如把性别写进txt文件
             }
         });
-
+        btn_article = view.findViewById(R.id.btn_collection);
+        btn_article.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(getActivity(), ViewCreatedActivity.class);
+                startActivity(intent);
+            }
+        });
         //跳转到修改密码的activity上
         //设置跳转到MainActivity并销毁WelcomeActivity
         mBtn_setting = view.findViewById(R.id.btn_setting);//找到当前Fragment的Button按钮
@@ -199,34 +206,8 @@ public class ProfileFragment extends Fragment {
         });
         //获取当前用户名
         Username = User.getName();
-        profileLv = view.findViewById(R.id.profile_listView);
-        setProfileList();
         return view;
     }
-
-    private void setProfileList() {
-        mList = new ArrayList<>();
-        mList =  DiscoverUtils.getData(this.requireContext());
-        currentList = new ArrayList<>();
-        for (int i=0; i < mList.size(); i++) {
-            if(mList.get(i).userName.equals(User.getName())) {
-                currentList.add(mList.get(i));
-            }
-        }
-
-        profileLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), ViewActivity.class);
-                intent.putExtra("data", currentList.get(position).articleId);
-                intent.putExtra("status", "1");
-                startActivity(intent);
-            }
-        });
-        NewsAdapter adapter = new NewsAdapter(getContext(), currentList);
-        profileLv.setAdapter(adapter);
-    }
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
