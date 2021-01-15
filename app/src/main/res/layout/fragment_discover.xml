@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#F2F2F8">
 
     <LinearLayout
         android:id="@+id/top_bar"
@@ -35,6 +36,8 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="#F2F2F8"
+        android:layout_marginHorizontal="10dp"/>
 
 </LinearLayout>

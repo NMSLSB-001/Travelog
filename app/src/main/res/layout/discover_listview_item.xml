@@ -20,14 +20,14 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@color/black"
-            android:layout_margin="10dp"/>
+            android:layout_marginRight="3dp"
+            android:layout_margin="5dp"/>
 
         <TextView
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="4dp"
+            android:layout_gravity="start|center_vertical"
             android:text="Teng Wei Herr"
             android:textSize="16sp"
             android:textStyle="bold"
