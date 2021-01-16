@@ -19,8 +19,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.travelog.R;
-import com.example.travelog.User;
-import com.example.travelog.change_password_Activity;
+import com.example.travelog.ui.Profile.User;
+import com.example.travelog.ui.Profile.change_password_Activity;
 import com.example.travelog.ui.Trips.Itinerary_detail_day;
 import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_View;
 
