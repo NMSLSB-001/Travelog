@@ -13,6 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelog.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ItineraryRowHourAdapter extends RecyclerView.Adapter<ItineraryRowHourAdapter.rowVH> {
@@ -46,7 +50,16 @@ public class ItineraryRowHourAdapter extends RecyclerView.Adapter<ItineraryRowHo
         holder.rowTitle.setText(ItineraryRowHour.getRowTitle());
         holder.description.setText(ItineraryRowHour.getDescription());
         holder.location.setText(ItineraryRowHour.getLocation());
-        holder.startTime.setText(String.valueOf(ItineraryRowHour.getStartTime()));
+        String time = String.valueOf(ItineraryRowHour.getStartTime());
+        SimpleDateFormat f1 = new SimpleDateFormat("HHmm");
+        try {
+            Date d = f1.parse(time);
+            holder.startTime.setText(new SimpleDateFormat("h:mm a").format(d));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //holder.startTime.setText(String.valueOf(ItineraryRowHour.getStartTime()));
 
         Boolean isExpandable = ItineraryListHour.get(position).getExpandable();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE: View.GONE);
