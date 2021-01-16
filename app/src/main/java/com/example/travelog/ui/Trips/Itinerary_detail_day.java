@@ -22,7 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class Itinerary_detail_day extends AppCompatActivity{
     private List<ItineraryRowDay> ItineraryListDay = new ArrayList<>();
     private ItineraryRowDayAdapter mAdapter;
     private RecyclerView recyclerView;
-    private Button add;
+    private ImageView delete;
     private TextView title, date, description;
 
     DatabaseReference ref;
@@ -52,13 +54,20 @@ public class Itinerary_detail_day extends AppCompatActivity{
         //selectedTitle = selectedItinerary.getItineraryTitle();
         title.setText(selectedTitle);
 
+        delete = findViewById(R.id.btn_delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteItinerary();
+            }
+        });
+
 
         //retrieve data
         Username = User.getName();
         Intent intent = getIntent();
         String itineraryID = intent.getStringExtra("itineraryID");
         ref = FirebaseDatabase.getInstance().getReference().child("itineraryDetails").child(Username).child(itineraryID);
-
 
         ItineraryListDay = new ArrayList<>();
 
@@ -153,6 +162,19 @@ public class Itinerary_detail_day extends AppCompatActivity{
 
         }
     };
+
+    private void deleteItinerary() {
+        Intent intent = getIntent();
+        String itineraryID = intent.getStringExtra("itineraryID");
+        ref = FirebaseDatabase.getInstance().getReference().child("itineraryDetails").child(Username);
+
+        ref.child(itineraryID).removeValue();
+
+        ref = FirebaseDatabase.getInstance().getReference().child("itinerary").child(Username);
+        ref.child(itineraryID).removeValue();
+
+        finish();
+    }
 
 
 
