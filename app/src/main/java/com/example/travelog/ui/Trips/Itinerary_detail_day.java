@@ -70,27 +70,26 @@ public class Itinerary_detail_day extends AppCompatActivity{
         ref = FirebaseDatabase.getInstance().getReference().child("itineraryDetails").child(Username).child(itineraryID);
 
         ItineraryListDay = new ArrayList<>();
+        ItineraryListDay.clear();
 
         readDay(new FirebaseCallback() {
             @Override
             public void onCallback(List<String> list) {
+
+                ItineraryListDay.clear();
+
                 for(int i = 0; i < dayTitle.size(); i++) {
                     ItineraryListDay.add(new ItineraryRowDay("New title ", "Make your own notes.", dayTitle.get(i)));
                 }
 
                 buildRecyclerView();
 
-                //Collapsing toolbar things ----
-                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-                setSupportActionBar(toolbar);
-                CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-                toolBarLayout.setTitle(getTitle());
-
                 //swipe function ----
                 ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
                 itemTouchHelper.attachToRecyclerView(recyclerView);
             }
         });
+
 
 
     }

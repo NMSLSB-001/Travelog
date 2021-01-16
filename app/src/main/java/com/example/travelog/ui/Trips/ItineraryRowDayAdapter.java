@@ -32,6 +32,12 @@ public class ItineraryRowDayAdapter extends RecyclerView.Adapter<ItineraryRowDay
         ItineraryListDay = itineraryListDay;
     }
 
+    public void listClear() {
+        int size = ItineraryListDay.size();
+        ItineraryListDay.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+
     @NonNull
     @Override
     public rowVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

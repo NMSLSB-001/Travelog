@@ -62,6 +62,7 @@ public class Itinerary_detail_hour extends AppCompatActivity{
         readHour(new FirebaseCallback() {
             @Override
             public void onCallback(List<String> list) {
+
                 ItineraryListHour.clear();
                 for(int i = 0; i < hourTime.size(); i++) {
                     if(hourTime.get(i).equals("baseData")){
@@ -86,7 +87,6 @@ public class Itinerary_detail_hour extends AppCompatActivity{
                         intent2.putExtra("dayTitle", dayTitle);
                         intent2.putExtra("itineraryID", itineraryID);
                         startActivity(intent2);
-                        finish();
                         buildRecyclerView(hourTime);
                     }
                 });
