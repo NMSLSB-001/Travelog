@@ -40,9 +40,6 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.nav_trips:
                         selectedFragment = new TripsFragment();
                         break;
-                    case R.id.nav_notifications:
-                        selectedFragment = new NotificationsFragment();
-                        break;
                     case R.id.nav_profile:
                         selectedFragment = new ProfileFragment();
                         break;
