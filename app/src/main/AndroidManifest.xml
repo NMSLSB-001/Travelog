@@ -35,7 +35,7 @@
         <activity android:name=".ui.Profile.signup_page_Activity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".MainActivity"
-            android:theme ="@style/AppTheme"/>
+            android:theme ="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.Profile.fill_info_Activity"/>
         <activity android:name=".ui.DiscoverFragment.View.UpdateActivity"/>
         <activity android:name=".ui.DiscoverFragment.View.ViewActivity">
@@ -45,6 +45,10 @@
         <activity android:name=".ui.DiscoverFragment.View.CommentActivity">
         </activity>
         <activity android:name=".ui.DiscoverFragment.View.SeeCommentActivity">
+        </activity>
+        <activity android:name=".ui.DiscoverFragment.Search.SearchActivity">
+        </activity>
+        <activity android:name=".ui.Profile.ViewCreatedActivity">
         </activity>
         <activity android:name=".ui.Profile.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar"

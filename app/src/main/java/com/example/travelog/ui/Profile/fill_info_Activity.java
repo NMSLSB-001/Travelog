@@ -12,12 +12,23 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelog.MainActivity;
 import com.example.travelog.R;
+import com.example.travelog.ui.Trips.Itinerary_create;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class fill_info_Activity extends AppCompatActivity {
 
@@ -97,6 +108,27 @@ public class fill_info_Activity extends AppCompatActivity {
         //弹出窗口,选择性别，结束
         //获取用户的输入的个人信息并且保存
         init();
+
+        //initialize places API
+        Places.initialize(getApplicationContext(), "AIzaSyDG7fly7vSrxUUFggJA9ZBzMNeuoQeoyiA");
+
+        //Set edittext non focusable
+        et_address.setFocusable(false);
+        et_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //initialize place field list
+                List<Place.Field> fieldList= Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG,Place.Field.NAME);
+
+                //create intent
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(fill_info_Activity.this);
+
+                //start activity
+                startActivityForResult(intent, 100);
+            }
+        });
+
+
     }
     private void init()
     {
@@ -197,4 +229,23 @@ public class fill_info_Activity extends AppCompatActivity {
         //提交修改 editor.commit();
         editor.commit();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100 && resultCode==RESULT_OK){
+            //when success
+            //initialize places
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            //Set address in edittext
+            et_address.setText(place.getAddress());
+        }else if(resultCode== AutocompleteActivity.RESULT_ERROR){
+            //when error
+            //initialize status
+            Status status = Autocomplete.getStatusFromIntent(data);
+            //toast message
+            Toast.makeText(getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

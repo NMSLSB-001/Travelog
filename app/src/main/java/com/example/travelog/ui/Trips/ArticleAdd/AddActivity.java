@@ -45,9 +45,16 @@ import androidx.core.content.ContextCompat;
 import com.example.travelog.MainActivity;
 import com.example.travelog.R;
 import com.example.travelog.ui.Profile.User;
+import com.example.travelog.ui.Trips.Itinerary_create;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -65,6 +72,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -136,6 +144,7 @@ public class AddActivity extends Activity implements
         // lock screen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_add);
+
         //add permission for android 6.0 to open camera
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
@@ -159,6 +168,25 @@ public class AddActivity extends Activity implements
         init();
         initData();
         add();
+
+        //initialize places API
+        Places.initialize(getApplicationContext(), "AIzaSyDG7fly7vSrxUUFggJA9ZBzMNeuoQeoyiA");
+
+        //Set edittext non focusable
+        etLocation.setFocusable(false);
+        etLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //initialize place field list
+                List<Place.Field>fieldList= Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG,Place.Field.NAME);
+
+                //create intent
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(AddActivity.this);
+
+                //start activity
+                startActivityForResult(intent, 100);
+            }
+        });
     }
 
 
@@ -402,6 +430,21 @@ public class AddActivity extends Activity implements
 
         if (resultCode == NONE)
             return;
+
+        //places API
+        if(requestCode==100 && resultCode==RESULT_OK){
+            //when success
+            //initialize places
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            //Set address in edittext
+            etLocation.setText(place.getAddress());
+        }else if(resultCode== AutocompleteActivity.RESULT_ERROR){
+            //when error
+            //initialize status
+            Status status = Autocomplete.getStatusFromIntent(data);
+            //toast message
+            Toast.makeText(getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
+        }
 
         // 拍照
         if (requestCode == CAMERA) {

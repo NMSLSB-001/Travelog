@@ -10,8 +10,10 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,12 +21,17 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.travelog.R;
+import com.example.travelog.ui.DiscoverFragment.DiscoverBean;
+import com.example.travelog.ui.DiscoverFragment.DiscoverUtils;
+import com.example.travelog.ui.DiscoverFragment.NewsAdapter;
+import com.example.travelog.ui.DiscoverFragment.View.ViewActivity;
 import com.example.travelog.ui.Profile.User;
 import com.example.travelog.ui.Profile.change_password_Activity;
 import com.example.travelog.ui.Trips.Itinerary_detail_day;
 import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_View;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,15 +44,17 @@ public class ProfileFragment extends Fragment {
     private Button mBtn_setting;
     private Button img_portrait;
     private PopupWindow mPop;
-    /**暂时未完成，获取用户名
-    RegisterActivity username;
-*/
+    /**
+     * 暂时未完成，获取用户名
+     * RegisterActivity username;
+     */
 
     public String Username;
 
     private Button mFromAlbum; // 从相册选取
     private Button mTakePhotos; // 照相
     private Button btn_itinerary;
+    private Button btn_article;
     private final int FROM_ALBUM = 0;
     private final String FILE_NAME = "tempimg.jpg";
     private final int FROM_TAKE_PHOTOS = 1;
@@ -53,7 +62,6 @@ public class ProfileFragment extends Fragment {
     private Bitmap bitmap;
     private final int PHOTO_CUT = 2;
     private ImageView mImgView;
-
 
 
 
@@ -96,9 +104,9 @@ public class ProfileFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         initPhotoError();
-
     }
-    private void initPhotoError(){
+
+    private void initPhotoError() {
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
@@ -109,14 +117,14 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_profile,container,false);
-        mImgView= view.findViewById(R.id.im_portrait);
-        img_portrait= view.findViewById(R.id.img_portrait);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        mImgView = view.findViewById(R.id.im_portrait);
+        img_portrait = view.findViewById(R.id.img_portrait);
         img_portrait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view=getLayoutInflater().inflate(R.layout.layout_pop,null);
-                mPop=new PopupWindow(view,img_portrait.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
+                View view = getLayoutInflater().inflate(R.layout.layout_pop, null);
+                mPop = new PopupWindow(view, img_portrait.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
                 mPop.showAsDropDown(img_portrait);
                 mPop.setOutsideTouchable(true);
                 mPop.setFocusable(true);
@@ -148,7 +156,7 @@ public class ProfileFragment extends Fragment {
                 mTakePhotos.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                            // TODO Auto-generated method stub
+                        // TODO Auto-generated method stub
                         //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                         // 判断存储卡是否可以用，可用进行存储
@@ -176,21 +184,28 @@ public class ProfileFragment extends Fragment {
                 //这里可以进行设置，比如把性别写进txt文件
             }
         });
-
+        btn_article = view.findViewById(R.id.btn_collection);
+        btn_article.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(getActivity(), ViewCreatedActivity.class);
+                startActivity(intent);
+            }
+        });
         //跳转到修改密码的activity上
         //设置跳转到MainActivity并销毁WelcomeActivity
         mBtn_setting = view.findViewById(R.id.btn_setting);//找到当前Fragment的Button按钮
-        mBtn_setting.animate().rotation(180).setDuration(2000).start();
         mBtn_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),change_password_Activity.class);
+                Intent intent = new Intent(getActivity(), change_password_Activity.class);
                 startActivity(intent);
                 getActivity().finish(); //销毁当前Activity
             }
         });
         //获取当前用户名
-        Username=User.getName();
+        Username = User.getName();
         return view;
     }
 
@@ -229,7 +244,9 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    /** 编辑选中的照片 */
+    /**
+     * 编辑选中的照片
+     */
     public void editPic(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
@@ -250,13 +267,11 @@ public class ProfileFragment extends Fragment {
     }
 
 
-
-    public void onViewCreated(View view,Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tv_text2=view.findViewById(R.id.tv_text2);
+        tv_text2 = view.findViewById(R.id.tv_text2);
         tv_text2.setText(Username);
     }
-
 
 
 }

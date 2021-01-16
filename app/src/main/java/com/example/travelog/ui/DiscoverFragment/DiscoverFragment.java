@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.travelog.R;
+import com.example.travelog.ui.DiscoverFragment.Search.SearchActivity;
 import com.example.travelog.ui.DiscoverFragment.View.ViewActivity;
 import com.example.travelog.ui.Trips.ArticleAdd.AddActivity;
 
@@ -30,6 +31,7 @@ import java.util.List;
 public class DiscoverFragment extends Fragment {
     private ListView lv;
     private ImageView top_bar_image_1;
+    private ImageView top_bar_image_2;
     private ArrayList<DiscoverBean> mList;
 
     @Nullable
@@ -51,11 +53,22 @@ public class DiscoverFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        top_bar_image_2 = view.findViewById(R.id.top_bar_image_2);
+        top_bar_image_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), ViewActivity.class);
                 intent.putExtra("data", mList.get(position).articleId);
+                intent.putExtra("status", "0");
                 startActivity(intent);
             }
         });

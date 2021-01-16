@@ -11,9 +11,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.example.travelog.MainActivity;
 import com.example.travelog.R;
 import com.example.travelog.ui.DiscoverFragment.View.BeanModel.GetArticle;
+import com.example.travelog.ui.Trips.Itinerary_create;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 public class UpdateActivity extends Activity {
@@ -52,6 +63,25 @@ public class UpdateActivity extends Activity {
         init();
         initData();
         update();
+
+        //initialize places API
+        Places.initialize(getApplicationContext(), "AIzaSyDG7fly7vSrxUUFggJA9ZBzMNeuoQeoyiA");
+
+        //Set edittext non focusable
+        etLocation.setFocusable(false);
+        etLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //initialize place field list
+                List<Place.Field> fieldList= Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG,Place.Field.NAME);
+
+                //create intent
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(UpdateActivity.this);
+
+                //start activity
+                startActivityForResult(intent, 100);
+            }
+        });
 
     }
 
@@ -157,5 +187,24 @@ public class UpdateActivity extends Activity {
         my_time_1 = year + "-" + month + "-" + day;
         my_time_2 = hour + ":" + minute + ":" + second;
         return my_time_1 + " " + my_time_2;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100 && resultCode==RESULT_OK){
+            //when success
+            //initialize places
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            //Set address in edittext
+            etLocation.setText(place.getAddress());
+        }else if(resultCode== AutocompleteActivity.RESULT_ERROR){
+            //when error
+            //initialize status
+            Status status = Autocomplete.getStatusFromIntent(data);
+            //toast message
+            Toast.makeText(getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

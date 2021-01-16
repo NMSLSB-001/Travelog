@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F2F2F8">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:background="#F2F2F8"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -19,25 +18,23 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/top_bar_image_1"
+                android:id="@+id/created_top_bar_image_1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_back"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp" />
         </RelativeLayout>
     </LinearLayout>
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/profile_listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginHorizontal="10dp"
-        android:background="#F2F2F8"/>
+        android:layout_weight="1" />
 
 </LinearLayout>

@@ -92,7 +92,7 @@ public class Itinerary_View extends AppCompatActivity {
                         if(position==viewPager.getAdapter().getCount()){
                             //Intent reg = new Intent(Itinerary_View.this, Itinerary_detail_day.class);
 
-                            Log.i("testing:", "ur mom");
+//                            Log.i("testing:", "ur mom");
 
                             //tell the next activity which model title is selected
                             //startActivity(reg);
