@@ -44,14 +44,25 @@
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date"
-                android:textSize="14sp"
+                android:layout_marginLeft="200dp"
+                android:textSize="0sp"
                 android:textStyle="bold"
-                android:textAlignment="viewEnd"
-                android:gravity="end|center_vertical"
+                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"/>
+
+                <ImageView
+                    android:id="@+id/btn_delete"
+                    android:layout_gravity="end"
+                    android:background="@drawable/ic_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    />
+
             </LinearLayout>
 
 
