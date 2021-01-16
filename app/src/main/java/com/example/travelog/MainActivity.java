@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.travelog.ui.DiscoverFragment.DiscoverFragment;
-import com.example.travelog.ui.NotificationsFragment.NotificationsFragment;
 import com.example.travelog.ui.Profile.ProfileFragment;
 import com.example.travelog.ui.Trips.TripsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

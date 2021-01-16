@@ -67,16 +67,18 @@ public class Itinerary_detail_day extends AppCompatActivity{
         Username = User.getName();
         Intent intent = getIntent();
         String itineraryID = intent.getStringExtra("itineraryID");
-        ref = FirebaseDatabase.getInstance().getReference().child("itineraryDetails").child(Username).child(itineraryID);
+        //put read data from Itinerary_detail_dayUtils.getItineraryData into dayTitle here
+        dayTitle = Itinerary_detail_dayUtils.getItineraryData(this,itineraryID);
+       // ref = FirebaseDatabase.getInstance().getReference().child("itineraryDetails").child(Username).child(itineraryID);
 
         ItineraryListDay = new ArrayList<>();
         ItineraryListDay.clear();
 
-        readDay(new FirebaseCallback() {
-            @Override
-            public void onCallback(List<String> list) {
+      //  readDay(new FirebaseCallback() {
+            //@Override
+           // public void onCallback(List<String> list) {
 
-                ItineraryListDay.clear();
+               // ItineraryListDay.clear();
 
                 for(int i = 0; i < dayTitle.size(); i++) {
                     ItineraryListDay.add(new ItineraryRowDay("New title ", "Make your own notes.", dayTitle.get(i)));
@@ -85,15 +87,15 @@ public class Itinerary_detail_day extends AppCompatActivity{
                 buildRecyclerView();
 
                 //swipe function ----
-                ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-                itemTouchHelper.attachToRecyclerView(recyclerView);
-            }
-        });
+               // ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+               // itemTouchHelper.attachToRecyclerView(recyclerView);
+           // }
+       // });
 
 
 
     }
-
+    /*
     private void readDay(FirebaseCallback firebaseCallback){
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -114,9 +116,11 @@ public class Itinerary_detail_day extends AppCompatActivity{
     }
 
     public interface FirebaseCallback {
-        void onCallback(List<String> list);
+       void onCallback(List<String> list);
     }
 
+
+     */
 
     private void buildRecyclerView() {
         recyclerView = findViewById(R.id.recycleView);
@@ -141,6 +145,7 @@ public class Itinerary_detail_day extends AppCompatActivity{
         });
 
     }
+    /*
 
     //swipe function ----
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END , 0) {
@@ -161,6 +166,9 @@ public class Itinerary_detail_day extends AppCompatActivity{
 
         }
     };
+
+
+     */
 
     private void deleteItinerary() {
         Intent intent = getIntent();
