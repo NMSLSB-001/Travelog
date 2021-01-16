@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -25,6 +26,7 @@ public class ViewCreatedActivity extends Activity {
     private ImageView created_top_bar_image_1;
     private ArrayList<DiscoverBean> mList;
     private ArrayList<DiscoverBean> currentList;
+    private ImageView delete;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

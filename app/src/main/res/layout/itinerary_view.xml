@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.Trips.SwipeViewPager.Itinerary_View">
 
+
+    <ImageView
+        android:id="@+id/btn_delete"
+        android:layout_marginVertical="20dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/ic_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/a"
+        android:text="hello"
         android:textSize="0dp"/>
 
     <TextView
@@ -30,7 +42,6 @@
         android:textSize="0dp"/>
 
 
-
     <androidx.viewpager.widget.ViewPager
         android:foregroundGravity="center"
         android:id="@+id/viewPager"
@@ -38,8 +49,10 @@
         android:overScrollMode="never"
         android:clipToPadding="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
     </androidx.viewpager.widget.ViewPager>
 
 
-</RelativeLayout>
+</LinearLayout>
+
+

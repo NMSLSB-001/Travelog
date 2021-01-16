@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,11 +34,14 @@ public class Itinerary_View extends AppCompatActivity {
     DatabaseReference ref;
     List<String> itineraryList = new ArrayList<>();
     List<String> idList = new ArrayList<>();
+    ImageView delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.itinerary_view);
+
+        delete = findViewById(R.id.btn_delete);
 
         Username = User.getName();
 
