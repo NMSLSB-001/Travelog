@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -61,12 +62,17 @@ public class Itinerary_detail_hour extends AppCompatActivity{
         readHour(new FirebaseCallback() {
             @Override
             public void onCallback(List<String> list) {
-                ItineraryListHour = new ArrayList<>();
+                ItineraryListHour.clear();
                 for(int i = 0; i < hourTime.size(); i++) {
-                    ItineraryListHour.add(new ItineraryRowHour(hourTitle.get(i), hourDescription.get(i), hourLocation.get(i), hourTime.get(i)));
+                    if(hourTime.get(i).equals("baseData")){
+                        continue;
+                    } else {
+                        ItineraryListHour.add(new ItineraryRowHour(hourTitle.get(i), hourDescription.get(i), hourLocation.get(i), hourTime.get(i)));
+                    }
                 }
 
-                buildRecyclerView();
+                buildRecyclerView(hourTime);
+
 
                 //add button
                 add = findViewById(R.id.add);
@@ -80,7 +86,8 @@ public class Itinerary_detail_hour extends AppCompatActivity{
                         intent2.putExtra("dayTitle", dayTitle);
                         intent2.putExtra("itineraryID", itineraryID);
                         startActivity(intent2);
-                        ItineraryListHour = new ArrayList<>();
+                        finish();
+                        buildRecyclerView(hourTime);
                     }
                 });
 
@@ -93,8 +100,15 @@ public class Itinerary_detail_hour extends AppCompatActivity{
     }
 
 
-    public void removeItem(int position) {
+    public void removeItem(int position, String title) {
         ItineraryListHour.remove(position);
+        Intent intent = getIntent();
+        String dayTitle = intent.getStringExtra("dayTitle");
+        String itineraryID = intent.getStringExtra("itineraryID");
+        ref = FirebaseDatabase.getInstance().getReference().child("itineraryDetails").child(Username).child(itineraryID).child(dayTitle);
+
+        ref.child(title).removeValue();
+
         mAdapter.notifyItemRemoved(position);
     }
 
@@ -103,10 +117,7 @@ public class Itinerary_detail_hour extends AppCompatActivity{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dss: snapshot.getChildren()) {
-                    String time = dss.getKey();
-                    if(time == "base_data"){
-                        continue;
-                    } else {
+                        String time = dss.getKey();
                         String description = String.valueOf(dss.child("description").getValue());
                         String location = String.valueOf(dss.child("location").getValue());
                         String title = String.valueOf(dss.child("title").getValue());
@@ -114,8 +125,6 @@ public class Itinerary_detail_hour extends AppCompatActivity{
                         hourDescription.add(description);
                         hourLocation.add(location);
                         hourTitle.add(title);
-                    }
-
                 }
 
                 firebaseCallback.onCallback(hourTime);
@@ -132,7 +141,7 @@ public class Itinerary_detail_hour extends AppCompatActivity{
         void onCallback(List<String> list);
     }
 
-    private void buildRecyclerView() {
+    private void buildRecyclerView(List<String> list) {
         recyclerView = findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -143,7 +152,8 @@ public class Itinerary_detail_hour extends AppCompatActivity{
         mAdapter.setOnItemClickListener(new ItineraryRowHourAdapter.OnItemClickListener() {
             @Override
             public void onDeleteClick(int position) {
-                removeItem(position);
+                String timeTitle = list.get(position);
+                removeItem(position, timeTitle);
             }
 
             @Override
@@ -194,7 +204,7 @@ public class Itinerary_detail_hour extends AppCompatActivity{
 //            String start = data.getStringExtra(Itinerary_add_hour.EXTRA_STARTTIME);
 //            ItineraryListHour.add(new ItineraryRowHour(title, description, location , start));
             Collections.sort(ItineraryListHour, ItineraryRowHour.AscendingHour);
-            buildRecyclerView();
+            //buildRecyclerView();
             Toast.makeText(this, "Row saved", Toast.LENGTH_SHORT).show();
         }
         else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
@@ -230,7 +240,7 @@ public class Itinerary_detail_hour extends AppCompatActivity{
 //            ItineraryListHour.add(row);
 
             Collections.sort(ItineraryListHour, ItineraryRowHour.AscendingHour);
-            buildRecyclerView();
+            //buildRecyclerView();
             Toast.makeText(this, "Row updated", Toast.LENGTH_SHORT).show();
         }
         else

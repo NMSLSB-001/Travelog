@@ -70,11 +70,6 @@ public class Itinerary_add_hour extends AppCompatActivity {
             editTextLocation.setText(intent.getStringExtra(EXTRA_LOCATION));
             startTime.setText(intent.getStringExtra(EXTRA_STARTTIME));
 
-            titleOld = intent.getStringExtra(EXTRA_TITLE);
-            descriptionOld = intent.getStringExtra(EXTRA_DESCRIPTION);
-            locationOld = intent.getStringExtra(EXTRA_LOCATION);
-            startingTimeOld = intent.getStringExtra(EXTRA_STARTTIME);
-
         } else {
             setTitle("Add Row");
         }
@@ -110,9 +105,8 @@ public class Itinerary_add_hour extends AppCompatActivity {
 
         //this tell previous activity either edit or add new
         finish();
-
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -126,6 +120,7 @@ public class Itinerary_add_hour extends AppCompatActivity {
                 saveRow();
                 return true;
             default:
+                saveRow();
                 return super.onOptionsItemSelected(item);
         }
     }
