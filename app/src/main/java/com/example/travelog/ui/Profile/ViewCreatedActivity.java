@@ -1,13 +1,11 @@
 package com.example.travelog.ui.Profile;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -15,7 +13,6 @@ import com.example.travelog.R;
 import com.example.travelog.ui.DiscoverFragment.DiscoverBean;
 import com.example.travelog.ui.DiscoverFragment.DiscoverUtils;
 import com.example.travelog.ui.DiscoverFragment.NewsAdapter;
-import com.example.travelog.ui.DiscoverFragment.View.CommentActivity;
 import com.example.travelog.ui.DiscoverFragment.View.ViewActivity;
 
 import java.util.ArrayList;

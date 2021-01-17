@@ -5,30 +5,18 @@ import android.os.Bundle;
 
 import com.example.travelog.R;
 import com.example.travelog.ui.Profile.User;
-import com.example.travelog.selectedItinerary;
-import com.example.travelog.ui.Trips.SwipeViewPager.Model;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Itinerary_detail_day extends AppCompatActivity{
@@ -67,8 +55,8 @@ public class Itinerary_detail_day extends AppCompatActivity{
         Username = User.getName();
         Intent intent = getIntent();
         String itineraryID = intent.getStringExtra("itineraryID");
-        //put read data from Itinerary_detail_dayUtils.getItineraryData into dayTitle here
-        dayTitle = Itinerary_detail_dayUtils.getItineraryData(this,itineraryID);
+        //put read data from Itinerary_detail_dayUtils.getItineraryDayData into dayTitle here
+        dayTitle = Itinerary_detail_dayUtils.getItineraryDayData(this,itineraryID);
        // ref = FirebaseDatabase.getInstance().getReference().child("itineraryDetails").child(Username).child(itineraryID);
 
         ItineraryListDay = new ArrayList<>();

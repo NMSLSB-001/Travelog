@@ -1,9 +1,7 @@
 package com.example.travelog.ui.Trips.SwipeViewPager;
 
 import android.animation.ArgbEvaluator;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -12,8 +10,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.travelog.R;
 import com.example.travelog.ui.Profile.User;
-import com.example.travelog.ui.Trips.Itinerary_detail_day;
-import com.example.travelog.selectedItinerary;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

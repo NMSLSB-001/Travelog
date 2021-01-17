@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelog.MainActivity;
 import com.example.travelog.R;
-import com.example.travelog.ui.Trips.Itinerary_create;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;

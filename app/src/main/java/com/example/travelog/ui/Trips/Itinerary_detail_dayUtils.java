@@ -18,7 +18,7 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 public class Itinerary_detail_dayUtils {
-    public static List<String> getItineraryData(Context context, String itineraryID) {
+    public static List<String> getItineraryDayData(Context context, String itineraryID) {
         String Username = User.getName();
         List<String> dayTitle = new ArrayList<>();
 

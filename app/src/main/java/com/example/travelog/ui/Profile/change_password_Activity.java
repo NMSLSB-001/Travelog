@@ -37,7 +37,7 @@ public class change_password_Activity extends AppCompatActivity {
 
         databaseUser= FirebaseDatabase.getInstance().getReference("users");
 
-        userName= User1.getName();
+        userName= User.getName();
 
 
 /**

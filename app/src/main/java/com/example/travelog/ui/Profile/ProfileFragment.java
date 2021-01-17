@@ -10,10 +10,8 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,17 +19,9 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.travelog.R;
-import com.example.travelog.ui.DiscoverFragment.DiscoverBean;
-import com.example.travelog.ui.DiscoverFragment.DiscoverUtils;
-import com.example.travelog.ui.DiscoverFragment.NewsAdapter;
-import com.example.travelog.ui.DiscoverFragment.View.ViewActivity;
-import com.example.travelog.ui.Profile.User;
-import com.example.travelog.ui.Profile.change_password_Activity;
-import com.example.travelog.ui.Trips.Itinerary_detail_day;
 import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_View;
 
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +40,6 @@ public class ProfileFragment extends Fragment {
      */
 
     public String Username;
-
     private Button mFromAlbum; // 从相册选取
     private Button mTakePhotos; // 照相
     private Button btn_itinerary;

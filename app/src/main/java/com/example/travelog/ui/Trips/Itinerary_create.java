@@ -14,7 +14,6 @@ import androidx.core.util.Pair;
 
 import com.example.travelog.R;
 import com.example.travelog.ui.Profile.User;
-import com.example.travelog.ui.Trips.SwipeViewPager.Itinerary_View;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
