@@ -9,7 +9,7 @@
         android:id="@+id/im_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/address"
+        android:background="@drawable/ic_address"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"
 
@@ -20,8 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_below="@id/im_address"
         android:layout_height="wrap_content"
-        android:background="@drawable/email_address"
-        android:layout_marginTop="30dp"
+        android:background="@drawable/ic_email"
+        android:layout_marginTop="60dp"
         android:layout_marginLeft="50dp"/>
 
 
@@ -30,8 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_below="@id/im_email"
         android:layout_height="wrap_content"
-        android:background="@drawable/gender"
-        android:layout_marginTop="30dp"
+        android:background="@drawable/ic_gender"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"/>
 
     <ImageView
@@ -39,8 +39,8 @@
         android:layout_width="wrap_content"
         android:layout_below="@id/im_gender"
         android:layout_height="wrap_content"
-        android:background="@drawable/name"
-        android:layout_marginTop="30dp"
+        android:background="@drawable/ic_name"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"/>
 
     <ImageView
@@ -48,23 +48,23 @@
         android:layout_width="wrap_content"
         android:layout_below="@id/im_name"
         android:layout_height="wrap_content"
-        android:background="@drawable/phone_number"
-        android:layout_marginTop="30dp"
+        android:background="@drawable/ic_phone"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"/>
     <ImageView
         android:id="@+id/im_keyID"
         android:layout_width="wrap_content"
         android:layout_below="@id/im_phone"
         android:layout_height="wrap_content"
-        android:background="@drawable/key_id"
-        android:layout_marginTop="30dp"
+        android:background="@drawable/ic_key"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"/>
 
     <Button
         android:id="@+id/btn_bcak_display"
-        android:layout_width="40dp"
+        android:layout_width="50dp"
         android:layout_height="40dp"
-        android:background="@drawable/back"/>
+        android:background="@drawable/ic_back"/>
 
     <ListView
         android:layout_width="match_parent"

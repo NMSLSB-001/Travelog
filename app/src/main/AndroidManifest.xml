@@ -37,6 +37,7 @@
         <activity android:name=".MainActivity"
             android:theme ="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.Profile.fill_info_Activity"/>
+        <activity android:name=".ui.Profile.Display_personal_detailActivity"/>
         <activity android:name=".ui.DiscoverFragment.View.UpdateActivity"/>
         <activity android:name=".ui.DiscoverFragment.View.ViewActivity">
         </activity>

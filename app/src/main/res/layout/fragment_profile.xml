@@ -53,7 +53,7 @@
             android:layout_gravity="center"
             android:background="@drawable/button_bg"
             android:stateListAnimator="@null"
-            android:text="Created Itineraries"
+            android:text="Itinerary History"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp"
@@ -66,14 +66,26 @@
             android:layout_gravity="center"
             android:background="@drawable/button_bg"
             android:stateListAnimator="@null"
-            android:text="Created Articles"
+            android:text="Article History"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="5dp"/>
 
-
+        <Button
+            android:id="@+id/btn_personal_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/black_translucent"
+            android:stateListAnimator="@null"
+            android:text="View User Info"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
         <Button
             android:id="@+id/btn_setting"
             android:layout_width="match_parent"

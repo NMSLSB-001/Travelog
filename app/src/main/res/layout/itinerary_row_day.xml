@@ -42,43 +42,43 @@
             android:textSize="18sp"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dayTitle"
-            android:textSize="28sp"
-            android:text="Ttle here"
-            android:textStyle="bold"
-            />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/dayTitle"-->
+<!--            android:textSize="28sp"-->
+<!--            android:text="Ttle here"-->
+<!--            android:textStyle="bold"-->
+<!--            />-->
 
 
             </LinearLayout>
 
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/expand"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_expand"/>
+<!--                <ImageView-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:id="@+id/expand"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:src="@drawable/ic_expand"/>-->
 
 
     </LinearLayout>
 
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/expandableLayout">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/expandableLayout">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/description"
-                android:textSize="16sp"
-                />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/description"-->
+<!--                android:textSize="16sp"-->
+<!--                />-->
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
 
 
 

@@ -49,12 +49,12 @@ public class ItineraryRowDayAdapter extends RecyclerView.Adapter<ItineraryRowDay
     @Override
     public void onBindViewHolder(@NonNull rowVH holder, int position) {
         ItineraryRowDay ItineraryRowDay = ItineraryListDay.get(position);
-        holder.dayTitle.setText(ItineraryRowDay.getDayTitle());
-        holder.description.setText(ItineraryRowDay.getDescription());
+//        holder.dayTitle.setText(ItineraryRowDay.getDayTitle());
+//        holder.description.setText(ItineraryRowDay.getDescription());
         holder.day.setText(ItineraryRowDay.getDayNum());
 
-        Boolean isExpandable = ItineraryListDay.get(position).getExpandable();
-        holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE: View.GONE);
+//        Boolean isExpandable = ItineraryListDay.get(position).getExpandable();
+//        holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE: View.GONE);
     }
 
     @Override
@@ -72,25 +72,25 @@ public class ItineraryRowDayAdapter extends RecyclerView.Adapter<ItineraryRowDay
         public rowVH(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
-            dayTitle = itemView.findViewById(R.id.dayTitle);
-            description = itemView.findViewById(R.id.description);
+//            dayTitle = itemView.findViewById(R.id.dayTitle);
+//            description = itemView.findViewById(R.id.description);
             day = itemView.findViewById(R.id.day);
-            expandableLayout = itemView.findViewById(R.id.expandableLayout);
-            expand = itemView.findViewById(R.id.expand);
+//            expandableLayout = itemView.findViewById(R.id.expandableLayout);
+//            expand = itemView.findViewById(R.id.expand);
 
-            expand.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    ItineraryRowDay itineraryRowDay = ItineraryListDay.get(getAdapterPosition());
-                    itineraryRowDay.setExpandable(!itineraryRowDay.getExpandable());
-                    notifyItemChanged(getAdapterPosition());
-
-                    Log.i("testing:", "expand");
-
-
-                }
-            });
+//            expand.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    ItineraryRowDay itineraryRowDay = ItineraryListDay.get(getAdapterPosition());
+//                    itineraryRowDay.setExpandable(!itineraryRowDay.getExpandable());
+//                    notifyItemChanged(getAdapterPosition());
+//
+//                    Log.i("testing:", "expand");
+//
+//
+//                }
+//            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

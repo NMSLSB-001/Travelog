@@ -44,6 +44,7 @@ public class ProfileFragment extends Fragment {
     private Button mTakePhotos; // 照相
     private Button btn_itinerary;
     private Button btn_article;
+    private Button display_personal_detail;
     private final int FROM_ALBUM = 0;
     private final String FILE_NAME = "tempimg.jpg";
     private final int FROM_TAKE_PHOTOS = 1;
@@ -191,6 +192,18 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish(); //销毁当前Activity
             }
         });
+
+        //跳转到显示个人信息
+        display_personal_detail=view.findViewById(R.id.btn_personal_detail);
+        display_personal_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), Display_personal_detailActivity.class);
+                startActivity(intent);
+                getActivity().finish(); //销毁当前Activity
+            }
+        });
+
         //获取当前用户名
         Username = User.getName();
         return view;
